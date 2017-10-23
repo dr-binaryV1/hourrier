@@ -5,6 +5,10 @@ class Home extends Component {
     searchURL: ''
   }
 
+  onSearch() {
+    // Do something
+  }
+
   render() {
     return (
       <div className="container">
@@ -19,7 +23,12 @@ class Home extends Component {
           </div>
 
           <div className="ol s2">
-            <button className="waves-effect waves-light btn search-btn" id="search">Search</button>
+            <button
+              className="waves-effect waves-light btn search-btn"
+              onClick={this.onSearch.bind(this)}
+              id="search">
+                Search
+            </button>
           </div>
         </div>
       </div>
