@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { searchAmazon } from '../../helpers/api';
+import { addItemToCart, searchAmazon } from '../../helpers/api';
 
 class Home extends Component {
   state = {
     searchURL: '',
-    loading: false
+    loading: false,
+    itemAdded: null
   }
 
   onSearch() {
@@ -15,7 +16,7 @@ class Home extends Component {
     const searchInput = document.getElementById('search-input');
     searchInput.setAttribute('readonly', 'true');
 
-    this.setState({ loading: true });
+    this.setState({ loading: true, itemAdded: false });
 
     searchAmazon({ url: this.state.searchURL })
     .then(res => res.json())
@@ -30,6 +31,22 @@ class Home extends Component {
       console.log(`Error reported: ${err}`);
       this.setState({ loading: false });
     });
+  }
+
+  addItemsToCart() {
+    this.setState({ loading: true });
+    this.state.product ?
+    addItemToCart(this.state.product)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({ loading: false, itemAdded: true });
+      })
+      .catch(err => {
+        console.log(`Error reported: ${err}`);
+        this.setState({ loading: false });
+      })
+    :
+    this.setState({ loading: false });
   }
 
   render() {
@@ -79,13 +96,30 @@ class Home extends Component {
                 <div className="image-container">
                   <img alt={`${product.title}`} src={product.image} width="180" />
                   <br />
-                  <button className="waves-effect waves-light btn search-btn">Add to Cart</button>
+
+                  {
+                    this.state.itemAdded ?
+                    <p><b>Item added to Cart</b></p>
+                    :
+                    (
+                      <button
+                        onClick={this.addItemsToCart.bind(this)}
+                        className="waves-effect waves-light btn search-btn">
+                          Add to Cart
+                      </button>
+                    )
+                  }
                 </div>
               </div>
 
               <div className="col s8">
                 <h5><b>Price: {product.price}</b></h5>
-                <p><b>Description: </b>{product.description.trim()}</p>
+                {
+                  product.description ?
+                  <p><b>Description: </b>{product.description.trim()}</p>
+                  :
+                  ''
+                }
                 <p><b>Details: </b></p>
                 {
                   product.details.map((detail, index) => {
