@@ -41,8 +41,7 @@ class SignIn extends Component {
       city,
       zip,
       country,
-      password,
-      userTypeId
+      password
     } = this.state;
 
     const data = {
@@ -63,9 +62,13 @@ class SignIn extends Component {
     .then(res => res.json())
     .then(res => {
       localStorage.setItem('token', res.token);
+      localStorage.setItem('user', res.user._id);
       this.setState({ loading: false });
     })
-    .catch(err => console.log(`Error reported: ${err}`));
+    .catch(err => {
+      console.log(`Error reported: ${err}`);
+      this.setState({ loading: false });
+    });
   }
 
   render() {
@@ -108,7 +111,7 @@ class SignIn extends Component {
                   (e) => this.setState({ firstname: e.target.value })
                 )
               }
-              <label htmlFor="firstname">FIrst Name</label>
+              <label htmlFor="firstname">First Name</label>
             </div>
 
             <div className="input-field col s6">
@@ -232,7 +235,7 @@ class SignIn extends Component {
             className="waves-effect waves-light btn"
             onClick={this.onSubmitForm.bind(this)}
             id="submit">
-              Submit
+              Sign Up
           </button>
         </div>
       </div>
