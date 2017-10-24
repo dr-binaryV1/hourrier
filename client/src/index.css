@@ -7,3 +7,8 @@ body {
 .search-btn{
   margin-top: 15px;
 }
+
+.image-container {
+  width: 180;
+  height: 220;
+}
