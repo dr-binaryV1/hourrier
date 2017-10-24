@@ -1,14 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Header = (props) => {
   return (
     <div className="navbar-fixed">
     <nav>
       <div className="nav-wrapper">
-        <a href="#!" className="brand-logo">Hourrier</a>
+        <Link to="/" className="brand-logo">Hourrier</Link>
         <ul className="right hide-on-med-and-down">
-          <li><a href="sass.html">Sass</a></li>
-          <li><a href="badges.html">Components</a></li>
+          <li><Link to="/shopping-cart">Cart</Link></li>
         </ul>
       </div>
     </nav>
