@@ -33,7 +33,7 @@ export function getSecret() {
   .catch(err => console.log(`Error reported: ${err}`))
 }
 
-export function getCartItems() {
+export function getCart() {
   return fetch(`${url}/shoppingcart`, {
     headers: {
       'Content-Type': 'application/json',
@@ -47,10 +47,42 @@ export function searchAmazon(amazonURL) {
   return fetch(`${url}/search`,{
     headers: {
       'Content-Type': 'application/json',
-      'mode': 'cors',
       'user': localStorage.getItem('user')
     },
     method: 'POST',
     body: JSON.stringify(amazonURL)
+  });
+}
+
+export function addItemToCart(item) {
+  return fetch(`${url}/shoppingcart`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'user': localStorage.getItem('user')
+    },
+    method: 'POST',
+    body: JSON.stringify(item)
+  });
+}
+
+export function getItems(itemIds) {
+  return fetch(`${url}/shoppingcartitem`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'user': localStorage.getItem('user')
+    },
+    method: 'POST',
+    body: JSON.stringify(itemIds)
+  });
+}
+
+export function deleteItem(itemId) {
+  return fetch(`${url}/shoppingcartitem`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'user': localStorage.getItem('user')
+    },
+    method: 'DELETE',
+    body: JSON.stringify(itemId)
   });
 }
