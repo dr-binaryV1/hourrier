@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { getCart, getItems, deleteItem } from '../../helpers/api';
+import { Link } from 'react-router-dom';
 
 class Cart extends Component {
   state = {
@@ -57,6 +58,7 @@ class Cart extends Component {
                     {item.name}
                     <div className="row">
                       <div className=""><h6>Price: <b>{item.price}</b></h6></div>
+                      <Link to={item.url} target="_blank">View Product</Link>
                     </div>
                   </div>
                   <div className="col s3">
