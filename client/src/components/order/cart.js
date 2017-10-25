@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { getCart, getItems, deleteItem } from '../../helpers/api';
+import {
+  getCart,
+  getItems,
+  deleteItem
+} from '../../helpers/api';
 import { Link } from 'react-router-dom';
 
 class Cart extends Component {
@@ -7,11 +11,17 @@ class Cart extends Component {
     cartItemIds: [],
     cartItems: [],
     loading: false,
-    quantity: 1
   }
 
   componentDidMount() {
     this.getCartData();
+  }
+
+  onQuantityChange(qty) {
+    return parseInt(qty, 10) < 1 ?
+    document.getElementById('qty').value = 1
+    :
+    ''
   }
 
   getCartData() {
@@ -83,7 +93,7 @@ class Cart extends Component {
                       className="waves-effect waves-light btn">Remove</button>
                       <div className="row">
                         <div className="col s6"><p>Qty: </p></div>
-                        <div className="col s6"><input id="qty" type="number" value={this.state.quantity} onChange={(e) => this.setState({ quantity: e.target.value })} /></div>
+                        <div className="col s6"><input id="qty" type="number" defaultValue={1} onChange={(e) => this.onQuantityChange(e.target.value)} /></div>
                       </div>
                   </div>
                 </div>
