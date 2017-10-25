@@ -86,3 +86,14 @@ export function deleteItem(itemId) {
     body: JSON.stringify(itemId)
   });
 }
+
+export function checkItem(itemName) {
+  return fetch(`${url}/shoppingcart/check`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'user': localStorage.getItem('user')
+    },
+    method: 'POST',
+    body: JSON.stringify(itemName)
+  });
+}
