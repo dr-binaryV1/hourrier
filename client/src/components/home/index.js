@@ -13,7 +13,12 @@ class Home extends Component {
     itemInCart: null,
   }
 
+  componentDidMount() {
+    document.getElementById('search-btn').setAttribute('disabled', 'true');
+  }
+
   onSearch() {
+    console.log('searching...');
     const searchBtn = document.getElementById('search-btn');
     searchBtn.setAttribute('disabled', 'true');
     searchBtn.innerText = "Searching...";
@@ -41,6 +46,14 @@ class Home extends Component {
       console.log(`Error reported: ${err}`);
       this.setState({ loading: false });
     });
+  }
+
+  onSearchTermChanged(term) {
+    this.setState({ searchURL: term });
+    const searchBtn = document.getElementById('search-btn');
+    term !== '' ?
+      searchBtn.removeAttribute('disabled')
+    : searchBtn.setAttribute('disabled', 'true');
   }
 
   addItemsToCart() {
@@ -82,7 +95,7 @@ class Home extends Component {
               type="text"
               id="search-input"
               value={this.state.searchURL}
-              onChange={(e) => this.setState({ searchURL: e.target.value })}
+              onChange={(e) => this.onSearchTermChanged(e.target.value)}
               placeholder="Enter Amazon URL"
             />
           </div>
@@ -103,7 +116,7 @@ class Home extends Component {
             <h5>{product.title}</h5>
             <div className="row">
               <div className="col s4">
-                <div className="image-container">
+                <div className="image-container card">
                   <img alt={`${product.title}`} src={product.image} width="180" />
                   <br />
 
@@ -125,7 +138,7 @@ class Home extends Component {
                 </div>
               </div>
 
-              <div className="col s8">
+              <div className="col s8 card">
                 <h5><b>Price: {product.price}</b></h5>
                 {
                   product.description ?
