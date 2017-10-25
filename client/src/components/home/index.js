@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
-import { addItemToCart, searchAmazon } from '../../helpers/api';
+import {
+  addItemToCart,
+  searchAmazon,
+  checkItem
+} from '../../helpers/api';
 
 class Home extends Component {
   state = {
     searchURL: '',
     loading: false,
-    itemAdded: null
+    itemAdded: null,
+    itemInCart: null,
   }
 
   onSearch() {
@@ -16,7 +21,7 @@ class Home extends Component {
     const searchInput = document.getElementById('search-input');
     searchInput.setAttribute('readonly', 'true');
 
-    this.setState({ loading: true, itemAdded: false });
+    this.setState({ loading: true });
 
     searchAmazon({ url: this.state.searchURL })
     .then(res => res.json())
@@ -25,7 +30,12 @@ class Home extends Component {
       searchBtn.innerText = "Search";
 
       searchInput.removeAttribute('readonly');
-      this.setState({ loading: false, product: res });
+      this.setState({ loading: false, product: res, itemAdded: false });
+
+      checkItem({ itemName: res.title })
+        .then(res => res.json())
+        .then(res => this.setState({ itemInCart: res.itemFound }))
+        .catch(err => console.log(`Error reported: ${err}`));
     })
     .catch(err => {
       console.log(`Error reported: ${err}`);
@@ -100,6 +110,9 @@ class Home extends Component {
                   {
                     this.state.itemAdded ?
                     <p><b>Item added to Cart</b></p>
+                    :
+                    this.state.itemInCart ?
+                    <p><b>Item in Cart</b></p>
                     :
                     (
                       <button
