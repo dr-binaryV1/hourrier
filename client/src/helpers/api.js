@@ -29,7 +29,7 @@ export function getSecret() {
     method: 'GET'
   })
   .then(res => res.json())
-  .then(res => console.log(res))
+  .then(res => '')
   .catch(err => console.log(`Error reported: ${err}`))
 }
 
@@ -95,5 +95,16 @@ export function checkItem(itemName) {
     },
     method: 'POST',
     body: JSON.stringify(itemName)
+  });
+}
+
+export function checkout(itemIds) {
+  return fetch(`${url}/checkout`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'user': localStorage.getItem('user')
+    },
+    method: 'POST',
+    body: JSON.stringify(itemIds)
   });
 }
