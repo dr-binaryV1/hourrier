@@ -33,6 +33,29 @@ export function getSecret() {
   .catch(err => console.log(`Error reported: ${err}`))
 }
 
+export function getUser() {
+  return fetch(`${url}/user`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+      'userId': localStorage.getItem('user'),
+    },
+    method: 'GET'
+  });
+}
+
+export function updateUser(user) {
+  return fetch(`${url}/user`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+      'userId': localStorage.getItem('user'),
+    },
+    method: 'PUT',
+    body: JSON.stringify(user)
+  });
+}
+
 export function getCart() {
   return fetch(`${url}/shoppingcart`, {
     headers: {
