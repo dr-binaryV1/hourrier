@@ -101,6 +101,16 @@ class Profile extends Component {
               <button className="waves-effect waves-light btn" id="add-shipping-address">Add</button>
             </div>
           </div>
+          <div className="row container-padding">
+            {
+              user.shippingAddressIds.length < 1 ?
+              <div className="row card">
+                <h6>No Shipping Address</h6>
+              </div>
+              :
+              ''  
+            }
+          </div>
 
           <div className="row">
             <div className="col s6 left-align">
@@ -109,6 +119,16 @@ class Profile extends Component {
             <div className="col s6 right-align search-btn">
               <button className="waves-effect waves-light btn" id="add-itinerary">Add</button>
             </div>
+          </div>
+          <div className="row container-padding">
+          {
+              user.intineraryIds.length < 1 ?
+              <div className="row card">
+                <h6>No Travel Itinerary</h6>
+              </div>
+              :
+              ''  
+            }
           </div>
         </div>
         :
