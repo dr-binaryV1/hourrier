@@ -9,7 +9,8 @@ body {
 }
 
 .container-padding {
-  padding: 20px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
 }
 
 .image-container {
