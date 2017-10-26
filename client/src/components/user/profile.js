@@ -37,7 +37,7 @@ class Profile extends Component {
         <div className="container container-padding">
           <div className="row">
             <div className="col s6">
-              <h5>User Profile</h5>
+              
             </div>
             <div className="col s6 right-align search-btn">
               <button
@@ -47,9 +47,9 @@ class Profile extends Component {
             </div>
           </div>
           <br />
-          <div className="card">
+          <div className="card container-padding">
             <div className="row">
-              <div className="col s4">
+              <div className="col s4 left-align">
                 <h5>Username: {user.username}</h5>
               </div>
             </div>
@@ -88,6 +88,24 @@ class Profile extends Component {
               <div className="col s4">
                 <h6>Mailing Zip: {user.mailingZip}</h6>
               </div>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col s6 left-align">
+              <h5>Shipping Address</h5>
+            </div>
+            <div className="col s6 right-align search-btn">
+              <button className="waves-effect waves-light btn" id="add-shipping-address">Add</button>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col s6 left-align">
+              <h5>Travel Itinerary</h5>
+            </div>
+            <div className="col s6 right-align search-btn">
+              <button className="waves-effect waves-light btn" id="add-itinerary">Add</button>
             </div>
           </div>
         </div>
