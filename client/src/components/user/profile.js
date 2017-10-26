@@ -12,7 +12,9 @@ class Profile extends Component {
   componentDidMount() {
     getUser()
       .then(res => res.json())
-      .then(res => this.setState({ user: res }))
+      .then(res => {
+        this.setState({ user: res });
+      })
       .catch(err => console.log(`Error reported: ${err}`));
   }
 
