@@ -8,6 +8,7 @@ const Header = (props) => {
       <div className="nav-wrapper">
         <Link to="/" className="brand-logo">Hourrier</Link>
         <ul className="right hide-on-med-and-down">
+          <li><Link to="/profile">Profile</Link></li>
           <li><Link to="/shopping-cart">Cart</Link></li>
         </ul>
       </div>
