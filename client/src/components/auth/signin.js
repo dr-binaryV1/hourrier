@@ -56,7 +56,7 @@ class SignIn extends Component {
 
         <div id="signup-form">
           <div className="row">
-            <div className="input-field col s6">
+            <div className="input-field col s6 offset-s3">
               {
                 this.renderInput(
                   "email",
@@ -70,7 +70,7 @@ class SignIn extends Component {
           </div>
 
           <div className="row">
-            <div className="input-field col s6">
+            <div className="input-field col s6 offset-s3">
               {
                 this.renderInput(
                   "password",
@@ -84,7 +84,7 @@ class SignIn extends Component {
           </div>
 
           <div className="row">
-            <div className="input-field col s6">              
+            <div className="input-field col s6 offset-s3">              
               <button
                 className="waves-effect waves-light btn"
                 onClick={this.onSubmitForm.bind(this)}
