@@ -29,7 +29,7 @@ class AddShipping extends Component {
           </div>
         </div>
 
-        <div className="row card">
+        <div className="row card container-padding">
           <div className="input-field col s4">
             {
               this.renderInput(

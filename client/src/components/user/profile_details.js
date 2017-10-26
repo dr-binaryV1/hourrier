@@ -11,7 +11,7 @@ class ProfileDetails extends Component {
     const { user } = this.props;
 
     return (
-      <div className="container container-padding">
+    <div className="container container-padding">
       <div className="row">
         <div className="col s6">
           
@@ -68,13 +68,13 @@ class ProfileDetails extends Component {
         </div>
       </div>
 
-      <div className="row container-padding">
+      <div>
         {
           this.state.addingShipping ?
           <AddShipping />
           :
           user.shippingAddressIds.length < 1 ?
-          <div>
+          <div className="row container-padding">
             <div className="row">
               <div className="col s6 left-align">
                 <h5>Shipping Address</h5>
