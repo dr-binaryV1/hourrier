@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "jquery": "^3.2.1"
+    "jquery": "^3.2.1",
+    "redux-thunk": "^2.2.0"
   }
 }
