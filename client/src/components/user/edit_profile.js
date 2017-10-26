@@ -76,7 +76,7 @@ class EditProfile extends Component {
 
   render() {
     return(
-      <div className="container">
+      <div className="container container-padding">
 
         {
           this.state.loading ?
@@ -91,12 +91,10 @@ class EditProfile extends Component {
 
         <div>
           <div className="row">
-            <div className="col s12">
-              <h5>Edit Profile</h5>
-            </div>
+            <h5>Edit Profile</h5>
           </div>
           <br />
-          <div className="card">
+          <div className="card container-padding">
             <div className="row">
               <div className="input-field col s4">
                 {
