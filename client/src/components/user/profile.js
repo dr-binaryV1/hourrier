@@ -2,6 +2,7 @@ import React, {Component } from 'react';
 import { getUser } from '../../helpers/api';
 
 import EditProfile from './edit_profile';
+import ProfileDetails from './profile_details';
 
 class Profile extends Component {
   state = {
@@ -16,6 +17,10 @@ class Profile extends Component {
         this.setState({ user: res });
       })
       .catch(err => console.log(`Error reported: ${err}`));
+  }
+
+  changeToEdit() {
+    this.setState({ editingProfile: true });
   }
 
   editComplete() {
@@ -36,102 +41,8 @@ class Profile extends Component {
           editingProfile ?
           <EditProfile user={user} done={this.editComplete.bind(this)} />
           :
-        <div className="container container-padding">
-          <div className="row">
-            <div className="col s6">
-              
-            </div>
-            <div className="col s6 right-align search-btn">
-              <button
-                id="edit-profile"
-                onClick={() => this.setState({ editingProfile: true })}
-                className="waves-effect waves-light btn">Edit Profile</button>
-            </div>
-          </div>
-          <br />
-          <div className="card container-padding">
-            <div className="row">
-              <div className="col s4 left-align">
-                <h5>Username: {user.username}</h5>
-              </div>
-            </div>
-            <div className="row left-align">
-              <div className="col s4">
-                <h6>First Name: {user.firstname}</h6>
-              </div>
-
-              <div className="col s4">
-                <h6>Last Name: {user.lastname}</h6>
-              </div>
-
-              <div className="col s4">
-                <h6>Email: {user.email}</h6>
-              </div>
-            </div>
-            <div className="row left-align">
-              <div className="col s6">
-                <h6>Mailing Address 1: {user.mailingAddress1}</h6>
-              </div>
-            </div>
-            <div className="row left-align">
-              <div className="col s6">
-                <h6>Mailing Address 2: {user.mailingAddress2}</h6>
-              </div>
-            </div>
-            <div className="row left-align">
-              <div className="col s4">
-                <h6>Mailing City: {user.mailingCity}</h6>
-              </div>
-
-              <div className="col s4">
-                <h6>Mailing Country: {user.mailingCountry}</h6>
-              </div>
-
-              <div className="col s4">
-                <h6>Mailing Zip: {user.mailingZip}</h6>
-              </div>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col s6 left-align">
-              <h5>Shipping Address</h5>
-            </div>
-            <div className="col s6 right-align search-btn">
-              <button className="waves-effect waves-light btn" id="add-shipping-address">Add</button>
-            </div>
-          </div>
-          <div className="row container-padding">
-            {
-              user.shippingAddressIds.length < 1 ?
-              <div className="row card">
-                <h6>No Shipping Address</h6>
-              </div>
-              :
-              ''  
-            }
-          </div>
-
-          <div className="row">
-            <div className="col s6 left-align">
-              <h5>Travel Itinerary</h5>
-            </div>
-            <div className="col s6 right-align search-btn">
-              <button className="waves-effect waves-light btn" id="add-itinerary">Add</button>
-            </div>
-          </div>
-          <div className="row container-padding">
-          {
-              user.intineraryIds.length < 1 ?
-              <div className="row card">
-                <h6>No Travel Itinerary</h6>
-              </div>
-              :
-              ''  
-            }
-          </div>
-        </div>
-        :
+          <ProfileDetails user={user} edit={this.changeToEdit.bind(this)} />
+          :
         ''
         }
       </div>
