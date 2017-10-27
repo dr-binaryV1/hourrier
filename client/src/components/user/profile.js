@@ -7,6 +7,7 @@ import ProfileDetails from './profile_details';
 class Profile extends Component {
   state = {
     user: null,
+    shippingAddresses: [],
     editingProfile: false
   }
 
