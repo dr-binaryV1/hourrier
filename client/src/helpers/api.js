@@ -131,3 +131,25 @@ export function checkout(itemIds) {
     body: JSON.stringify(itemIds)
   });
 }
+
+export function addShipping(address) {
+  return fetch(`${url}/shipping/add`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'user': localStorage.getItem('user')
+    },
+    method: 'POST',
+    body: JSON.stringify(address)
+  });
+}
+
+export function getShipping(addressIds) {
+  return fetch(`${url}/shipping`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'user': localStorage.getItem('user')
+    },
+    method: 'POST',
+    body: JSON.stringify(addressIds)
+  });
+}
