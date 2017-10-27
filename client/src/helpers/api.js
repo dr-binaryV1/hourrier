@@ -153,3 +153,14 @@ export function getShipping(addressIds) {
     body: JSON.stringify(addressIds)
   });
 }
+
+export function deleteShippingAddress(addressId) {
+  return fetch(`${url}/shipping`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'user': localStorage.getItem('user')
+    },
+    method: 'DELETE',
+    body: JSON.stringify(addressId)
+  });
+}
