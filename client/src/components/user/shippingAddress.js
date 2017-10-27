@@ -5,7 +5,7 @@ const ShippingAddress = props => {
   const { address } = props;
 
   return (
-    <div className="row card">
+    <div className="row card container-padding">
       <div className="row">
         <div className="col s4 left-align">
           <p>Shipping Address 1: {address.shippingAddress1}</p>
@@ -14,6 +14,7 @@ const ShippingAddress = props => {
           <p>Shipping Address 2: {address.shippingAddress2}</p>
         </div>
         <div className="col s4 right-align">
+          <Button className="red btn-spacing" waves='light'>Remove</Button>
           <Button waves='light'>Use</Button>
         </div>
       </div>
