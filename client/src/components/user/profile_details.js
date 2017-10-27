@@ -1,10 +1,24 @@
 import React, { Component } from 'react';
 import AddShipping from './addShipping';
+import { Collapsible, CollapsibleItem } from 'react-materialize';
+import { getShipping } from '../../helpers/api';
+import ShippingAddress from './shippingAddress';
 
 class ProfileDetails extends Component {
   state = {
     loading: false,
-    addingShipping: false
+    addingShipping: false,
+    shippingAddresses: []
+  }
+
+  componentDidMount() {
+    const { user } = this.props;
+    getShipping({shippingIds: user.shippingAddressIds})
+      .then(res => res.json())
+      .then(res => {
+        this.setState({ shippingAddresses: res.shippingAddress });
+      })
+    .catch(err => console.log(`Error reported: ${err}`));
   }
 
   render() {
@@ -68,6 +82,8 @@ class ProfileDetails extends Component {
         </div>
       </div>
 
+      <Collapsible>
+      <CollapsibleItem header='Shipping Address'>
       <div>
         {
           this.state.addingShipping ?
@@ -86,15 +102,18 @@ class ProfileDetails extends Component {
                   id="add-shipping-address">Add</button>
               </div>
             </div>
-            <div className="row card">
+            <div className="row">
               <h6>No Shipping Address</h6>
             </div>
           </div>
           :
-          ''  
+          this.state.shippingAddresses.map(address => {
+            return <ShippingAddress key={address._id} address={address} />
+          })  
         }
       </div>
-
+      </CollapsibleItem>
+      <CollapsibleItem header='Travel Itinerary'>
       <div className="row">
         <div className="col s6 left-align">
           <h5>Travel Itinerary</h5>
@@ -106,13 +125,15 @@ class ProfileDetails extends Component {
       <div className="row container-padding">
       {
         user.intineraryIds.length < 1 ?
-        <div className="row card">
+        <div className="row">
           <h6>No Travel Itinerary</h6>
         </div>
         :
         ''  
       }
       </div>
+      </CollapsibleItem>
+      </Collapsible>
     </div>
     )
   }
