@@ -128,6 +128,7 @@ class AddShipping extends Component {
 
             <Button
               onClick={() => this.props.cancel()}
+              className="red"
               waves='light'
               id="cancel-add-shipping">Cancel</Button>
           </div>
