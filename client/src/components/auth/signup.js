@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { submitSignUp } from '../../helpers/api';
+import { Button } from 'react-materialize';
 
 class SignIn extends Component {
   state = {
@@ -231,12 +232,12 @@ class SignIn extends Component {
             </div>
           </div>
 
-          <button
-            className="waves-effect waves-light btn"
+          <Button
+            waves='light'
             onClick={this.onSubmitForm.bind(this)}
             id="submit">
               Sign Up
-          </button>
+          </Button>
         </div>
       </div>
     )

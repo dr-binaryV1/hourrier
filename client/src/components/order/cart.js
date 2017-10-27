@@ -6,6 +6,7 @@ import {
   checkout
 } from '../../helpers/api';
 import { Link } from 'react-router-dom';
+import { Button } from 'react-materialize';
 
 class Cart extends Component {
   state = {
@@ -104,9 +105,9 @@ class Cart extends Component {
                       </div>
                     </div>
                     <div className="col s2">
-                      <button
+                      <Button
                         onClick={() => this.onDeleteItem(item._id)}
-                        className="waves-effect waves-light btn">Remove</button>
+                        waves='light'>Remove</Button>
                         <div className="row">
                           <div className="col s6"><p>Qty: </p></div>
                           <div className="col s6"><input id="qty" type="number" defaultValue={1} onChange={(e) => this.onQuantityChange(e.target.value)} /></div>
@@ -118,11 +119,11 @@ class Cart extends Component {
               }
             </ul>
             <div className="row">
-              <button
+              <Button
                 onClick={this.onCheckoutItems.bind(this)}
-                className="waves-effect waves-light btn"
+                waves='light'
                 id="checkout-btn">Checkout
-              </button>
+              </Button>
             </div>
           </div>
         }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { updateUser } from '../../helpers/api';
+import { Button } from 'react-materialize';
 
 class EditProfile extends Component {
   state = {
@@ -210,10 +211,10 @@ class EditProfile extends Component {
           </div>
         </div>
         <div className="row">
-            <button
+            <Button
               onClick={this.updateProfile.bind(this)}
-              className="waves-effect waves-light btn"
-              id="update-user">Update User</button>
+              waves='light'
+              id="update-user">Update User</Button>
           </div>
       </div>
     )

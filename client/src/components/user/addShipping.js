@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { addShipping } from '../../helpers/api';
-import { ProgressBar } from 'react-materialize';
+import { ProgressBar, Button } from 'react-materialize';
 
 class AddShipping extends Component {
   state = {
@@ -119,14 +119,14 @@ class AddShipping extends Component {
             </div>
           </div>
           <div className="row">
-            <button
+            <Button
               onClick={this.onSubmitShipping.bind(this)}
-              className="waves-effect waves-light btn"
-              id="add-shipping">Save</button>
+              waves='light'
+              id="add-shipping">Save</Button>
 
-            <button
-            className="waves-effect waves-light btn"
-            id="cancel-add-shipping">Cancel</button>
+            <Button
+              waves='light'
+              id="cancel-add-shipping">Cancel</Button>
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@ import AddShipping from './addShipping';
 import { Collapsible, CollapsibleItem } from 'react-materialize';
 import { getShipping } from '../../helpers/api';
 import ShippingAddress from './shippingAddress';
+import { Button } from 'react-materialize';
 
 class ProfileDetails extends Component {
   state = {
@@ -31,10 +32,10 @@ class ProfileDetails extends Component {
           
         </div>
         <div className="col s6 right-align search-btn">
-          <button
+          <Button
             id="edit-profile"
             onClick={() => this.props.edit()}
-            className="waves-effect waves-light btn">Edit Profile</button>
+            waves='light'>Edit Profile</Button>
         </div>
       </div>
       <br />
@@ -96,10 +97,10 @@ class ProfileDetails extends Component {
                 <h5>Shipping Address</h5>
               </div>
               <div className="col s6 right-align search-btn">
-                <button
+                <Button
                   onClick={() => this.setState({ addingShipping: true })}
-                  className="waves-effect waves-light btn"
-                  id="add-shipping-address">Add</button>
+                  waves='light'
+                  id="add-shipping-address">Add</Button>
               </div>
             </div>
             <div className="row">
@@ -119,7 +120,7 @@ class ProfileDetails extends Component {
           <h5>Travel Itinerary</h5>
         </div>
         <div className="col s6 right-align search-btn">
-          <button className="waves-effect waves-light btn" id="add-itinerary">Add</button>
+          <Button waves='light' id="add-itinerary">Add</Button>
         </div>
       </div>
       <div className="row container-padding">

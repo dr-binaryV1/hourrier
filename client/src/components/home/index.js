@@ -4,6 +4,7 @@ import {
   searchAmazon,
   checkItem
 } from '../../helpers/api';
+import { Button } from 'react-materialize';
 
 class Home extends Component {
   state = {
@@ -18,7 +19,6 @@ class Home extends Component {
   }
 
   onSearch() {
-    console.log('searching...');
     const searchBtn = document.getElementById('search-btn');
     searchBtn.setAttribute('disabled', 'true');
     searchBtn.innerText = "Searching...";
@@ -101,12 +101,13 @@ class Home extends Component {
           </div>
 
           <div className="col s3">
-            <button
-              className="waves-effect waves-light btn search-btn"
+            <Button
+              className="search-btn"
+              waves='light'
               onClick={this.onSearch.bind(this)}
               id="search-btn">
                 Search
-            </button>
+            </Button>
           </div>
         </div>
 
@@ -128,11 +129,12 @@ class Home extends Component {
                     <p><b>Item in Cart</b></p>
                     :
                     (
-                      <button
+                      <Button
+                        waves='light'
                         onClick={this.addItemsToCart.bind(this)}
-                        className="waves-effect waves-light btn search-btn">
+                        className="search-btn">
                           Add to Cart
-                      </button>
+                      </Button>
                     )
                   }
                 </div>
