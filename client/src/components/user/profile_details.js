@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AddShipping from './addShipping';
-import { Collapsible, CollapsibleItem } from 'react-materialize';
+import { Collapsible, CollapsibleItem, Input, Row } from 'react-materialize';
 import { getShipping } from '../../helpers/api';
 import ShippingAddress from './shippingAddress';
 import { Button } from 'react-materialize';
@@ -9,17 +9,30 @@ class ProfileDetails extends Component {
   state = {
     loading: false,
     addingShipping: false,
-    shippingAddresses: []
+    shippingAddresses: [],
+    traveling: false
   }
 
   componentDidMount() {
+    this.getShippingDetails();
+  }
+
+  getShippingDetails() {
     const { user } = this.props;
     getShipping({shippingIds: user.shippingAddressIds})
       .then(res => res.json())
       .then(res => {
-        this.setState({ shippingAddresses: res.shippingAddress });
+        this.setState({ shippingAddresses: res.shippingAddress, addingShipping: false });
       })
     .catch(err => console.log(`Error reported: ${err}`));
+  }
+
+  completeAddingShipping() {
+    this.getShippingDetails();
+  }
+
+  stopAddingShipping() {
+    this.setState({ addingShipping: false });
   }
 
   render() {
@@ -83,12 +96,25 @@ class ProfileDetails extends Component {
         </div>
       </div>
 
+      <Row>
+        <h5>Are you traveling soon?</h5>
+        <div className="switch">
+          <label>No<input type="checkbox" checked={this.state.traveling} onChange={(e) => this.setState({ traveling: e.target.checked})} />
+            <span className="lever">
+            </span>Yes
+          </label>
+        </div> 
+      </Row>
+      {
+        this.state.traveling ?
       <Collapsible>
       <CollapsibleItem header='Shipping Address'>
       <div>
         {
           this.state.addingShipping ?
-          <AddShipping />
+          <AddShipping
+            done={this.completeAddingShipping.bind(this)}
+            cancel={this.stopAddingShipping.bind(this)}/>
           :
           user.shippingAddressIds.length < 1 ?
           <div className="row container-padding">
@@ -108,9 +134,23 @@ class ProfileDetails extends Component {
             </div>
           </div>
           :
-          this.state.shippingAddresses.map(address => {
-            return <ShippingAddress key={address._id} address={address} />
-          })  
+          <div>
+            {
+              this.state.shippingAddresses.map(address => {
+                return <ShippingAddress key={address._id} address={address} />
+              })
+            }
+            <div className="">
+              <div className="col s12 right-align">
+                <Button
+                  floating
+                  className='red'
+                  onClick={() => this.setState({ addingShipping: true })}
+                  waves='light'
+                  id="add-shipping-address" >+</Button>
+              </div>
+            </div>
+          </div>  
         }
       </div>
       </CollapsibleItem>
@@ -135,6 +175,9 @@ class ProfileDetails extends Component {
       </div>
       </CollapsibleItem>
       </Collapsible>
+      :
+      ''
+      }
     </div>
     )
   }
