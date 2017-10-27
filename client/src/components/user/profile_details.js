@@ -22,13 +22,14 @@ class ProfileDetails extends Component {
     getShipping({shippingIds: user.shippingAddressIds})
       .then(res => res.json())
       .then(res => {
-        this.setState({ shippingAddresses: res.shippingAddress, addingShipping: false });
+        this.setState({ shippingAddresses: res.shippingAddress });
       })
     .catch(err => console.log(`Error reported: ${err}`));
   }
 
   completeAddingShipping() {
     this.getShippingDetails();
+    this.setState({ addingShipping: false });
   }
 
   stopAddingShipping() {
@@ -41,8 +42,8 @@ class ProfileDetails extends Component {
     return (
     <div className="container container-padding">
       <div className="row">
-        <div className="col s6">
-          
+        <div className="col s6 left-align">
+          <h5>Welcome back, <b>{user.username}</b></h5>
         </div>
         <div className="col s6 right-align search-btn">
           <Button
@@ -53,11 +54,6 @@ class ProfileDetails extends Component {
       </div>
       <br />
       <div className="card container-padding">
-        <div className="row">
-          <div className="col s4 left-align">
-            <h5>Username: {user.username}</h5>
-          </div>
-        </div>
         <div className="row left-align">
           <div className="col s4">
             <h6>First Name: {user.firstname}</h6>
