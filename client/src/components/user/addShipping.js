@@ -37,6 +37,7 @@ class AddShipping extends Component {
       .then(res => res.json())
       .then(res => {
         this.setState({ loading: false });
+        this.props.done();
       })
       .catch(err => {
         console.log(`Error reported: ${err}`);
@@ -121,10 +122,12 @@ class AddShipping extends Component {
           <div className="row">
             <Button
               onClick={this.onSubmitShipping.bind(this)}
+              className="btn-spacing"
               waves='light'
               id="add-shipping">Save</Button>
 
             <Button
+              onClick={() => this.props.cancel()}
               waves='light'
               id="cancel-add-shipping">Cancel</Button>
           </div>
