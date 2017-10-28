@@ -1,7 +1,8 @@
 import {
   GET_USER,
   GET_CART_IDs,
-  GET_CART_ITEMS
+  GET_CART_ITEMS,
+  GET_SHIPPING_DETAILS
 } from './types';
 import {
   getUser,
@@ -13,7 +14,8 @@ import {
   getCart,
   getItems,
   deleteItem,
-  checkout
+  checkout,
+  getShipping
 } from '../helpers/api';
 
 export const receive_user = user => {
@@ -34,6 +36,13 @@ export const receive_cart_items = cartItems => {
   return {
     type: GET_CART_ITEMS,
     cartItems
+  }
+}
+
+export const receive_shipping_details = shippingAddresses => {
+  return {
+    type: GET_SHIPPING_DETAILS,
+    shippingAddresses
   }
 }
 
@@ -59,7 +68,8 @@ export const add_shipping_address = shippingAddress => dispatch => {
   addShipping(shippingAddress)
   .then(res => res.json())
   .then(res => {
-    dispatch(receive_user(res));
+    dispatch(receive_user(res.user));
+    dispatch(receive_shipping_details(res.addresses));
   })
   .catch(err => {
     console.log(`Error reported: ${err}`);
@@ -70,7 +80,8 @@ export const delete_shipping_address = shippingAddressId => dispatch => {
   deleteShippingAddress(shippingAddressId)
   .then(res => res.json())
   .then(res => {
-    dispatch(receive_user(res));
+    dispatch(receive_user(res.user));
+    dispatch(receive_shipping_details(res.addresses));
   })
   .catch(err => console.log(`Error reported: ${err}`));
 }
@@ -139,4 +150,13 @@ export const add_to_cart = (item) => dispatch => {
   .catch(err => {
     console.log(`Error reported: ${err}`);
   })
+}
+
+export const get_shipping_details = (shippingIds) => dispatch => {
+  getShipping(shippingIds)
+  .then(res => res.json())
+  .then(res => {
+    dispatch(receive_shipping_details(res.shippingAddress));
+  })
+.catch(err => console.log(`Error reported: ${err}`));
 }

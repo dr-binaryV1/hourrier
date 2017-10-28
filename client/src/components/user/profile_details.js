@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
-import { update_traveler_status } from '../../actions';
+import { update_traveler_status, get_shipping_details } from '../../actions';
 import { connect } from 'react-redux';
 import AddShipping from './addShipping';
 import { Collapsible, CollapsibleItem, Row } from 'react-materialize';
-import { getShipping } from '../../helpers/api';
 import ShippingAddress from './shippingAddress';
 import { Button } from 'react-materialize';
 
 class ProfileDetails extends Component {
   state = {
     loading: false,
-    addingShipping: false,
-    shippingAddresses: []
+    addingShipping: false
   }
 
   componentDidMount() {
@@ -20,12 +18,7 @@ class ProfileDetails extends Component {
 
   getShippingDetails() {
     const { user } = this.props;
-    getShipping({shippingIds: user.shippingAddressIds})
-      .then(res => res.json())
-      .then(res => {
-        this.setState({ shippingAddresses: res.shippingAddress });
-      })
-    .catch(err => console.log(`Error reported: ${err}`));
+    this.props.get_shipping_details({shippingIds: user.shippingAddressIds});
   }
 
   completeAddingShipping() {
@@ -93,6 +86,8 @@ class ProfileDetails extends Component {
         </div>
       </div>
 
+      { 
+        user ?
       <Row>
         <h5>Are you traveling soon?</h5>
         <div className="switch">
@@ -102,6 +97,9 @@ class ProfileDetails extends Component {
           </label>
         </div> 
       </Row>
+      :
+      ''
+      }
       {
         user.traveler ?
       <Collapsible>
@@ -132,20 +130,31 @@ class ProfileDetails extends Component {
           </div>
           :
           <div>
-            {
-              this.state.shippingAddresses.map(address => {
+            { 
+              this.props.shippingAddresses ?
+              this.props.shippingAddresses.map(address => {
                 return <ShippingAddress key={address._id} address={address} />
               })
+              :
+              ''
             }
             <div className="">
-              <div className="col s12 right-align">
-                <Button
-                  floating
-                  className='red'
-                  onClick={() => this.setState({ addingShipping: true })}
-                  waves='light'
-                  id="add-shipping-address" >+</Button>
-              </div>
+              {
+                this.props.shippingAddresses ?
+                this.props.shippingAddresses.length < 3 ?
+                <div className="col s12 right-align">
+                  <Button
+                    floating
+                    className='red'
+                    onClick={() => this.setState({ addingShipping: true })}
+                    waves='light'
+                    id="add-shipping-address" >+</Button>
+                </div>
+                :
+                ''
+                :
+                ''
+              }
             </div>
           </div>  
         }
@@ -182,8 +191,9 @@ class ProfileDetails extends Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    user: state.user,
+    shippingAddresses: state.shippingAddresses
   }
 }
 
-export default connect(mapStateToProps, { update_traveler_status })(ProfileDetails);
+export default connect(mapStateToProps, { update_traveler_status, get_shipping_details })(ProfileDetails);

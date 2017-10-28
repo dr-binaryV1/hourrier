@@ -162,7 +162,9 @@ class Home extends Component {
           </div>
         )
         :
-        ''
+        <div className="home-container">
+          
+        </div>
         }
       </div>
     )

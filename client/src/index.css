@@ -25,3 +25,12 @@ body {
 .center-container {
   margin: 0 auto !important;
 }
+
+.home-container {
+  background-image: url("./utils/images/home_background.png");
+  opacity: .2;
+  margin-top: 50px;
+  height: 50vh;
+  width: 50vw;
+  background-repeat: no-repeat;
+}

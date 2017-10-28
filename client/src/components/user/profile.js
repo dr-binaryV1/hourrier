@@ -35,7 +35,6 @@ class Profile extends Component {
   render() {
     const { editingProfile } = this.state;
     const { user } = this.props;
-
     return (
       <div>
         {

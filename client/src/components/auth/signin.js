@@ -32,7 +32,6 @@ class SignIn extends Component {
       .then(res => {
         localStorage.setItem('token', res.token);
         localStorage.setItem('user', res.user._id);
-        console.log(res.user);
         this.setState({ loading: false });
       })
       .catch(err => {
@@ -56,6 +55,15 @@ class SignIn extends Component {
         }
 
         <div id="signup-form">
+          <div className="row">
+            <div className="col s12">
+              <img
+                width="200"
+                height="200" 
+                src="images/hourrier_logo.jpg"
+                alt="hourrier trademark"/>
+            </div>
+          </div>
           <div className="row">
             <div className="input-field col s6 offset-s3">
               {
