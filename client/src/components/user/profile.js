@@ -1,23 +1,19 @@
 import React, {Component } from 'react';
+import { connect } from 'react-redux';
 import { getUser } from '../../helpers/api';
+import { get_user } from '../../actions';
 
 import EditProfile from './edit_profile';
 import ProfileDetails from './profile_details';
 
 class Profile extends Component {
   state = {
-    user: null,
     shippingAddresses: [],
     editingProfile: false
   }
 
   componentDidMount() {
-    getUser()
-      .then(res => res.json())
-      .then(res => {
-        this.setState({ user: res });
-      })
-      .catch(err => console.log(`Error reported: ${err}`));
+    this.props.get_user();
   }
 
   changeToEdit() {
@@ -33,16 +29,17 @@ class Profile extends Component {
   }
 
   render() {
-    const { user, editingProfile } = this.state;
+    const { editingProfile } = this.state;
+    const { user } = this.props;
 
     return (
       <div>
         {
           user ?
           editingProfile ?
-          <EditProfile user={user} done={this.editComplete.bind(this)} />
+          <EditProfile done={this.editComplete.bind(this)} />
           :
-          <ProfileDetails user={user} edit={this.changeToEdit.bind(this)} />
+          <ProfileDetails edit={this.changeToEdit.bind(this)} />
           :
         ''
         }
@@ -51,4 +48,10 @@ class Profile extends Component {
   }
 }
 
-export default Profile;
+function mapStateToProps(state) {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps, {get_user})(Profile);
