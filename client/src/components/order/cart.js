@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
-  getCart,
-  getItems,
-  deleteItem,
-  checkout
-} from '../../helpers/api';
+  get_shopping_cart,
+  delete_shoppingcart_item,
+  checkout_cart
+} from '../../actions';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-materialize';
 
 class Cart extends Component {
   state = {
-    cartItemIds: [],
-    cartItems: [],
     loading: false,
   }
 
   componentDidMount() {
-    this.getCartData();
+    this.props.get_shopping_cart();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    return nextProps === this.props ? '' 
+    :
+    this.finalize()
   }
 
   onQuantityChange(qty) {
@@ -26,48 +30,18 @@ class Cart extends Component {
     ''
   }
 
-  getCartData() {
-    getCart()
-    .then(res => res.json())
-    .then(res => {
-      this.setState({ cartItemIds: res.itemIds });
-
-      getItems({ itemIds: this.state.cartItemIds })
-      .then(res => res.json())
-      .then(res => {
-        this.setState({ cartItems: res.items });
-      })
-      .catch(err => console.log(`Error reported: ${err}`));
-    })
-    .catch(err => console.log(`Error reported: ${err}`));
-  }
-
   onCheckoutItems() {
     this.setState({ loading: true });
-    checkout({ itemIds: this.state.cartItemIds })
-      .then(res => res.json())
-      .then(res => {
-        this.setState({ loading: false });
-        return res.orderSaved ? this.setState({ cartItemIds: [], cartItems: [] }) : '';
-      })
-      .catch(err => {
-        console.log(`Error reported: ${err}`);
-        this.setState({ loading: false });
-      });
+    this.props.checkout_cart(this.props.cartItemIds);
   }
   
   onDeleteItem(id) {
     this.setState({ loading: true });
-    deleteItem({itemId: id})
-      .then(res => res.json())
-      .then(res => {
-        this.setState({ cartItemIds: res, loading: false });
-        this.getCartData();
-      })
-      .catch(err => {
-        console.log(`Error reported: ${err}`);
-        this.setState({ loading: false });
-      });
+    this.props.delete_shoppingcart_item(id);
+  }
+
+  finalize() {
+    this.setState({ loading: false });
   }
 
   render() {
@@ -85,13 +59,15 @@ class Cart extends Component {
         }
 
         {
-          this.state.cartItemIds.length < 1 ?
+          this.props.cartItems ?
+          this.props.cartItems.length < 1 ?
           <h3>Shopping Cart Empty!</h3>
           :
           <div>
             <ul>
               {
-                this.state.cartItems.map(item => {
+                this.props.cartItems ?
+                this.props.cartItems.map(item => {
                   return <li key={item._id}>
                   <div className="row card">
                     <div className="col s2">
@@ -116,6 +92,8 @@ class Cart extends Component {
                   </div>
                   </li>
                 })
+                :
+                ''
               }
             </ul>
             <div className="row">
@@ -126,10 +104,25 @@ class Cart extends Component {
               </Button>
             </div>
           </div>
+          :
+          ''
         }
       </div>
     )
   }
 }
 
-export default Cart;
+function mapStateToProps(state) {
+  return {
+    cartItems: state.cartItems,
+    cartItemIds: state.cartIds
+  }
+}
+
+export default connect(
+  mapStateToProps, 
+  { 
+    get_shopping_cart,
+    delete_shoppingcart_item,
+    checkout_cart
+  })(Cart);
