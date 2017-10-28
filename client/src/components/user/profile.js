@@ -20,6 +20,10 @@ class Profile extends Component {
     this.setState({ editingProfile: true });
   }
 
+  cancelEditing() {
+    this.setState({ editingProfile: false });
+  }
+
   editComplete() {
     this.setState({ editingProfile: false });
     getUser()
@@ -37,7 +41,9 @@ class Profile extends Component {
         {
           user ?
           editingProfile ?
-          <EditProfile done={this.editComplete.bind(this)} />
+          <EditProfile
+            cancel={this.cancelEditing.bind(this)}
+            done={this.editComplete.bind(this)} />
           :
           <ProfileDetails edit={this.changeToEdit.bind(this)} />
           :
