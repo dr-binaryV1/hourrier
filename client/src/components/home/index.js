@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { add_to_cart } from '../../actions';
 import {
-  addItemToCart,
   searchAmazon,
   checkItem
 } from '../../helpers/api';
@@ -16,6 +17,12 @@ class Home extends Component {
 
   componentDidMount() {
     document.getElementById('search-btn').setAttribute('disabled', 'true');
+  }
+
+  componentWillReceiveProps(nextProps) {
+    return nextProps === this.props ? '' 
+    :
+    this.finalize()
   }
 
   onSearch() {
@@ -59,17 +66,13 @@ class Home extends Component {
   addItemsToCart() {
     this.setState({ loading: true });
     this.state.product ?
-    addItemToCart(this.state.product)
-      .then(res => res.json())
-      .then(res => {
-        this.setState({ loading: false, itemAdded: true });
-      })
-      .catch(err => {
-        console.log(`Error reported: ${err}`);
-        this.setState({ loading: false });
-      })
+    this.props.add_to_cart(this.state.product)
     :
     this.setState({ loading: false });
+  }
+
+  finalize() {
+    this.setState({ loading: false, itemAdded: true });
   }
 
   render() {
@@ -166,4 +169,11 @@ class Home extends Component {
   }
 }
 
-export default Home;
+function mapStateToProps(state) {
+  return {
+    cartItems: state.cartItems,
+    cartIds: state.cartIds
+  }
+}
+
+export default connect(mapStateToProps, { add_to_cart })(Home);
