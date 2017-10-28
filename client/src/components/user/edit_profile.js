@@ -219,9 +219,15 @@ class EditProfile extends Component {
         </div>
         <div className="row">
             <Button
+              className="btn-spacing"
               onClick={this.updateProfile.bind(this)}
               waves='light'
               id="update-user">Update User</Button>
+
+            <Button
+              onClick={() => this.props.cancel()}
+              waves="light"
+              className="red">Cancel</Button>
           </div>
       </div>
     )
