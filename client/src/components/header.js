@@ -13,7 +13,7 @@ class Header extends Component {
   render() {
     return (
       <div className="navbar-fixed">
-      <nav>
+      <nav className="blue">
         <div className="nav-wrapper">
           <Link to="/" className="brand-logo">Hourrier</Link>
           <ul className="right hide-on-med-and-down">
