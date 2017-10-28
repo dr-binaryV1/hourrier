@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { update_traveler_status } from '../../actions';
+import { connect } from 'react-redux';
 import AddShipping from './addShipping';
-import { Collapsible, CollapsibleItem, Input, Row } from 'react-materialize';
+import { Collapsible, CollapsibleItem, Row } from 'react-materialize';
 import { getShipping } from '../../helpers/api';
 import ShippingAddress from './shippingAddress';
 import { Button } from 'react-materialize';
@@ -9,8 +11,7 @@ class ProfileDetails extends Component {
   state = {
     loading: false,
     addingShipping: false,
-    shippingAddresses: [],
-    traveling: false
+    shippingAddresses: []
   }
 
   componentDidMount() {
@@ -95,14 +96,14 @@ class ProfileDetails extends Component {
       <Row>
         <h5>Are you traveling soon?</h5>
         <div className="switch">
-          <label>No<input type="checkbox" checked={this.state.traveling} onChange={(e) => this.setState({ traveling: e.target.checked})} />
+          <label>No<input type="checkbox" checked={user.traveler} onChange={(e) => this.props.update_traveler_status({ status: e.target.checked})} />
             <span className="lever">
             </span>Yes
           </label>
         </div> 
       </Row>
       {
-        this.state.traveling ?
+        user.traveler ?
       <Collapsible>
       <CollapsibleItem header='Shipping Address'>
       <div>
@@ -179,4 +180,10 @@ class ProfileDetails extends Component {
   }
 }
 
-export default ProfileDetails;
+function mapStateToProps(state) {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps, { update_traveler_status })(ProfileDetails);
