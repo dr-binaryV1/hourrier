@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { addShipping } from '../../helpers/api';
+import { add_shipping_address } from '../../actions';
+import { connect } from 'react-redux';
 import { ProgressBar, Button } from 'react-materialize';
 
 class AddShipping extends Component {
@@ -10,6 +11,12 @@ class AddShipping extends Component {
     shippingCountry: '',
     shippingZip: '',
     loading: false
+  }
+
+  componentWillReceiveProps(nextProps) {
+    return nextProps === this.props ? '' 
+    :
+    this.finalize()
   }
 
   renderInput(type, id, val, onchange) {
@@ -33,16 +40,12 @@ class AddShipping extends Component {
       shippingZip: this.state.shippingZip
     };
 
-    addShipping(newAddress)
-      .then(res => res.json())
-      .then(res => {
-        this.setState({ loading: false });
-        this.props.done();
-      })
-      .catch(err => {
-        console.log(`Error reported: ${err}`);
-        this.setState({ loading: false });
-      });
+    this.props.add_shipping_address(newAddress);
+  }
+
+  finalize() {
+    this.setState({ loading: false });
+    this.props.done();
   }
 
   render() {
@@ -138,4 +141,10 @@ class AddShipping extends Component {
   }
 }
 
-export default AddShipping;
+function mapStateToProps(state) {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps, { add_shipping_address })(AddShipping);
