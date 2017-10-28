@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { updateUser } from '../../helpers/api';
+import { update_user } from '../../actions';
+import { connect } from 'react-redux';
 import { Button } from 'react-materialize';
 
 class EditProfile extends Component {
@@ -14,6 +15,12 @@ class EditProfile extends Component {
     mailingCountry: '',
     mailingZip: '',
     loading: false,
+  }
+
+  componentWillReceiveProps(nextProps) {
+    return nextProps === this.props ? '' 
+    :
+    this.finalize()
   }
 
   componentDidMount() {
@@ -53,6 +60,11 @@ class EditProfile extends Component {
     )
   }
 
+  finalize() {
+    this.setState({ loading: false });
+    this.props.done();
+  }
+
   updateProfile() {
     this.setState({ loading: true });
     const newUser = {
@@ -66,13 +78,8 @@ class EditProfile extends Component {
       mailingCountry: this.state.mailingCountry,
       mailingZip: this.state.mailingZip
     };
-    updateUser(newUser)
-      .then(res => res.json())
-      .then(res => {
-        this.setState({ loading: false });
-        this.props.done();
-      })
-      .catch(err => console.log(`Error reported: ${err}`));
+
+    this.props.update_user(newUser);
   }
 
   render() {
@@ -221,4 +228,10 @@ class EditProfile extends Component {
   }
 }
 
-export default EditProfile;
+function mapStateToProps(state) {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps, {update_user})(EditProfile);
