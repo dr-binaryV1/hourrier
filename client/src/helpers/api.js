@@ -164,3 +164,15 @@ export function deleteShippingAddress(addressId) {
     body: JSON.stringify(addressId)
   });
 }
+
+export function updateTravelerStatus(status) {
+  return fetch(`${url}/user/traveler`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+      'userId': localStorage.getItem('user'),
+    },
+    method: 'PUT',
+    body: JSON.stringify(status)
+  });
+}
