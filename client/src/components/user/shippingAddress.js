@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { delete_shipping_address } from '../../actions';
+import { delete_shipping_address, change_primary_shipping } from '../../actions';
 import { connect }from 'react-redux';
 import { Button } from 'react-materialize';
 
 class ShippingAddress extends Component {
   render() {
-    const { address } = this.props;
+    const { address, user } = this.props;
 
     return (
       <div className="row card container-padding">
@@ -21,7 +21,17 @@ class ShippingAddress extends Component {
               onClick={() => this.props.delete_shipping_address({addressId: address._id})}
               className="red btn-spacing"
               waves='light'>Remove</Button>
-            <Button className="green" waves='light'>Primary</Button>
+            {
+              user.primaryShippingAddress === address._id ?
+              <Button disabled={true} className="green" waves='light'>Primary</Button>
+              :
+              <Button
+                onClick={() => this.props.change_primary_shipping({primaryShippingAddress: address._id})}
+                className="green"
+                waves='light'>
+                Primary
+              </Button>
+            }
           </div>
         </div>
 
@@ -47,4 +57,9 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { delete_shipping_address })(ShippingAddress);
+export default connect(
+  mapStateToProps,
+   { 
+     delete_shipping_address,
+     change_primary_shipping
+   })(ShippingAddress);
