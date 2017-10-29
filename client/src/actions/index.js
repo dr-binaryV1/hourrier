@@ -2,7 +2,8 @@ import {
   GET_USER,
   GET_CART_IDs,
   GET_CART_ITEMS,
-  GET_SHIPPING_DETAILS
+  GET_SHIPPING_DETAILS,
+  GET_AUTH
 } from './types';
 import {
   getUser,
@@ -15,7 +16,9 @@ import {
   getItems,
   deleteItem,
   checkout,
-  getShipping
+  getShipping,
+  submitSignIn,
+  changePrimaryShipping
 } from '../helpers/api';
 
 export const receive_user = user => {
@@ -43,6 +46,13 @@ export const receive_shipping_details = shippingAddresses => {
   return {
     type: GET_SHIPPING_DETAILS,
     shippingAddresses
+  }
+}
+
+export const get_authenticated_state = (authenticated) => {
+  return {
+    type: GET_AUTH,
+    authenticated
   }
 }
 
@@ -159,4 +169,33 @@ export const get_shipping_details = (shippingIds) => dispatch => {
     dispatch(receive_shipping_details(res.shippingAddress));
   })
 .catch(err => console.log(`Error reported: ${err}`));
+}
+
+export const change_primary_shipping = (addressId) => dispatch => {
+  changePrimaryShipping(addressId)
+  .then(res => res.json())
+  .then(res => {
+    dispatch(receive_user(res));
+  })
+  .catch(err => console.log(`Error reported: ${err}`));
+}
+
+export const sign_in = (data) => dispatch => {
+  submitSignIn(data)
+  .then(res => res.json())
+  .then(res => {
+    localStorage.setItem('token', res.token);
+    localStorage.setItem('user', res.user._id);
+    dispatch(get_authenticated_state(true));
+  })
+  .catch(err => {
+    console.log(`Error reported: ${err}`);
+    dispatch(get_authenticated_state(false));
+  });
+}
+
+export const sign_out = () => dispatch => {
+  localStorage.removeItem('user');
+  localStorage.removeItem('token');
+  dispatch(get_authenticated_state(false));
 }
