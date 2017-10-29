@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import {
   get_shopping_cart,
   delete_shoppingcart_item,
@@ -61,7 +62,15 @@ class Cart extends Component {
         {
           this.props.cartItems ?
           this.props.cartItems.length < 1 ?
-          <h3>Shopping Cart Empty!</h3>
+          <div>
+            <div className="empty-cart-container" />
+            <Button
+              onClick={() => this.props.history.push('/')}
+              waves="light"
+              className="blue">
+              Continue Shopping
+            </Button>
+          </div>
           :
           <div>
             <ul>
@@ -119,10 +128,10 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps, 
   { 
     get_shopping_cart,
     delete_shoppingcart_item,
     checkout_cart
-  })(Cart);
+  })(Cart));
