@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { get_authenticated_state } from '../../actions';
 import { submitSignIn } from '../../helpers/api';
 import { Button } from 'react-materialize';
+import Error from 'react-icons/lib/md/error';
 
 class SignIn extends Component {
   state = {
@@ -8,6 +12,16 @@ class SignIn extends Component {
     password: '',
     loading: ''
   };
+
+  componentWillReceiveProps(nextProps) {
+    return nextProps === this.props ? '' 
+    :
+    this.setState({ loading: false })
+  }
+
+  componentDidUpdate() {
+    return this.props.authenticated ? this.props.history.push('/') : '';
+  }
 
   renderInput(type, id, val, onchange) {
     return(
@@ -27,17 +41,19 @@ class SignIn extends Component {
       password: this.state.password
     };
 
+    //this.props.sign_in(data);
     submitSignIn(data)
-      .then(res => res.json())
-      .then(res => {
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('user', res.user._id);
-        this.setState({ loading: false });
-      })
-      .catch(err => {
-        console.log(`Error reported: ${err}`);
-        this.setState({ loading: false });
-      });
+    .then(res => res.json())
+    .then(res => {
+      localStorage.setItem('token', res.token);
+      localStorage.setItem('user', res.user._id);
+      this.props.get_authenticated_state(true);
+    })
+    .catch(err => {
+      console.log(`Error reported: ${err}`);
+      this.setState({ loading: false, signinErr: 'Failed sign in attempt!' });
+      this.props.get_authenticated_state(false);
+    });
   }
 
   render() {
@@ -65,6 +81,12 @@ class SignIn extends Component {
             </div>
           </div>
           <div className="row">
+            {
+              this.state.signinErr ?
+              <p className="error"><Error color='#F00' /> {this.state.signinErr}</p>
+              :
+              ''
+            }
             <div className="input-field col s6 offset-s3">
               {
                 this.renderInput(
@@ -108,4 +130,10 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+function mapStateToProps(state) {
+  return {
+    authenticated: state.authenticated
+  }
+}
+
+export default withRouter(connect(mapStateToProps, { get_authenticated_state })(SignIn));
