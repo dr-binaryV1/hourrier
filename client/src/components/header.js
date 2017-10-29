@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ShoppingCart from 'react-icons/lib/md/shopping-cart';
 import Profile from 'react-icons/lib/md/account-circle';
+import SignOut from 'react-icons/lib/md/exit-to-app';
 
 class Header extends Component {
   componentDidMount() {
@@ -16,16 +17,25 @@ class Header extends Component {
       <nav className="blue">
         <div className="nav-wrapper">
           <Link to="/" className="brand-logo">Hourrier</Link>
-          <ul className="right hide-on-med-and-down">
-            <li><Link to="/profile"><Profile size={30} /></Link></li>
-            <li>
-              <Link
-                to="/shopping-cart">
-                  <ShoppingCart size={30} />
-                ({ this.props.cartIds ? this.props.cartIds.length : 0 })
-              </Link>
-            </li>
-          </ul>
+          {
+            this.props.authenticated ?
+            <ul className="right hide-on-med-and-down">
+              <li><Link to="/profile"><Profile size={30} /></Link></li>
+              <li>
+                <Link
+                  to="/shopping-cart">
+                    <ShoppingCart size={30} />
+                  ({ this.props.cartIds ? this.props.cartIds.length : 0 })
+                </Link>
+              </li>
+              <li><Link to="/sign-out"><SignOut size={30} /></Link></li>
+            </ul>
+            :
+            <ul className="right hide-on-med-and-down">
+              <li><Link to="/sign-in">Sign In</Link></li>
+              <li><Link to="/sign-up">Sign Up</Link></li>
+            </ul>
+          }
         </div>
       </nav>
     </div>
@@ -35,7 +45,8 @@ class Header extends Component {
 
 function mapStateToProps(state) {
   return {
-    cartIds: state.cartIds
+    cartIds: state.cartIds,
+    authenticated: state.authenticated
   }
 }
 
