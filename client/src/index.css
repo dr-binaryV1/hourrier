@@ -28,9 +28,30 @@ body {
 
 .home-container {
   background-image: url("./utils/images/home_background.png");
-  opacity: .2;
+  opacity: .4;
   margin-top: 50px;
   height: 50vh;
   width: 50vw;
   background-repeat: no-repeat;
+}
+
+.signout-container {
+  background-image: url("./utils/images/leaving_us.jpg");
+  margin: 0 auto;
+  height: 65vh;
+  width: 50vw;
+  background-repeat: no-repeat;
+}
+
+.empty-cart-container {
+  background-image: url("./utils/images/empty-cart.jpg");
+  margin: 0 auto;
+  height: 50vh;
+  width: 50vw;
+  background-repeat: no-repeat;
+}
+
+.error {
+  color: #F00;
+  font-weight: bold;
 }
