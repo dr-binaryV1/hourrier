@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 export default function requireAuth(Component) {
@@ -11,10 +12,11 @@ export default function requireAuth(Component) {
 
     checkAuth() {
       if ( ! this.props.isLoggedIn) {
-        const location = this.props.location;
-        const redirect = location.pathname + location.search;
+        // const location = this.props.location;
+        // const redirect = location.pathname + location.search;
 
-        this.props.router.push(`/login?redirect=${redirect}`);
+        // this.props.router.push(`/login?redirect=${redirect}`);
+        this.props.history.push('/sign-in');
       }
     }
 
@@ -23,8 +25,13 @@ export default function requireAuth(Component) {
         ? <Component { ...this.props } />
         : null;
     }
-
   }
 
-  return withRouter(AuthenticatedComponent);
+  function mapStateToProps(state) {
+    return {
+      isLoggedIn: state.authenticated
+    }
+  }
+
+  return withRouter(connect(mapStateToProps)(AuthenticatedComponent));
 }
