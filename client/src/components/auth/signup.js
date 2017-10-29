@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { submitSignUp } from '../../helpers/api';
 import { Button } from 'react-materialize';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { get_authenticated_state } from '../../actions';
 
 class SignIn extends Component {
   state = {
@@ -17,6 +20,10 @@ class SignIn extends Component {
     password: '',
     confirmPassword: '',
     userTypeId: ''
+  }
+
+  componentDidUpdate() {
+    return this.props.authenticated ? this.props.history.push('/') : '';
   }
 
   renderInput(type, id, val, onchange) {
@@ -64,10 +71,11 @@ class SignIn extends Component {
     .then(res => {
       localStorage.setItem('token', res.token);
       localStorage.setItem('user', res.user._id);
-      this.setState({ loading: false });
+      this.props.get_authenticated_state(true);
     })
     .catch(err => {
       console.log(`Error reported: ${err}`);
+      this.props.get_authenticated_state(false);
       this.setState({ loading: false });
     });
   }
@@ -244,4 +252,10 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+function mapStateToProps(state) {
+  return {
+    authenticated: state.authenticated
+  }
+}
+
+export default withRouter(connect(mapStateToProps, { get_authenticated_state })(SignIn));
