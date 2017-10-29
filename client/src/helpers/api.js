@@ -154,6 +154,17 @@ export function getShipping(addressIds) {
   });
 }
 
+export function changePrimaryShipping(addressId) {
+  return fetch(`${url}/user/primaryShippingAddress`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'user': localStorage.getItem('user')
+    },
+    method: 'PUT',
+    body: JSON.stringify(addressId)
+  });
+}
+
 export function deleteShippingAddress(addressId) {
   return fetch(`${url}/shipping`,{
     headers: {
