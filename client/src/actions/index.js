@@ -4,7 +4,8 @@ import {
   GET_CART_ITEMS,
   GET_SHIPPING_DETAILS,
   GET_AUTH,
-  GET_ITINERARY
+  GET_ITINERARY,
+  UN_AUTH
 } from './types';
 import {
   getUser,
@@ -64,6 +65,12 @@ export const get_authenticated_state = (authenticated) => {
   return {
     type: GET_AUTH,
     authenticated
+  }
+}
+
+export const un_auth = () => {
+  return {
+    type: UN_AUTH
   }
 }
 
@@ -239,5 +246,5 @@ export const sign_in = (data) => dispatch => {
 export const sign_out = () => dispatch => {
   localStorage.removeItem('user');
   localStorage.removeItem('token');
-  dispatch(get_authenticated_state(false));
+  dispatch(un_auth(false));
 }
