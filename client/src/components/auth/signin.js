@@ -111,11 +111,12 @@ class SignIn extends Component {
                 )
               }
               <label htmlFor="firstname">Password</label>
+              <p>Forgot your password?</p>
             </div>
           </div>
 
           <div className="row">
-            <div className="input-field col s6 offset-s3">              
+            <div className="col s6 offset-s3">              
               <Button
                 waves='light'
                 onClick={this.onSubmitForm.bind(this)}
