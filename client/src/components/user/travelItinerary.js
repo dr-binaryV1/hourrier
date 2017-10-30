@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'react-materialize';
 import { delete_travel_itinerary } from '../../actions';
+import TrashBin from 'react-icons/lib/md/delete';
+import Check from 'react-icons/lib/md/check';
 
 class TravelItinerary extends Component {
   render() {
@@ -34,16 +36,18 @@ class TravelItinerary extends Component {
         </div>
 
         <div className="row">
-          <div className="col s4 right-align">
-            <Button
-              onClick={() => this.props.delete_travel_itinerary({itineraryId: itinerary._id})}
-              className="red btn-spacing"
-              waves='light'>Remove</Button>
+          <div className="col s6 left-align">
             <Button
               //onClick={() => this.props.change_primary_shipping({primaryShippingAddress: address._id})}
-              className="green"
+              className="green btn-spacing"
               waves='light'>
-              Primary
+              <Check size={20} /> Primary
+            </Button>
+            <Button
+              onClick={() => this.props.delete_travel_itinerary({itineraryId: itinerary._id})}
+              className="red"
+              waves='light'>
+              <TrashBin size={20} /> Remove
             </Button>
           </div>
         </div>
