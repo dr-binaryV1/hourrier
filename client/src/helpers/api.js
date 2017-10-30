@@ -29,7 +29,7 @@ export function getSecret() {
     method: 'GET'
   })
   .then(res => res.json())
-  .then(res => '')
+  .then(res => console.log(res))
   .catch(err => console.log(`Error reported: ${err}`))
 }
 
@@ -60,6 +60,7 @@ export function getCart() {
   return fetch(`${url}/shoppingcart`, {
     headers: {
       'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
       'user': localStorage.getItem('user')
     },
     method: 'GET'
@@ -70,6 +71,7 @@ export function searchAmazon(amazonURL) {
   return fetch(`${url}/search`,{
     headers: {
       'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
       'user': localStorage.getItem('user')
     },
     method: 'POST',
@@ -81,6 +83,7 @@ export function addItemToCart(item) {
   return fetch(`${url}/shoppingcart`,{
     headers: {
       'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
       'user': localStorage.getItem('user')
     },
     method: 'POST',
@@ -92,6 +95,7 @@ export function getItems(itemIds) {
   return fetch(`${url}/shoppingcartitem`,{
     headers: {
       'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
       'user': localStorage.getItem('user')
     },
     method: 'POST',
@@ -103,6 +107,7 @@ export function deleteItem(itemId) {
   return fetch(`${url}/shoppingcartitem`,{
     headers: {
       'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
       'user': localStorage.getItem('user')
     },
     method: 'DELETE',
@@ -114,6 +119,7 @@ export function checkItem(itemName) {
   return fetch(`${url}/shoppingcart/check`,{
     headers: {
       'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
       'user': localStorage.getItem('user')
     },
     method: 'POST',
@@ -125,6 +131,7 @@ export function checkout(itemIds) {
   return fetch(`${url}/checkout`,{
     headers: {
       'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
       'user': localStorage.getItem('user')
     },
     method: 'POST',
@@ -136,6 +143,7 @@ export function addShipping(address) {
   return fetch(`${url}/shipping/add`,{
     headers: {
       'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
       'user': localStorage.getItem('user')
     },
     method: 'POST',
@@ -147,6 +155,7 @@ export function getShipping(addressIds) {
   return fetch(`${url}/shipping`,{
     headers: {
       'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
       'user': localStorage.getItem('user')
     },
     method: 'POST',
@@ -158,6 +167,7 @@ export function changePrimaryShipping(addressId) {
   return fetch(`${url}/user/primaryShippingAddress`,{
     headers: {
       'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
       'user': localStorage.getItem('user')
     },
     method: 'PUT',
@@ -169,6 +179,7 @@ export function deleteShippingAddress(addressId) {
   return fetch(`${url}/shipping`,{
     headers: {
       'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
       'user': localStorage.getItem('user')
     },
     method: 'DELETE',
@@ -180,6 +191,7 @@ export function addItinerary(itinerary) {
   return fetch(`${url}/itinerary/add`,{
     headers: {
       'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
       'user': localStorage.getItem('user')
     },
     method: 'POST',
@@ -191,6 +203,7 @@ export function getItinerary(itineraryIds) {
   return fetch(`${url}/itinerary`,{
     headers: {
       'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
       'user': localStorage.getItem('user')
     },
     method: 'POST',
@@ -202,6 +215,7 @@ export function deleteTravelItinerary(itineraryId) {
   return fetch(`${url}/itinerary`,{
     headers: {
       'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
       'user': localStorage.getItem('user')
     },
     method: 'DELETE',
