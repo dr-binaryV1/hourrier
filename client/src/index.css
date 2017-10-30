@@ -44,6 +44,7 @@ body {
   margin: 0 auto;
   height: 65vh;
   width: 50vw;
+  opacity: .4;
   background-repeat: no-repeat;
 }
 
