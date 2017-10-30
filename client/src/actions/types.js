@@ -7,3 +7,4 @@ export const GET_ADDRESS = "get_address";
 export const DELETE_ADDRESS = "delete_address";
 export const DELETE_CART_ITEM = "delete_cart_item";
 export const GET_AUTH = "get_authenticated";
+export const GET_ITINERARY = "get_itinerary";
