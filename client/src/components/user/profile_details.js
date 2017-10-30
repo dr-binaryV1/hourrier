@@ -1,19 +1,27 @@
 import React, { Component } from 'react';
-import { update_traveler_status, get_shipping_details } from '../../actions';
+import {
+  update_traveler_status,
+  get_shipping_details,
+  get_itinerary_details
+} from '../../actions';
 import { connect } from 'react-redux';
 import AddShipping from './addShipping';
+import AddItinerary from './addTravelItinerary';
 import { Collapsible, CollapsibleItem, Row } from 'react-materialize';
 import ShippingAddress from './shippingAddress';
+import TravelItinerary from './travelItinerary';
 import { Button } from 'react-materialize';
 
 class ProfileDetails extends Component {
   state = {
     loading: false,
-    addingShipping: false
+    addingShipping: false,
+    addingItinerary: false,
   }
 
   componentDidMount() {
     this.getShippingDetails();
+    this.getItineraryDetails();
   }
 
   getShippingDetails() {
@@ -26,8 +34,22 @@ class ProfileDetails extends Component {
     this.setState({ addingShipping: false });
   }
 
+  getItineraryDetails() {
+    const { user } = this.props;
+    this.props.get_itinerary_details({itineraryIds: user.itineraryIds});
+  }
+
+  completeAddingItinerary() {
+    this.getItineraryDetails()
+    this.setState({ addingItinerary: false });
+  }
+
   stopAddingShipping() {
     this.setState({ addingShipping: false });
+  }
+  
+  stopAddingItinerary() {
+    this.setState({ addingItinerary: false });
   }
 
   render() {
@@ -102,83 +124,94 @@ class ProfileDetails extends Component {
       }
       {
         user.traveler ?
-      <Collapsible>
+      <Collapsible accordion={true} defaultActiveKey={0}>
       <CollapsibleItem header='Shipping Address'>
-      <div>
-        {
-          this.state.addingShipping ?
-          <AddShipping
-            done={this.completeAddingShipping.bind(this)}
-            cancel={this.stopAddingShipping.bind(this)}/>
-          :
-          user.shippingAddressIds.length < 1 ?
-          <div className="row container-padding">
-            <div className="row">
-              <div className="col s6 left-align">
-                <h5>Shipping Address</h5>
-              </div>
-              <div className="col s6 right-align search-btn">
-                <Button
-                  onClick={() => this.setState({ addingShipping: true })}
-                  waves='light'
-                  id="add-shipping-address">Add</Button>
-              </div>
+      {
+        this.state.addingShipping ?
+        <AddShipping
+          done={this.completeAddingShipping.bind(this)}
+          cancel={this.stopAddingShipping.bind(this)}
+        />
+        :
+        <div>
+          <div className="row">
+            <div className="col s6 left-align">
+              <h5>Shipping Address</h5>
             </div>
-            <div className="row">
-              <h6>No Shipping Address</h6>
+            <div className="col s6 right-align search-btn">
+              <Button
+                onClick={() => this.setState({ addingShipping: true })}
+                waves='light'
+                id="add-itinerary">
+                Add
+              </Button>
             </div>
           </div>
-          :
-          <div>
-            { 
-              this.props.shippingAddresses ?
-              this.props.shippingAddresses.map(address => {
-                return <ShippingAddress key={address._id} address={address} />
-              })
-              :
-              ''
-            }
-            <div className="">
-              {
+          <div className="row container-padding">
+          {
+            user.shippingAddressIds.length < 1 ?
+            <div className="row">
+              <h6>No Shipping Addresses</h6>
+            </div>
+            :
+            <div>
+              { 
                 this.props.shippingAddresses ?
-                this.props.shippingAddresses.length < 3 ?
-                <div className="col s12 right-align">
-                  <Button
-                    floating
-                    className='red'
-                    onClick={() => this.setState({ addingShipping: true })}
-                    waves='light'
-                    id="add-shipping-address" >+</Button>
-                </div>
-                :
-                ''
+                this.props.shippingAddresses.map(address => {
+                  return <ShippingAddress key={address._id} address={address} />
+                })
                 :
                 ''
               }
-            </div>
-          </div>  
-        }
+            </div> 
+          }
+          </div>
       </div>
+      }
       </CollapsibleItem>
       <CollapsibleItem header='Travel Itinerary'>
-      <div className="row">
-        <div className="col s6 left-align">
-          <h5>Travel Itinerary</h5>
-        </div>
-        <div className="col s6 right-align search-btn">
-          <Button waves='light' id="add-itinerary">Add</Button>
-        </div>
-      </div>
-      <div className="row container-padding">
       {
-        user.intineraryIds.length < 1 ?
-        <div className="row">
-          <h6>No Travel Itinerary</h6>
-        </div>
+        this.state.addingItinerary ?
+        <AddItinerary
+          done={this.completeAddingItinerary.bind(this)}
+          cancel={this.stopAddingItinerary.bind(this)}
+        />
         :
-        ''  
-      }
+        <div>
+          <div className="row">
+            <div className="col s6 left-align">
+              <h5>Travel Itinerary</h5>
+            </div>
+            <div className="col s6 right-align search-btn">
+              <Button
+                onClick={() => this.setState({ addingItinerary: true })}
+                waves='light'
+                id="add-itinerary">
+                Add
+              </Button>
+            </div>
+          </div>
+          <div className="row container-padding">
+          {
+            user.itineraryIds.length < 1 ?
+            <div className="row">
+              <h6>No Travel Itinerary</h6>
+            </div>
+            :
+            <div>
+              { 
+                this.props.travelItinerary ?
+                this.props.travelItinerary.map(itinerary => {
+                  return <TravelItinerary key={itinerary._id} itinerary={itinerary} />
+                })
+                :
+                ''
+              }
+            </div> 
+          }
+          </div>
       </div>
+      }
       </CollapsibleItem>
       </Collapsible>
       :
@@ -192,8 +225,15 @@ class ProfileDetails extends Component {
 function mapStateToProps(state) {
   return {
     user: state.user,
-    shippingAddresses: state.shippingAddresses
+    shippingAddresses: state.shippingAddresses,
+    travelItinerary: state.travelItinerary
   }
 }
 
-export default connect(mapStateToProps, { update_traveler_status, get_shipping_details })(ProfileDetails);
+export default connect(
+  mapStateToProps,
+  {
+    update_traveler_status,
+    get_shipping_details,
+    get_itinerary_details
+  })(ProfileDetails);
