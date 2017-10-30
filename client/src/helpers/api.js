@@ -176,6 +176,39 @@ export function deleteShippingAddress(addressId) {
   });
 }
 
+export function addItinerary(itinerary) {
+  return fetch(`${url}/itinerary/add`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'user': localStorage.getItem('user')
+    },
+    method: 'POST',
+    body: JSON.stringify(itinerary)
+  });
+}
+
+export function getItinerary(itineraryIds) {
+  return fetch(`${url}/itinerary`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'user': localStorage.getItem('user')
+    },
+    method: 'POST',
+    body: JSON.stringify(itineraryIds)
+  });
+}
+
+export function deleteTravelItinerary(itineraryId) {
+  return fetch(`${url}/itinerary`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'user': localStorage.getItem('user')
+    },
+    method: 'DELETE',
+    body: JSON.stringify(itineraryId)
+  });
+}
+
 export function updateTravelerStatus(status) {
   return fetch(`${url}/user/traveler`, {
     headers: {
