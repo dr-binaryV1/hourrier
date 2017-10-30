@@ -58,7 +58,7 @@ class AddShipping extends Component {
 
         <div className="row left-align container-padding">
           <div className="col s12">
-            <h5>Add Shipping</h5>
+            <h5>Add Shipping Address</h5>
           </div>
         </div>
 
