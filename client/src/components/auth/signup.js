@@ -97,7 +97,10 @@ class SignIn extends Component {
 
         <div id="signup-form">
           <div className="row">
-            <div className="input-field col s6">
+            <img src="images/hourrier_logo.jpg" width="100" height="100" alt="logo" />
+          </div>
+          <div className="row">
+            <div className="input-field col s3">
               {
                 this.renderInput(
                   "text",
@@ -108,10 +111,8 @@ class SignIn extends Component {
               }
               <label htmlFor="username">Username</label>
             </div>
-          </div>
 
-          <div className="row">
-            <div className="input-field col s6">
+            <div className="input-field col s3">
               {
                 this.renderInput(
                   "text",
@@ -123,7 +124,7 @@ class SignIn extends Component {
               <label htmlFor="firstname">First Name</label>
             </div>
 
-            <div className="input-field col s6">
+            <div className="input-field col s3">
               {
                 this.renderInput(
                   "text",
@@ -134,10 +135,8 @@ class SignIn extends Component {
               }
               <label htmlFor="lastname">Last Name</label>
             </div>
-          </div>
 
-          <div className="row">
-            <div className="input-field col s6">
+            <div className="input-field col s3">
               {
                 this.renderInput(
                   "email",
