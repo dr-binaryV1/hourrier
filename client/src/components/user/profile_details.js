@@ -11,6 +11,8 @@ import { Collapsible, CollapsibleItem, Row } from 'react-materialize';
 import ShippingAddress from './shippingAddress';
 import TravelItinerary from './travelItinerary';
 import { Button } from 'react-materialize';
+import EditIcon from 'react-icons/lib/md/create';
+import AddIcon from 'react-icons/lib/md/add';
 
 class ProfileDetails extends Component {
   state = {
@@ -61,12 +63,6 @@ class ProfileDetails extends Component {
         <div className="col s6 left-align">
           <h5>Welcome back, <b>{user.username}</b></h5>
         </div>
-        <div className="col s6 right-align search-btn">
-          <Button
-            id="edit-profile"
-            onClick={() => this.props.edit()}
-            waves='light'>Edit Profile</Button>
-        </div>
       </div>
       <br />
       <div className="card container-padding">
@@ -102,8 +98,18 @@ class ProfileDetails extends Component {
             <h6>Mailing Country: {user.mailingCountry}</h6>
           </div>
 
-          <div className="col s4">
+          <div className="col s3">
             <h6>Mailing Zip: {user.mailingZip}</h6>
+          </div>
+
+          <div className="col s1 edit-profile-btn">
+            <Button
+              title="Edit Profile"
+              floating
+              className="blue"
+              id="edit-profile"
+              onClick={() => this.props.edit()}
+              waves='light'><EditIcon size={25} /></Button>
           </div>
         </div>
       </div>
@@ -138,12 +144,15 @@ class ProfileDetails extends Component {
             <div className="col s6 left-align">
               <h5>Shipping Address</h5>
             </div>
-            <div className="col s6 right-align search-btn">
+            <div className="col s6 right-align">
               <Button
+                title="Add Shipping Address"
+                floating
+                className="green"
                 onClick={() => this.setState({ addingShipping: true })}
                 waves='light'
                 id="add-itinerary">
-                Add
+                <AddIcon size={25} />
               </Button>
             </div>
           </div>
@@ -182,12 +191,15 @@ class ProfileDetails extends Component {
             <div className="col s6 left-align">
               <h5>Travel Itinerary</h5>
             </div>
-            <div className="col s6 right-align search-btn">
+            <div className="col s6 right-align">
               <Button
+                title="Add Travel Itinerary"
+                floating
+                className="green"
                 onClick={() => this.setState({ addingItinerary: true })}
                 waves='light'
                 id="add-itinerary">
-                Add
+                <AddIcon size={25} />
               </Button>
             </div>
           </div>
