@@ -8,6 +8,10 @@ body {
   margin-top: 15px;
 }
 
+.edit-profile-btn{
+  margin-bottom: 10px;
+}
+
 .btn-spacing{
   margin-right: 5px !important;
 }
@@ -30,8 +34,8 @@ body {
   background-image: url("./utils/images/home_background.png");
   opacity: .4;
   margin-top: 50px;
-  height: 50vh;
-  width: 50vw;
+  height: 60vh;
+  width: 60vw;
   background-repeat: no-repeat;
 }
 
