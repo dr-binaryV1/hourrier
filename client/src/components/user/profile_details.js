@@ -36,6 +36,10 @@ class ProfileDetails extends Component {
     this.setState({ addingShipping: false });
   }
 
+  stopAddingShipping() {
+    this.setState({ addingShipping: false });
+  }
+
   getItineraryDetails() {
     const { user } = this.props;
     this.props.get_itinerary_details({itineraryIds: user.itineraryIds});
@@ -44,10 +48,6 @@ class ProfileDetails extends Component {
   completeAddingItinerary() {
     this.getItineraryDetails()
     this.setState({ addingItinerary: false });
-  }
-
-  stopAddingShipping() {
-    this.setState({ addingShipping: false });
   }
   
   stopAddingItinerary() {
@@ -118,8 +118,13 @@ class ProfileDetails extends Component {
         user ?
       <Row>
         <h5>Are you traveling soon?</h5>
-        <div className="switch">
-          <label>No<input type="checkbox" checked={user.traveler} onChange={(e) => this.props.update_traveler_status({ status: e.target.checked})} />
+        <div className="switch" title="Traveler Mode">
+          <label>No
+            <input 
+              type="checkbox"
+              checked={user.traveler}
+              onChange={(e) => this.props.update_traveler_status({ status: e.target.checked})}
+            />
             <span className="lever">
             </span>Yes
           </label>
