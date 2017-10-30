@@ -8,7 +8,7 @@ import SignOut from 'react-icons/lib/md/exit-to-app';
 
 class Header extends Component {
   componentDidMount() {
-    this.props.get_shopping_cart();
+    return this.props.authenticated ? this.props.get_shopping_cart() : ''
   }
 
   render() {
