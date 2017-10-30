@@ -3,13 +3,15 @@ import {
   GET_CART_IDs,
   GET_CART_ITEMS,
   GET_SHIPPING_DETAILS,
-  GET_AUTH
+  GET_AUTH,
+  GET_ITINERARY
 } from './types';
 import {
   getUser,
   updateUser,
   addShipping,
   deleteShippingAddress,
+  deleteTravelItinerary,
   updateTravelerStatus,
   addItemToCart,
   getCart,
@@ -18,7 +20,9 @@ import {
   checkout,
   getShipping,
   submitSignIn,
-  changePrimaryShipping
+  changePrimaryShipping,
+  addItinerary,
+  getItinerary
 } from '../helpers/api';
 
 export const receive_user = user => {
@@ -46,6 +50,13 @@ export const receive_shipping_details = shippingAddresses => {
   return {
     type: GET_SHIPPING_DETAILS,
     shippingAddresses
+  }
+}
+
+export const receive_travel_itinerary = travelItinerary => {
+  return {
+    type: GET_ITINERARY,
+    travelItinerary
   }
 }
 
@@ -92,6 +103,37 @@ export const delete_shipping_address = shippingAddressId => dispatch => {
   .then(res => {
     dispatch(receive_user(res.user));
     dispatch(receive_shipping_details(res.addresses));
+  })
+  .catch(err => console.log(`Error reported: ${err}`));
+}
+
+export const add_travel_itinerary = itinerary => dispatch => {
+  addItinerary(itinerary)
+  .then(res => res.json())
+  .then(res => {
+    dispatch(receive_user(res.user));
+    dispatch(receive_travel_itinerary(res.itineraries));
+  })
+  .catch(err => {
+    console.log(`Error reported: ${err}`);
+  });
+}
+
+export const get_itinerary_details = itineraryIds => dispatch => {
+  getItinerary(itineraryIds)
+  .then(res => res.json())
+  .then(res => {
+    dispatch(receive_travel_itinerary(res.travelItinerary));
+  })
+  .catch(err => console.log(`Error reported: ${err}`));
+}
+
+export const delete_travel_itinerary = itineraryId => dispatch => {
+  deleteTravelItinerary(itineraryId)
+  .then(res => res.json())
+  .then(res => {
+    dispatch(receive_user(res.user));
+    dispatch(receive_travel_itinerary(res.itineraries));
   })
   .catch(err => console.log(`Error reported: ${err}`));
 }
