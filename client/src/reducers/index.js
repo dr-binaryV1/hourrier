@@ -4,6 +4,7 @@ import {
   GET_CART_ITEMS,
   GET_SHIPPING_DETAILS,
   GET_AUTH,
+  UN_AUTH,
   GET_ITINERARY
 } from '../actions/types';
 
@@ -35,6 +36,16 @@ function reducer(state = {}, action) {
 
     case GET_SHIPPING_DETAILS:
       return { ...state, shippingAddresses };
+
+    case UN_AUTH:
+      return {
+        user: null,
+        authenticated: false,
+        cartIds: [],
+        cartItems: [],
+        travelItinerary: [],
+        shippingAddresses: []
+      };
 
     default:
       return state;
