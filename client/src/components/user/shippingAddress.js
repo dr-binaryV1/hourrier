@@ -16,6 +16,21 @@ class ShippingAddress extends Component {
           <div className="col s4 left-align">
             <p>Shipping Address 2: {address.shippingAddress2}</p>
           </div>
+        </div>
+
+        <div className="row">
+          <div className="col s4 left-align">
+            <p>Shipping City: {address.shippingCity}</p>
+          </div>
+          <div className="col s4 left-align">
+            <p>Shipping Country: {address.shippingCountry}</p>
+          </div>
+          <div className="col s4 left-align">
+            <p>Shipping Zip: {address.shippingZip}</p>
+          </div>
+        </div>
+
+        <div className="row">
           <div className="col s4 right-align">
             <Button
               onClick={() => this.props.delete_shipping_address({addressId: address._id})}
@@ -32,18 +47,6 @@ class ShippingAddress extends Component {
                 Primary
               </Button>
             }
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col s4 left-align">
-            <p>Shipping City: {address.shippingCity}</p>
-          </div>
-          <div className="col s4 left-align">
-            <p>Shipping Country: {address.shippingCountry}</p>
-          </div>
-          <div className="col s4 left-align">
-            <p>Shipping Zip: {address.shippingZip}</p>
           </div>
         </div>
       </div>
