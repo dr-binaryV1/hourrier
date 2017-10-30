@@ -20,15 +20,16 @@ class Header extends Component {
           {
             this.props.authenticated ?
             <ul className="right hide-on-med-and-down">
-              <li><Link to="/profile"><Profile size={30} /></Link></li>
+              <li><Link title="Profile" to="/profile"><Profile size={30} /></Link></li>
               <li>
                 <Link
+                  title="Shopping Cart"
                   to="/shopping-cart">
                     <ShoppingCart size={30} />
                   ({ this.props.cartIds ? this.props.cartIds.length : 0 })
                 </Link>
               </li>
-              <li><Link to="/sign-out"><SignOut size={30} /></Link></li>
+              <li><Link title="Sign Out" to="/sign-out"><SignOut size={30} /></Link></li>
             </ul>
             :
             <ul className="right hide-on-med-and-down">
