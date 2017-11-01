@@ -1,4 +1,4 @@
-const url = "http://localhost:3090";
+const url = "https://hourrier-dev.herokuapp.com";
 
 export function submitSignUp(data) {
   return fetch(`${url}/signup`,{
