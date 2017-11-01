@@ -109,7 +109,7 @@ class Cart extends Component {
               <Button
                 onClick={this.onCheckoutItems.bind(this)}
                 waves='light'
-                id="checkout-btn">Checkout
+                id="checkout-btn">Find me a Traveler
               </Button>
             </div>
           </div>
