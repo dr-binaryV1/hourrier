@@ -9,3 +9,4 @@ export const DELETE_CART_ITEM = "delete_cart_item";
 export const GET_AUTH = "get_authenticated";
 export const GET_ITINERARY = "get_itinerary";
 export const UN_AUTH = "un_auth";
+export const GET_ORDERS = "get_orders";
