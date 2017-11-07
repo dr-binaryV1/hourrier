@@ -5,7 +5,8 @@ import {
   GET_SHIPPING_DETAILS,
   GET_AUTH,
   GET_ITINERARY,
-  UN_AUTH
+  UN_AUTH,
+  GET_ORDERS
 } from './types';
 import {
   getUser,
@@ -23,7 +24,8 @@ import {
   submitSignIn,
   changePrimaryShipping,
   addItinerary,
-  getItinerary
+  getItinerary,
+  getOrders
 } from '../helpers/api';
 
 export const receive_user = user => {
@@ -65,6 +67,13 @@ export const get_authenticated_state = (authenticated) => {
   return {
     type: GET_AUTH,
     authenticated
+  }
+}
+
+export const receive_orders = orders => {
+  return {
+    type: GET_ORDERS,
+    orders
   }
 }
 
@@ -198,6 +207,15 @@ export const checkout_cart = (itemIds) => dispatch => {
   .catch(err => {
     console.log(`Error reported: ${err}`);
   });
+}
+
+export const get_orders = () => dispatch => {
+  getOrders()
+  .then(res => res.json())
+  .then(res => {
+    dispatch(receive_orders(res.orders));
+  })
+  .catch(err => console.log(`Error reported: ${err}`))
 }
 
 export const add_to_cart = (item) => dispatch => {
