@@ -12,6 +12,7 @@ import Header from './components/header';
 import Profile from './components/user/profile';
 import Home from './components/home';
 import RequireAuth from './hoc/requireAuth';
+import AdminDashboard from './components/admin/admin-dashboard';
 
 class App extends Component {
   componentDidMount() {
@@ -33,6 +34,7 @@ class App extends Component {
           <Route exact path="/sign-up" component={SignUp} />
           <Route exact path="/sign-out" component={SignOut} />
           <Route exact path="/profile" component={RequireAuth(Profile)} />
+          <Route exact path="/hourrier-admin" component={RequireAuth(AdminDashboard)} />
         </div>
         :
         ''
@@ -49,4 +51,3 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(connect(mapStateToProps, { get_authenticated_state })(App));
-//export default App;
