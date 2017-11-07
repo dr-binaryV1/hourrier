@@ -5,7 +5,8 @@ import {
   GET_SHIPPING_DETAILS,
   GET_AUTH,
   UN_AUTH,
-  GET_ITINERARY
+  GET_ITINERARY,
+  GET_ORDERS
 } from '../actions/types';
 
 function reducer(state = {}, action) {
@@ -15,7 +16,8 @@ function reducer(state = {}, action) {
     cartItems,
     shippingAddresses,
     authenticated,
-    travelItinerary
+    travelItinerary,
+    orders
   } = action;
 
   switch(action.type) {
@@ -36,6 +38,9 @@ function reducer(state = {}, action) {
 
     case GET_SHIPPING_DETAILS:
       return { ...state, shippingAddresses };
+
+    case GET_ORDERS:
+      return { ...state, orders };
 
     case UN_AUTH:
       return {
