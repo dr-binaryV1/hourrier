@@ -13,6 +13,7 @@ import Profile from './components/user/profile';
 import Home from './components/home';
 import RequireAuth from './hoc/requireAuth';
 import AdminDashboard from './components/admin/admin-dashboard';
+import OrderDetail from './components/admin/orderItemDetail';
 
 class App extends Component {
   componentDidMount() {
@@ -35,6 +36,7 @@ class App extends Component {
           <Route exact path="/sign-out" component={SignOut} />
           <Route exact path="/profile" component={RequireAuth(Profile)} />
           <Route exact path="/hourrier-admin" component={RequireAuth(AdminDashboard)} />
+          <Route path="/hourrier-admin/orders/:id" component={RequireAuth(OrderDetail)} />
         </div>
         :
         ''
