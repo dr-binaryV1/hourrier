@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import ShoppingCart from 'react-icons/lib/md/shopping-cart';
 import Profile from 'react-icons/lib/md/account-circle';
 import SignOut from 'react-icons/lib/md/exit-to-app';
+import Notifications from 'react-icons/lib/md/notifications';
+import ActiveNotifications from 'react-icons/lib/md/notifications-active';
 
 class Header extends Component {
   componentDidMount() {
@@ -20,6 +22,7 @@ class Header extends Component {
           {
             this.props.authenticated ?
             <ul className="right hide-on-med-and-down">
+              <li><Link title="Notifications" to="/notifications"><Notifications size={30} /></Link></li>
               <li><Link title="Profile" to="/profile"><Profile size={30} /></Link></li>
               <li>
                 <Link
