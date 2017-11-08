@@ -257,13 +257,13 @@ export function getSingleOrder(orderId) {
   });
 }
 
-export function findTraveler(orderId) {
+export function findTraveler(orderId, items) {
   return fetch(`${url}/orders/find/traveler`, {
     headers: {
       'Content-Type': 'application/json',
       'auth': localStorage.getItem('token'),
     },
     method: 'POST',
-    body: JSON.stringify({orderId})
+    body: JSON.stringify({orderId, items})
   });
 }
