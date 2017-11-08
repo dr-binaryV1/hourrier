@@ -20,7 +20,7 @@ const OrderItem = (props) => {
           <Button
             onClick={() => props.history.push(`/hourrier-admin/orders/${order._id}`)}
             waves="light">
-          View Details</Button>
+          View</Button>
         </Col>
       </Row>
     </Card>
