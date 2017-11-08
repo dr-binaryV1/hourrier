@@ -24,9 +24,9 @@ class OrderDetail extends Component {
 
   findTraveler() {
     const orderId = this.props.match.params.id;
-    findTraveler(orderId)
+    findTraveler(orderId, this.state.items)
     .then(res => res.json())
-    .then(res => this.setState({ status: res.status }))
+    .then(res => this.setState({ status: res.status, items: this.state.items }))
     .catch(err => console.log(`Error reported: ${err}`))
   }
 
