@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Row, Col, Button } from 'react-materialize';
+import { withRouter } from 'react-router-dom';
 
 const OrderItem = (props) => {
   const { order } = props;
@@ -17,6 +18,7 @@ const OrderItem = (props) => {
 
         <Col s={3} className="right-align">
           <Button
+            onClick={() => props.history.push(`/hourrier-admin/orders/${order._id}`)}
             waves="light">
           View Details</Button>
         </Col>
@@ -25,4 +27,4 @@ const OrderItem = (props) => {
   )
 }
 
-export default OrderItem;
+export default withRouter(OrderItem);
