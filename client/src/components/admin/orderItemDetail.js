@@ -50,7 +50,7 @@ class OrderDetail extends Component {
                 </Col>
 
                 <Col s={6} className="left-align"> 
-                  <p><b>email: </b>{buyer.email}</p>
+                  <p><b>Email: </b>{buyer.email}</p>
                 </Col>
               </Row>
 
