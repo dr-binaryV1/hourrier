@@ -28,9 +28,9 @@ class Dashboard extends Component {
                 ''
               }
             </Tab>
-            <Tab title="Closed Orders">Test 2</Tab>
-            <Tab title="Open Itinerary requests">Test 3</Tab>
-            <Tab title="Closed Itinerary request">Test 4</Tab>
+            <Tab title="Closed Orders"></Tab>
+            <Tab title="Open Itinerary requests"></Tab>
+            <Tab title="Closed Itinerary request"></Tab>
           </Tabs>
         </Row>
       </Container>
