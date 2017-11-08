@@ -245,3 +245,25 @@ export function updateTravelerStatus(status) {
     body: JSON.stringify(status)
   });
 }
+
+export function getSingleOrder(orderId) {
+  return fetch(`${url}/orders/one`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+    },
+    method: 'POST',
+    body: JSON.stringify({orderId})
+  });
+}
+
+export function findTraveler(orderId) {
+  return fetch(`${url}/orders/find/traveler`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+    },
+    method: 'POST',
+    body: JSON.stringify({orderId})
+  });
+}
