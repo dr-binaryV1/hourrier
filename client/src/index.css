@@ -30,6 +30,10 @@ body {
   margin: 0 auto !important;
 }
 
+.important-msg {
+  color: red
+}
+
 .home-container {
   background-image: url("./utils/images/home_background.png");
   opacity: .4;
