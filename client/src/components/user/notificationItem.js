@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Card, Row, Col, Button } from 'react-materialize';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 class NotificationItem extends Component {
   state = {
@@ -45,7 +45,15 @@ class NotificationItem extends Component {
               <p>Items in this package:</p>
             {
               notification.items.map(item => {
-                return <Card key={notification._id}>{item.name}</Card>;
+                return <Card key={notification._id}>
+                  <Row>
+                    <Col s={1} className="left-align">
+                      <img src={item.image} alt="product logo" width="50" />
+                    </Col>
+                    <Col s={8}>{item.name}</Col>
+                    <Col s={3} className="right-align"><Link to={item.url} target="_blank">View Product</Link></Col>
+                  </Row>
+                </Card>;
               })
             }
             </div>
