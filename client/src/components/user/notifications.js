@@ -36,13 +36,19 @@ class Notification extends Component {
 
     return (
       <Container>
-        <Row className="right-align">
-          <Button
-            className="search-btn"
-            waves="light">
-            Dismiss All
-          </Button>
-        </Row>
+        {
+          notifications ?
+          notifications.length > 0 ?
+          <Row className="right-align">
+            <Button
+              className="search-btn"
+              waves="light">
+              Dismiss All
+            </Button>
+          </Row>
+          : ''
+          : ''
+        }
         {
           user ?
           user.notificationIds.length < 1 ?
