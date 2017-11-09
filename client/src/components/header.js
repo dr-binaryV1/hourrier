@@ -14,6 +14,7 @@ class Header extends Component {
   }
 
   render() {
+    const { user } = this.props;
     return (
       <div className="navbar-fixed">
       <nav className="blue">
@@ -22,7 +23,21 @@ class Header extends Component {
           {
             this.props.authenticated ?
             <ul className="right hide-on-med-and-down">
-              <li><Link title="Notifications" to="/notifications"><Notifications size={30} /></Link></li>
+              <li>
+                <Link
+                  title="Notifications"
+                  to="/notifications">
+                    { 
+                      user ?
+                      user.notificationIds.length > 0 ?
+                      <ActiveNotifications size={30} color="#F00" />
+                      :
+                      <Notifications size={30} />
+                      :
+                      ''
+                    }
+                    ({ user ? user.notificationIds.length : 0 })
+                </Link></li>
               <li><Link title="Profile" to="/profile"><Profile size={30} /></Link></li>
               <li>
                 <Link
@@ -50,7 +65,8 @@ class Header extends Component {
 function mapStateToProps(state) {
   return {
     cartIds: state.cartIds,
-    authenticated: state.authenticated
+    authenticated: state.authenticated,
+    user: state.user
   }
 }
 
