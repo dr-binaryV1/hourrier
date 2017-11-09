@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Button } from 'react-materialize';
 import { delete_travel_itinerary } from '../../actions';
 import TrashBin from 'react-icons/lib/md/delete';
-import Check from 'react-icons/lib/md/check';
 
 class TravelItinerary extends Component {
   render() {
@@ -37,12 +36,6 @@ class TravelItinerary extends Component {
 
         <div className="row">
           <div className="col s6 left-align">
-            <Button
-              //onClick={() => this.props.change_primary_shipping({primaryShippingAddress: address._id})}
-              className="green btn-spacing"
-              waves='light'>
-              <Check size={20} /> Primary
-            </Button>
             <Button
               onClick={() => this.props.delete_travel_itinerary({itineraryId: itinerary._id})}
               className="red"
