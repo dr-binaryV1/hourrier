@@ -4,7 +4,8 @@ import { withRouter } from 'react-router-dom';
 import {
   get_shopping_cart,
   delete_shoppingcart_item,
-  checkout_cart
+  checkout_cart,
+  get_user
 } from '../../actions';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-materialize';
@@ -16,6 +17,7 @@ class Cart extends Component {
 
   componentDidMount() {
     this.props.get_shopping_cart();
+    this.props.get_user();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -124,7 +126,8 @@ class Cart extends Component {
 function mapStateToProps(state) {
   return {
     cartItems: state.cartItems,
-    cartItemIds: state.cartIds
+    cartItemIds: state.cartIds,
+    user: state.user
   }
 }
 
@@ -133,5 +136,6 @@ export default withRouter(connect(
   { 
     get_shopping_cart,
     delete_shoppingcart_item,
-    checkout_cart
+    checkout_cart,
+    get_user
   })(Cart));
