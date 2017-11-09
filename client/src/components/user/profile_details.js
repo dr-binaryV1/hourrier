@@ -197,15 +197,20 @@ class ProfileDetails extends Component {
               <h5>Travel Itinerary</h5>
             </div>
             <div className="col s6 right-align">
-              <Button
-                title="Add Travel Itinerary"
-                floating
-                className="green"
-                onClick={() => this.setState({ addingItinerary: true })}
-                waves='light'
-                id="add-itinerary">
-                <AddIcon size={25} />
-              </Button>
+              {
+                user.itineraryIds.length < 1 ?
+                <Button
+                  title="Add Travel Itinerary"
+                  floating
+                  className="green"
+                  onClick={() => this.setState({ addingItinerary: true })}
+                  waves='light'
+                  id="add-itinerary">
+                  <AddIcon size={25} />
+                </Button>
+                :
+                ''
+              }
             </div>
           </div>
           <div className="row container-padding">
