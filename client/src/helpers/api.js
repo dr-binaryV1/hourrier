@@ -267,3 +267,14 @@ export function findTraveler(orderId, items) {
     body: JSON.stringify({orderId, items})
   });
 }
+
+export function getNotifications(notificationsId) {
+  return fetch(`${url}/user/notifications`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+    },
+    method: 'POST',
+    body: JSON.stringify({notificationsId})
+  });
+}
