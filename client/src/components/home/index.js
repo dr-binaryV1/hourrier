@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { add_to_cart } from '../../actions';
+import { get_user } from '../../actions';
 import {
   searchAmazon,
   checkItem
@@ -17,6 +18,7 @@ class Home extends Component {
 
   componentDidMount() {
     document.getElementById('search-btn').setAttribute('disabled', 'true');
+    this.props.get_user();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -42,6 +44,8 @@ class Home extends Component {
       searchBtn.innerText = "Search";
 
       searchInput.removeAttribute('readonly');
+      res.price ? '' : res.price = 'N/A';
+      res.image ? '' : res.image = 'images/No_image_available.svg';
       this.setState({ loading: false, product: res, itemAdded: false });
 
       checkItem({ itemName: res.title })
@@ -178,4 +182,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { add_to_cart })(Home);
+export default connect(mapStateToProps, { add_to_cart, get_user })(Home);
