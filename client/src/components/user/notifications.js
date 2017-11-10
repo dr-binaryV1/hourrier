@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Button } from 'react-materialize';
 import { connect } from 'react-redux';
-import { get_user } from '../../actions';
+import { get_user, delete_all_notif } from '../../actions';
 
 import { getNotifications } from '../../helpers/api';
 import NotificationItem from './notificationItem';
@@ -13,6 +13,15 @@ class Notification extends Component {
 
   componentDidMount() {
      this.props.get_user();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { user } = nextProps;
+    return user ?
+    nextProps === this.props ? '' 
+    :
+    this.getNotifs(user.notificationIds)
+    : ''
   }
 
   getNotifs(notificationIds) {
@@ -41,6 +50,7 @@ class Notification extends Component {
           notifications.length > 0 ?
           <Row className="right-align">
             <Button
+              onClick={() => this.props.delete_all_notif()}
               className="search-btn"
               waves="light">
               Dismiss All
@@ -79,4 +89,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { get_user })(Notification);
+export default connect(mapStateToProps, { get_user, delete_all_notif })(Notification);
