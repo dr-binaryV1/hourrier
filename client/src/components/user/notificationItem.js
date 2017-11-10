@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Card, Row, Col, Button } from 'react-materialize';
 import { withRouter, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { delete_one_notif } from '../../actions';
 
 class NotificationItem extends Component {
   state = {
@@ -31,6 +34,7 @@ class NotificationItem extends Component {
             </Button>
 
             <Button
+              onClick={() => this.props.delete_one_notif(notification._id)}
               className="red"
               waves="light">
               Dismiss
@@ -65,4 +69,4 @@ class NotificationItem extends Component {
   }
 }
 
-export default withRouter(NotificationItem);
+export default withRouter(connect(null, { delete_one_notif })(NotificationItem));
