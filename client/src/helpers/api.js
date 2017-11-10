@@ -278,3 +278,26 @@ export function getNotifications(notificationsId) {
     body: JSON.stringify({notificationsId})
   });
 }
+
+export function deleteOneNotification(notificationId) {
+  return fetch(`${url}/notifications`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+      'userId': localStorage.getItem('user')
+    },
+    method: 'DELETE',
+    body: JSON.stringify({notificationId})
+  });
+}
+
+export function deleteAllNotifications() {
+  return fetch(`${url}/notifications/all`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+      'userId': localStorage.getItem('user')
+    },
+    method: 'DELETE'
+  });
+}
