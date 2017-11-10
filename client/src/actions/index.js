@@ -25,7 +25,9 @@ import {
   changePrimaryShipping,
   addItinerary,
   getItinerary,
-  getOrders
+  getOrders,
+  deleteOneNotification,
+  deleteAllNotifications
 } from '../helpers/api';
 
 export const receive_user = user => {
@@ -245,6 +247,24 @@ export const change_primary_shipping = (addressId) => dispatch => {
     dispatch(receive_user(res));
   })
   .catch(err => console.log(`Error reported: ${err}`));
+}
+
+export const delete_one_notif = (notificationId) => dispatch => {
+  deleteOneNotification(notificationId)
+  .then(res => res.json())
+  .then(res => {
+    dispatch(receive_user(res.user));
+  })
+  .catch(err => console.log(`Error reported: ${err}`))
+}
+
+export const delete_all_notif = () => dispatch => {
+  deleteAllNotifications()
+  .then(res => res.json())
+  .then(res => {
+    dispatch(receive_user(res.user));
+  })
+  .catch(err => console.log(`Error reported: ${err}`))
 }
 
 export const sign_in = (data) => dispatch => {
