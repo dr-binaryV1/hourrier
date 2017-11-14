@@ -11,6 +11,7 @@ class AddItinerary extends Component {
     arrivalCity: '',
     arrivalDate: '',
     arrivalTime: '',
+    flightNo: '',
     loading: false
   };
 
@@ -28,7 +29,8 @@ class AddItinerary extends Component {
       departureTime: this.state.departureTime,
       arrivalCity: this.state.arrivalCity,
       arrivalDate: this.state.arrivalDate,
-      arrivalTime: this.state.arrivalTime
+      arrivalTime: this.state.arrivalTime,
+      flightNo: this.state.flightNo
     };
     this.props.add_travel_itinerary(newItinerary);
   }
@@ -52,6 +54,17 @@ class AddItinerary extends Component {
         </div>
 
         <div className="row container-padding">
+        <div className="row">
+            <div className="col s4">
+              <Input
+                label="Flight Number"
+                id="flightNumber"
+                value={this.state.flightNo}
+                onChange={(e) => this.setState({ flightNo: e.target.value })}
+                validate={true} /> 
+            </div>
+          </div>
+          
           <div className="row">
             <div className="col s4">
               <Input
