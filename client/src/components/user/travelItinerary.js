@@ -12,6 +12,13 @@ class TravelItinerary extends Component {
       <div className="row card container-padding">
         <div className="row">
           <div className="col s4 left-align">
+            <p>Flight Number: {itinerary.flightNo}</p>
+          </div>
+        </div>
+
+
+        <div className="row">
+          <div className="col s4 left-align">
             <p>Departure City: {itinerary.departureCity}</p>
           </div>
           <div className="col s4 left-align">
