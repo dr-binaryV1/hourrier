@@ -19,22 +19,76 @@ class SignIn extends Component {
     country: '',
     password: '',
     confirmPassword: '',
-    userTypeId: ''
+    firstnameError: '',
+    lastnameError: '',
+    usernameError: '',
+    emailError: '',
+    address1Error: '',
+    address2Error: '',
+    cityError: '',
+    zipError: '',
+    countryError: '',
+    passwordError: '',
+    confirmPasswordError: ''
   }
 
   componentDidUpdate() {
     return this.props.authenticated ? this.props.history.push('/') : '';
   }
 
-  renderInput(type, id, val, onchange) {
+  renderInput(type, id, val, onchange, errState) {
     return(
       <input
         type={type}
         id={id}
         value={val}
         onChange={onchange}
+        onBlur={() => this.checkRequiredField(val, errState)}
       />
     )
+  }
+
+  checkRequiredField(fieldVal, errState) {
+    fieldVal ? this.setState({ [errState]: '' }) : this.setState({ [errState]: 'Field is required' });
+  }
+
+  isDataValid() {
+    const {
+      firstnameError,
+      lastnameError,
+      usernameError,
+      emailError,
+      address1Error,
+      address2Error,
+      cityError,
+      zipError,
+      countryError,
+      passwordError,
+      confirmPasswordError
+    } = this.state;
+
+    return usernameError === '' || firstnameError === '' || lastnameError === '' || emailError === '' || address1Error === '' ||
+    address2Error === '' || cityError === '' || zipError === '' || countryError === '' || passwordError === '' || confirmPasswordError === '' ?
+    false : true;
+  }
+
+  checkEmailField() {
+
+  }
+
+  checkAllFields() {
+    this.setState({ loading: false });
+    this.state.username ? this.setState({ usernameError: '' }) : this.setState({ usernameError: 'Field is required' });
+    this.state.firstname ? this.setState({ firstnameError: '' }) : this.setState({ firstnameError: 'Field is required' });
+    this.state.lastname ? this.setState({ lastnameError: '' }) : this.setState({ lastnameError: 'Field is required' });
+    this.state.email ? this.setState({ emailError: '' }) : this.setState({ emailError: 'Field is required' });
+    this.state.address1 ? this.setState({ address1Error: '' }) : this.setState({ address1Error: 'Field is required' });
+    this.state.address2 ? this.setState({ address2Error: '' }) : this.setState({ address2Error: 'Field is required' });
+    this.state.city ? this.setState({ cityError: '' }) : this.setState({ cityError: 'Field is required' });
+    this.state.zip ? this.setState({ zipError: '' }) : this.setState({ zipError: 'Field is required' });
+    this.state.country ? this.setState({ countryError: '' }) : this.setState({ countryError: 'Field is required' });
+    this.state.password ? this.setState({ passwordError: '' }) : this.setState({ passwordError: 'Field is required' });
+    this.state.confirmPassword ? this.setState({ confirmPasswordError: '' }) : this.setState({ confirmPasswordError: 'Field is required' });
   }
 
   onSubmitForm() {
@@ -62,10 +116,10 @@ class SignIn extends Component {
       city,
       zip,
       country,
-      password,
-      userTypeId: "testdata"
+      password
     }
 
+    this.isDataValid() === true ?
     submitSignUp(data)
     .then(res => res.json())
     .then(res => {
@@ -77,7 +131,9 @@ class SignIn extends Component {
       console.log(`Error reported: ${err}`);
       this.props.get_authenticated_state(false);
       this.setState({ loading: false });
-    });
+    })
+    :
+    this.checkAllFields();
   }
 
   render() {
@@ -106,10 +162,12 @@ class SignIn extends Component {
                   "text",
                   "username",
                   this.state.username,
-                  (e) => this.setState({ username: e.target.value })
+                  (e) => this.setState({ username: e.target.value }),
+                  'usernameError'
                 )
               }
               <label htmlFor="username">Username</label>
+              <p className="important-msg left-align">{this.state.usernameError}</p>
             </div>
 
             <div className="input-field col s3">
@@ -118,10 +176,12 @@ class SignIn extends Component {
                   "text",
                   "firstname",
                   this.state.firstname,
-                  (e) => this.setState({ firstname: e.target.value })
+                  (e) => this.setState({ firstname: e.target.value }),
+                  'firstnameError'
                 )
               }
               <label htmlFor="firstname">First Name</label>
+              <p className="important-msg left-align">{this.state.firstnameError}</p>
             </div>
 
             <div className="input-field col s3">
@@ -130,10 +190,12 @@ class SignIn extends Component {
                   "text",
                   "lastname",
                   this.state.lastname,
-                  (e) => this.setState({ lastname: e.target.value })
+                  (e) => this.setState({ lastname: e.target.value }),
+                  'lastnameError'
                 )
               }
               <label htmlFor="lastname">Last Name</label>
+              <p className="important-msg left-align">{this.state.lastnameError}</p>
             </div>
 
             <div className="input-field col s3">
@@ -142,10 +204,12 @@ class SignIn extends Component {
                   "email",
                   "email",
                   this.state.email,
-                  (e) => this.setState({ email: e.target.value })
+                  (e) => this.setState({ email: e.target.value }),
+                  'emailError'
                 )
               }
               <label htmlFor="email">Email</label>
+              <p className="important-msg left-align">{this.state.emailError}</p>
             </div>
           </div>
 
@@ -156,10 +220,12 @@ class SignIn extends Component {
                   "text",
                   "address1",
                   this.state.address1,
-                  (e) => this.setState({ address1: e.target.value })
+                  (e) => this.setState({ address1: e.target.value }),
+                  'address1Error'
                 )
               }
               <label htmlFor="address1">Address 1</label>
+              <p className="important-msg left-align">{this.state.address1Error}</p>
             </div>
 
             <div className="input-field col s6">
@@ -168,10 +234,12 @@ class SignIn extends Component {
                   "text",
                   "address2",
                   this.state.address2,
-                  (e) => this.setState({ address2: e.target.value })
+                  (e) => this.setState({ address2: e.target.value }),
+                  'address2Error'
                 )
               }
               <label htmlFor="address2">Address 2</label>
+              <p className="important-msg left-align">{this.state.address2Error}</p>
             </div>
           </div>
 
@@ -182,10 +250,12 @@ class SignIn extends Component {
                   "text",
                   "city",
                   this.state.city,
-                  (e) => this.setState({ city: e.target.value })
+                  (e) => this.setState({ city: e.target.value }),
+                  'cityError'
                 )
               }
               <label htmlFor="city">City</label>
+              <p className="important-msg left-align">{this.state.cityError}</p>
             </div>
 
             <div className="input-field col s4">
@@ -194,10 +264,12 @@ class SignIn extends Component {
                   "number",
                   "zip",
                   this.state.zip,
-                  (e) => this.setState({ zip: e.target.value })
+                  (e) => this.setState({ zip: e.target.value }),
+                  'zipError'
                 )
               }
               <label htmlFor="zip">Zip</label>
+              <p className="important-msg left-align">{this.state.zipError}</p>
             </div>
 
             <div className="input-field col s4">
@@ -206,10 +278,12 @@ class SignIn extends Component {
                   "text",
                   "country",
                   this.state.country,
-                  (e) => this.setState({ country: e.target.value })
+                  (e) => this.setState({ country: e.target.value }),
+                  'countryError'
                 )
               }
               <label htmlFor="country">Country</label>
+              <p className="important-msg left-align">{this.state.countryError}</p>
             </div>
           </div>
 
@@ -220,10 +294,12 @@ class SignIn extends Component {
                   "password",
                   "password",
                   this.state.password,
-                  (e) => this.setState({ password: e.target.value })
+                  (e) => this.setState({ password: e.target.value }),
+                  'passwordError'
                 )
               }
               <label htmlFor="password">Password</label>
+              <p className="important-msg left-align">{this.state.passwordError}</p>
             </div>
 
             <div className="input-field col s6">
@@ -232,10 +308,12 @@ class SignIn extends Component {
                   "password",
                   "confirm-password",
                   this.state.confirmPassword,
-                  (e) => this.setState({ confirmPassword: e.target.value })
+                  (e) => this.setState({ confirmPassword: e.target.value }),
+                  'confirmPasswordError'
                 )
               }
               <label htmlFor="confirm-password">Confirm Password</label>
+              <p className="important-msg left-align">{this.state.confirmPasswordError}</p>
             </div>
           </div>
 
