@@ -3,11 +3,15 @@ import { Card, Row, Col, Button } from 'react-materialize';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { delete_one_notif } from '../../actions';
+import { delete_one_notif, accept_package } from '../../actions';
 
 class NotificationItem extends Component {
   state = {
     viewDetails: false
+  }
+
+  onAcceptClicked() {
+    this.props.accept_package(this.props.notification._id);
   }
 
   render() {
@@ -60,6 +64,16 @@ class NotificationItem extends Component {
                 </Card>;
               })
             }
+            {
+              notification.status === 'active' ?
+              <Button
+                onClick={this.onAcceptClicked.bind(this)}
+                waves='light'>
+                Accept
+              </Button>
+              :
+              <p><b>Package was already accepted.</b></p>
+            }
             </div>
           </Row>
           : ''
@@ -69,4 +83,4 @@ class NotificationItem extends Component {
   }
 }
 
-export default withRouter(connect(null, { delete_one_notif })(NotificationItem));
+export default withRouter(connect(null, { delete_one_notif, accept_package })(NotificationItem));
