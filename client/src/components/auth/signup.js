@@ -67,8 +67,8 @@ class SignIn extends Component {
       confirmPasswordError
     } = this.state;
 
-    return usernameError === '' || firstnameError === '' || lastnameError === '' || emailError === '' || address1Error === '' ||
-    address2Error === '' || cityError === '' || zipError === '' || countryError === '' || passwordError === '' || confirmPasswordError === '' ?
+    return usernameError !== '' || firstnameError !== '' || lastnameError !== '' || emailError !== '' || address1Error !== '' ||
+    address2Error !== '' || cityError !== '' || zipError !== '' || countryError !== '' || passwordError !== '' || confirmPasswordError !== '' ?
     false : true;
   }
 
@@ -119,6 +119,7 @@ class SignIn extends Component {
       password
     }
 
+    console.log(this.isDataValid());
     this.isDataValid() === true ?
     submitSignUp(data)
     .then(res => res.json())
