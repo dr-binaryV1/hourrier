@@ -12,6 +12,7 @@ import {
   getUser,
   updateUser,
   addShipping,
+  acceptPackage,
   deleteShippingAddress,
   deleteTravelItinerary,
   updateTravelerStatus,
@@ -262,6 +263,16 @@ export const delete_all_notif = () => dispatch => {
   deleteAllNotifications()
   .then(res => res.json())
   .then(res => {
+    dispatch(receive_user(res.user));
+  })
+  .catch(err => console.log(`Error reported: ${err}`))
+}
+
+export const accept_package = (notificationId) => dispatch => {
+  acceptPackage(notificationId)
+  .then(res => res.json())
+  .then(res => {
+    console.log(res);
     dispatch(receive_user(res.user));
   })
   .catch(err => console.log(`Error reported: ${err}`))
