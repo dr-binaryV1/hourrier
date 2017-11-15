@@ -113,9 +113,16 @@ class OrderDetail extends Component {
             }
 
             <Button
+              // onClick={this.findTraveler.bind(this)}
+              className="btn-spacing" 
+              waves="light">
+              Edit Items
+            </Button>
+
+            <Button
               onClick={this.findTraveler.bind(this)} 
               waves="light">
-              Dispatch to Travelers
+              Find Travelers
             </Button>
           </div>
           :
