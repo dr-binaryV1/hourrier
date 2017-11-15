@@ -301,3 +301,15 @@ export function deleteAllNotifications() {
     method: 'DELETE'
   });
 }
+
+export function acceptPackage(notificationId) {
+  return fetch(`${url}/user/notigications/accept`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+      'userId': localStorage.getItem('user')
+    },
+    method: 'POST',
+    body: JSON.stringify({notificationId})
+  });
+}
