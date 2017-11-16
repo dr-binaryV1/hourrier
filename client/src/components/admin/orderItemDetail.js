@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import { Card, Container, Row, Col, Button } from 'react-materialize';
+import { Card, Container, Row, Col, Button, ProgressBar } from 'react-materialize';
 
 import { getSingleOrder, findTraveler } from '../../helpers/api';
 
@@ -8,7 +8,14 @@ class OrderDetail extends Component {
   state = {
     buyer: null,
     items: [],
-    status: null
+    status: null,
+    loading: false
+  }
+
+  componentWillReceiveProps(nextProps) {
+    return nextProps === this.props ? '' 
+    :
+    ''
   }
 
   componentDidMount() {
@@ -31,10 +38,11 @@ class OrderDetail extends Component {
   }
 
   render() {
-    const { buyer, items } = this.state;
+    const { buyer, items, status } = this.state;
 
     return (
       <Container>
+
         {
           buyer ?
           <div>
@@ -119,11 +127,21 @@ class OrderDetail extends Component {
               Edit Items
             </Button>
 
-            <Button
-              onClick={this.findTraveler.bind(this)} 
-              waves="light">
-              Find Travelers
-            </Button>
+            {
+              status !== 'pending' ?
+                <Button
+                  onClick={this.findTraveler.bind(this)}
+                  disabled={true}
+                  waves="light">
+                  Find Travelers
+                </Button>
+              :
+                <Button
+                  onClick={this.findTraveler.bind(this)}
+                  waves="light">
+                  Find Travelers
+              </Button>
+            }
           </div>
           :
           ''
