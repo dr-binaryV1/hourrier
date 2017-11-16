@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Card, Container, Row, Col, Button, ProgressBar } from 'react-materialize';
 
 import { getSingleOrder, findTraveler } from '../../helpers/api';
+import Item from './item';
 
 class OrderDetail extends Component {
   state = {
@@ -91,41 +92,33 @@ class OrderDetail extends Component {
                   <p><b>Status: </b>{this.state.status}</p>
                 </Col>
               </Row>
+
+                <Row>
+                  <Col className="left-align">
+                    {
+                      this.state.status === 'traveler found' ?
+                      <Button
+                        waves='light'>
+                        Send Invoice
+                      </Button>
+                       :
+                       this.state.status === 'invoice sent' ?
+                       <p><b>Invoice sent to buyer</b></p>
+                       :
+                       ''
+                    }
+                  </Col>
+                </Row>
             </Card>
 
             <h5 className="left-align">Requested Items</h5>
             {
               items.map(item => {
                 return (
-                  <Card key={item._id}>
-                    <Row>
-                      <Col s={1} className="left-align">
-                        <img 
-                          src={item.image}
-                          alt="product img"
-                          width="50" />
-                      </Col>
-
-                      <Col s={9} className="left-align">
-                        <p>{item.name}</p>
-                        <p><b>Price: </b>{item.price}</p>
-                        <Link
-                          to={item.url}
-                          target="_blank"
-                        >View Product</Link>
-                      </Col>
-                    </Row>
-                  </Card>
+                  <Item item={item} key={item._id} />
                 )
               })
             }
-
-            <Button
-              // onClick={this.findTraveler.bind(this)}
-              className="btn-spacing" 
-              waves="light">
-              Edit Items
-            </Button>
 
             {
               status !== 'pending' ?
