@@ -10,7 +10,8 @@ class OrderDetail extends Component {
     buyer: null,
     items: [],
     status: null,
-    loading: false
+    loading: false,
+    totalCost: 0.00
   }
 
   componentWillReceiveProps(nextProps) {
@@ -25,7 +26,10 @@ class OrderDetail extends Component {
     getSingleOrder(orderId)
     .then(res => res.json())
     .then(res => {
-      this.setState({ buyer: res.buyer, items: res.items, status: res.status })
+      this.setState({ buyer: res.buyer, items: res.items, status: res.status });
+    })
+    .then(() => {
+      this.calculateTotalPrice()
     })
     .catch(err => console.log(`Error reported: ${err}`))
   }
@@ -38,12 +42,22 @@ class OrderDetail extends Component {
     .catch(err => console.log(`Error reported: ${err}`))
   }
 
+  calculateTotalPrice() {
+    const { items } = this.state;
+    let tempTotalPrice = 0;
+
+    items.map(item => {
+      tempTotalPrice = tempTotalPrice + parseFloat(item.price.substr(1));
+    });
+
+  this.setState({ totalCost: tempTotalPrice });
+  }
+
   render() {
     const { buyer, items, status } = this.state;
 
     return (
       <Container>
-
         {
           buyer ?
           <div>
@@ -122,7 +136,7 @@ class OrderDetail extends Component {
                 </Row>
             </Card>
 
-            <h5 className="left-align">Requested Items --- Total Cost: $0.00</h5>
+            <h5 className="left-align">Requested Items --- Total Cost: ${this.state.totalCost}</h5>
             {
               items.map(item => {
                 return (
