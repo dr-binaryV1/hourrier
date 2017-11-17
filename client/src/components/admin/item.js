@@ -26,6 +26,7 @@ class Item extends Component {
     this.props.update_order_item(newItem)
     :
     ''
+    this.props.getItems();
   }
 
   render() {

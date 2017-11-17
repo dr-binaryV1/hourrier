@@ -21,6 +21,10 @@ class OrderDetail extends Component {
   }
 
   componentDidMount() {
+    this.getItems();
+  }
+
+  getItems() {
     const orderId = this.props.match.params.id;
 
     getSingleOrder(orderId)
@@ -140,7 +144,7 @@ class OrderDetail extends Component {
             {
               items.map(item => {
                 return (
-                  <Item item={item} key={item._id} />
+                  <Item item={item} key={item._id} getItems={this.getItems.bind(this)} />
                 )
               })
             }
