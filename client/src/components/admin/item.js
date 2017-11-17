@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Card, Row, Col, Button, Input } from 'react-materialize';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { update_order_item } from '../../actions';
 
 class Item extends Component {
   state = {
@@ -9,11 +11,18 @@ class Item extends Component {
   }
 
   componentDidMount() {
-    this.setState({ price: this.props.item.price })
+    this.setState({ price: this.props.item.price });
   }
 
   onItemSave() {
     this.setState({ editing: false });
+
+    const newItem = {
+      _id: this.props.item._id,
+      price: this.state.price
+    };
+
+    this.props.update_order_item(newItem);
   }
 
   render() {
@@ -23,7 +32,7 @@ class Item extends Component {
       <Card key={item._id}>
         <Row>
           <Col s={1} className="left-align">
-            <img 
+            <img
               src={item.image}
               alt="product img"
               width="50" />
@@ -40,9 +49,9 @@ class Item extends Component {
                 onChange={(e) => this.setState({ price: e.target.value })}
                 validate={true} />
               :
-              <p><b>Price: </b>{item.price}</p>
-              :
               ''
+              :
+              <p><b>Price: </b>{this.state.price}</p>
             }
             <br />
             <Link
@@ -73,4 +82,4 @@ class Item extends Component {
   }
 }
 
-export default Item;
+export default connect(null, { update_order_item })(Item);
