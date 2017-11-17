@@ -14,7 +14,7 @@ class OrderDetail extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    return nextProps === this.props ? '' 
+    return nextProps === this.props ? ''
     :
     ''
   }
@@ -50,39 +50,39 @@ class OrderDetail extends Component {
             <h5 className="left-align">Buyer's Information</h5>
             <Card>
               <Row>
-                <Col s={3} className="left-align"> 
+                <Col s={3} className="left-align">
                   <p><b>First Name: </b>{buyer.firstname}</p>
                 </Col>
 
-                <Col s={3} className="left-align"> 
+                <Col s={3} className="left-align">
                   <p><b>Last Name: </b>{buyer.lastname}</p>
                 </Col>
 
-                <Col s={6} className="left-align"> 
+                <Col s={6} className="left-align">
                   <p><b>Email: </b>{buyer.email}</p>
                 </Col>
               </Row>
 
               <Row>
-                <Col s={6} className="left-align"> 
+                <Col s={6} className="left-align">
                   <p><b>Mailing Address 1: </b>{buyer.mailingAddress1}</p>
                 </Col>
 
-                <Col s={6} className="left-align"> 
+                <Col s={6} className="left-align">
                   <p><b>Mailing Address 2: </b>{buyer.mailingAddress2}</p>
                 </Col>
               </Row>
 
               <Row>
-                <Col s={3} className="left-align"> 
+                <Col s={3} className="left-align">
                   <p><b>Mailing City: </b>{buyer.mailingCity}</p>
                 </Col>
 
-                <Col s={3} className="left-align"> 
+                <Col s={3} className="left-align">
                   <p><b>Mailing Country: </b>{buyer.mailingCountry}</p>
                 </Col>
 
-                <Col s={3} className="left-align"> 
+                <Col s={3} className="left-align">
                   <p><b>Mailing Zip: </b>{buyer.mailingZip}</p>
                 </Col>
               </Row>
@@ -98,6 +98,7 @@ class OrderDetail extends Component {
                     {
                       this.state.status === 'traveler found' ?
                       <Button
+                        className="btn-spacing"
                         waves='light'>
                         Send Invoice
                       </Button>
@@ -107,11 +108,21 @@ class OrderDetail extends Component {
                        :
                        ''
                     }
+
+                    {
+                      this.state.status !== 'pending' && this.state.status !== 'locating travelers' ?
+                      <Button
+                        waves='light'>
+                        View Traveler
+                      </Button>
+                      :
+                      ''
+                    }
                   </Col>
                 </Row>
             </Card>
 
-            <h5 className="left-align">Requested Items</h5>
+            <h5 className="left-align">Requested Items --- Total Cost: $0.00</h5>
             {
               items.map(item => {
                 return (
