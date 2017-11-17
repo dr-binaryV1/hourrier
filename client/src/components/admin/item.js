@@ -22,7 +22,10 @@ class Item extends Component {
       price: this.state.price
     };
 
-    this.props.update_order_item(newItem);
+    this.state.price !== this.props.item.price ?
+    this.props.update_order_item(newItem)
+    :
+    ''
   }
 
   render() {
