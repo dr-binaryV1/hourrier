@@ -11,6 +11,7 @@ import {
 import {
   getUser,
   updateUser,
+  updateProduct,
   addShipping,
   acceptPackage,
   deleteShippingAddress,
@@ -214,6 +215,15 @@ export const checkout_cart = (itemIds) => dispatch => {
 
 export const get_orders = () => dispatch => {
   getOrders()
+  .then(res => res.json())
+  .then(res => {
+    dispatch(receive_orders(res.orders));
+  })
+  .catch(err => console.log(`Error reported: ${err}`))
+}
+
+export const update_order_item = newItem => dispatch => {
+  updateProduct(newItem)
   .then(res => res.json())
   .then(res => {
     dispatch(receive_orders(res.orders));

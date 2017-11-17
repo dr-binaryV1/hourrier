@@ -313,3 +313,15 @@ export function acceptPackage(notificationId) {
     body: JSON.stringify({notificationId})
   });
 }
+
+export function updateProduct(newItem) {
+  return fetch(`${url}/orders/item`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+      'userId': localStorage.getItem('user')
+    },
+    method: 'PUT',
+    body: JSON.stringify({newItem})
+  });
+}
