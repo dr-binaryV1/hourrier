@@ -303,7 +303,7 @@ export function deleteAllNotifications() {
 }
 
 export function acceptPackage(notificationId) {
-  return fetch(`${url}/user/notigications/accept`,{
+  return fetch(`${url}/user/notifications/accept`,{
     headers: {
       'Content-Type': 'application/json',
       'auth': localStorage.getItem('token'),
@@ -323,5 +323,27 @@ export function updateProduct(newItem) {
     },
     method: 'PUT',
     body: JSON.stringify({newItem})
+  });
+}
+
+export function sendInvoice(invoice) {
+  return fetch(`${url}/orders/send/invoice`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+    },
+    method: 'POST',
+    body: JSON.stringify({invoice})
+  });
+}
+
+export function getInvoice(invoiceId) {
+  return fetch(`${url}/orders/one/invoice`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+    },
+    method: 'POST',
+    body: JSON.stringify({invoiceId})
   });
 }
