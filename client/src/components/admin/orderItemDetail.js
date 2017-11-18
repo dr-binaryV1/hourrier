@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Card, Container, Row, Col, Button, ProgressBar } from 'react-materialize';
 
-import { getSingleOrder, findTraveler } from '../../helpers/api';
+import { getSingleOrder, findTraveler, sendInvoice } from '../../helpers/api';
 import Item from './item';
 
 class OrderDetail extends Component {
@@ -11,7 +11,8 @@ class OrderDetail extends Component {
     items: [],
     status: null,
     loading: false,
-    totalCost: 0.00
+    totalCost: 0.00,
+    hourrierFee: 50
   }
 
   componentWillReceiveProps(nextProps) {
@@ -47,14 +48,31 @@ class OrderDetail extends Component {
   }
 
   calculateTotalPrice() {
-    const { items } = this.state;
+    const { items, hourrierFee } = this.state;
     let tempTotalPrice = 0;
 
     items.map(item => {
       tempTotalPrice = tempTotalPrice + parseFloat(item.price.substr(1));
     });
 
-  this.setState({ totalCost: tempTotalPrice });
+  this.setState({ totalCost: tempTotalPrice + hourrierFee });
+  }
+
+  sendInvoice() {
+    const invoice = {
+      orderId: this.props.match.params.id,
+      buyerId: this.state.buyer._id,
+      items: this.state.items,
+      fee: this.state.hourrierFee,
+      total: this.state.totalCost
+    };
+
+    sendInvoice(invoice)
+    .then(res => res.json())
+    .then(res => {
+      this.setState({ status: res.status })
+    })
+    .catch(err => console.log(`Error reported: ${err}`))
   }
 
   render() {
@@ -116,13 +134,20 @@ class OrderDetail extends Component {
                     {
                       this.state.status === 'traveler found' ?
                       <Button
+                        onClick={this.sendInvoice.bind(this)}
                         className="btn-spacing"
                         waves='light'>
                         Send Invoice
                       </Button>
                        :
-                       this.state.status === 'invoice sent' ?
-                       <p><b>Invoice sent to buyer</b></p>
+                       this.state.status !== 'traveler found' ?
+                       <Button
+                        onClick={this.sendInvoice.bind(this)}
+                        className="btn-spacing"
+                        disabled={true}
+                        waves='light'>
+                        Send Invoice
+                      </Button>
                        :
                        ''
                     }
