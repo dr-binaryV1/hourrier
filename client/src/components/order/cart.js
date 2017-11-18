@@ -8,7 +8,7 @@ import {
   get_user
 } from '../../actions';
 import { Link } from 'react-router-dom';
-import { Button } from 'react-materialize';
+import { Button, Row, Col } from 'react-materialize';
 
 class Cart extends Component {
   state = {
@@ -69,7 +69,7 @@ class Cart extends Component {
             <Button
               onClick={() => this.props.history.push('/')}
               waves="light"
-              className="blue">
+              className="blue btn-spacing">
               Continue Shopping
             </Button>
           </div>
