@@ -47,13 +47,13 @@ class Invoice extends Component {
             <Card>
               <Row>
                 <Col>
-                  <p><b>Invoice#:</b> {invoice._id}</p>
+                  <p><b>Invoice ID:</b> {invoice._id}</p>
                 </Col>
               </Row>
 
               <Row className="left-align">
                 <Col s={10}>
-                  <p><b>ITEM</b></p>
+                  <p><b>ITEM(S)</b></p>
                 </Col>
 
                 <Col s={2}>
@@ -105,14 +105,17 @@ class Invoice extends Component {
             <Row>
               <Col s={12}>
                 {
-                  this.state.paymentStatus !== 'succeeded' ?
+                  this.state.paymentStatus === null || this.state.paymentStatus !== 'succeeded' ?
                   <StripeCheckout
                     token={this.onToken}
                     amount={(invoice.total * 100)} // cents
                     stripeKey="pk_test_9bS8hhbAgrv0dQSR0IBDsGKD"
                   />
                   :
-                  <p><b>Thank you for using Hourrier Services. Payment was successful</b></p>
+                  this.state.paymentStatus === 'succeeded' ?
+                  <p className="success-msg"><b>Thank you for using Hourrier Services. Payment was successful</b></p>
+                  :
+                  <p className="important-msg"><b>Unfortunately, there was an issue processing the card you provided.</b></p>
                 }
               </Col>
             </Row>
