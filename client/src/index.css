@@ -34,6 +34,10 @@ body {
   color: red
 }
 
+.success-msg {
+  color: green
+}
+
 .home-container {
   background-image: url("./utils/images/home_background.png");
   opacity: .4;
