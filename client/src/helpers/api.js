@@ -1,5 +1,5 @@
-const url = "https://hourrier-dev.herokuapp.com";
-//const url = "http://localhost:3090";
+//const url = "https://hourrier-dev.herokuapp.com";
+const url = "http://localhost:3090";
 
 export function submitSignUp(data) {
   return fetch(`${url}/signup`,{
@@ -345,5 +345,16 @@ export function getInvoice(invoiceId) {
     },
     method: 'POST',
     body: JSON.stringify({invoiceId})
+  });
+}
+
+export function saveStripeToken(token, amount) {
+  return fetch(`${url}/save-stripe-token`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+    },
+    method: 'POST',
+    body: JSON.stringify({token, amount})
   });
 }
