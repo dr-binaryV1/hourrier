@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { Container, Card, Row, Col, Button } from 'react-materialize';
 import StripeCheckout from 'react-stripe-checkout';
 
-import { getInvoice } from '../../helpers/api';
+import { getInvoice, saveStripeToken } from '../../helpers/api';
 
 class Invoice extends Component {
   state = {
     invoice: null,
-    makePayment: false
+    makePayment: false,
+    paymentStatus: null
   }
 
   componentDidMount() {
@@ -22,14 +23,14 @@ class Invoice extends Component {
   }
 
   onToken = (token) => {
-    fetch('/save-stripe-token', {
-      method: 'POST',
-      body: JSON.stringify(token),
-    }).then(response => {
-      response.json().then(data => {
-        alert(`We are in business, ${data.email}`);
-      });
-    });
+    const { invoice } = this.state;
+    const amount = invoice.total * 100;
+    saveStripeToken(token, amount)
+    .then(res => res.json())
+    .then(res => {
+        this.setState({ paymentStatus: res.status });
+    })
+    .catch(err => console.log(`Error reported: ${err}`))
   }
 
   render() {
@@ -103,10 +104,16 @@ class Invoice extends Component {
             
             <Row>
               <Col s={12}>
-                <StripeCheckout
-                  token={this.onToken}
-                  stripeKey="sk_test_ZWzRE7nXIe6cXE0n9r3S2US"
-                />
+                {
+                  this.state.paymentStatus !== 'succeeded' ?
+                  <StripeCheckout
+                    token={this.onToken}
+                    amount={(invoice.total * 100)} // cents
+                    stripeKey="pk_test_9bS8hhbAgrv0dQSR0IBDsGKD"
+                  />
+                  :
+                  <p><b>Thank you for using Hourrier Services. Payment was successful</b></p>
+                }
               </Col>
             </Row>
             
