@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { get_shopping_cart } from '../actions';
+import { get_shopping_cart, get_user } from '../actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ShoppingCart from 'react-icons/lib/md/shopping-cart';
@@ -10,7 +10,7 @@ import ActiveNotifications from 'react-icons/lib/md/notifications-active';
 
 class Header extends Component {
   componentDidMount() {
-    return this.props.authenticated ? this.props.get_shopping_cart() : ''
+    return this.props.authenticated ? this.props.get_shopping_cart() | this.props.get_user() : ''
   }
 
   render() {
@@ -70,4 +70,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { get_shopping_cart })(Header);
+export default connect(mapStateToProps, { get_shopping_cart, get_user })(Header);
