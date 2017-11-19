@@ -36,20 +36,24 @@ class SignIn extends Component {
     return this.props.authenticated ? this.props.history.push('/') : '';
   }
 
-  renderInput(type, id, val, onchange, errState) {
+  renderInput(name, type, id, val, onchange, errState) {
     return(
       <input
+        className="validate"
+        required={true}
         type={type}
         id={id}
         value={val}
         onChange={onchange}
-        onBlur={() => this.checkRequiredField(val, errState)}
+        onBlur={() => this.checkField(val, errState, type, name)}
       />
     )
   }
 
-  checkRequiredField(fieldVal, errState) {
-    fieldVal ? this.setState({ [errState]: '' }) : this.setState({ [errState]: 'Field is required' });
+  checkField(fieldVal, errState, type='text', name) {
+    fieldVal ? this.setState({ [errState]: '' }) : this.setState({ [errState]: `${name} is required` });
+    type === 'email' ? this.checkEmailField() ? this.setState({ [errState]: '' })
+    : this.setState({ [errState]: 'Invalid Email' }) : ''
   }
 
   isDataValid() {
@@ -67,28 +71,30 @@ class SignIn extends Component {
       confirmPasswordError
     } = this.state;
 
-    return usernameError !== '' || firstnameError !== '' || lastnameError !== '' || emailError !== '' || address1Error !== '' ||
-    address2Error !== '' || cityError !== '' || zipError !== '' || countryError !== '' || passwordError !== '' || confirmPasswordError !== '' ?
+    return usernameError === '' || firstnameError === '' || lastnameError === '' || emailError === '' || address1Error === '' ||
+    address2Error === '' || cityError === '' || zipError === '' || countryError === '' || passwordError === '' || confirmPasswordError === '' ?
     false : true;
   }
 
   checkEmailField() {
-
+    return this.state.email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) ?
+    true : false;
   }
 
   checkAllFields() {
     this.setState({ loading: false });
-    this.state.username ? this.setState({ usernameError: '' }) : this.setState({ usernameError: 'Field is required' });
-    this.state.firstname ? this.setState({ firstnameError: '' }) : this.setState({ firstnameError: 'Field is required' });
-    this.state.lastname ? this.setState({ lastnameError: '' }) : this.setState({ lastnameError: 'Field is required' });
-    this.state.email ? this.setState({ emailError: '' }) : this.setState({ emailError: 'Field is required' });
-    this.state.address1 ? this.setState({ address1Error: '' }) : this.setState({ address1Error: 'Field is required' });
-    this.state.address2 ? this.setState({ address2Error: '' }) : this.setState({ address2Error: 'Field is required' });
-    this.state.city ? this.setState({ cityError: '' }) : this.setState({ cityError: 'Field is required' });
-    this.state.zip ? this.setState({ zipError: '' }) : this.setState({ zipError: 'Field is required' });
-    this.state.country ? this.setState({ countryError: '' }) : this.setState({ countryError: 'Field is required' });
-    this.state.password ? this.setState({ passwordError: '' }) : this.setState({ passwordError: 'Field is required' });
-    this.state.confirmPassword ? this.setState({ confirmPasswordError: '' }) : this.setState({ confirmPasswordError: 'Field is required' });
+    this.state.username ? this.setState({ usernameError: '' }) : this.setState({ usernameError: 'Username is required' });
+    this.state.firstname ? this.setState({ firstnameError: '' }) : this.setState({ firstnameError: 'Firstname is required' });
+    this.state.lastname ? this.setState({ lastnameError: '' }) : this.setState({ lastnameError: 'Last Name is required' });
+    this.state.email ? this.checkEmailField() ?
+    this.setState({ emailError: '' }) : this.setState({ emailError: 'Invalid Email' }) :this.setState({ emailError: 'Email is required' });
+    this.state.address1 ? this.setState({ address1Error: '' }) : this.setState({ address1Error: 'Address 1 is required' });
+    this.state.address2 ? this.setState({ address2Error: '' }) : this.setState({ address2Error: 'Address 2 is required' });
+    this.state.city ? this.setState({ cityError: '' }) : this.setState({ cityError: 'City is required' });
+    this.state.zip ? this.setState({ zipError: '' }) : this.setState({ zipError: 'Zip is required' });
+    this.state.country ? this.setState({ countryError: '' }) : this.setState({ countryError: 'Country is required' });
+    this.state.password ? this.setState({ passwordError: '' }) : this.setState({ passwordError: 'Password is required' });
+    this.state.confirmPassword ? this.setState({ confirmPasswordError: '' }) : this.setState({ confirmPasswordError: 'Confirm Password is required' });
   }
 
   onSubmitForm() {
@@ -160,6 +166,7 @@ class SignIn extends Component {
             <div className="input-field col s3">
               {
                 this.renderInput(
+                  'Username',
                   "text",
                   "username",
                   this.state.username,
@@ -174,6 +181,7 @@ class SignIn extends Component {
             <div className="input-field col s3">
               {
                 this.renderInput(
+                  'First Name',
                   "text",
                   "firstname",
                   this.state.firstname,
@@ -188,6 +196,7 @@ class SignIn extends Component {
             <div className="input-field col s3">
               {
                 this.renderInput(
+                  'Last Name',
                   "text",
                   "lastname",
                   this.state.lastname,
@@ -202,6 +211,7 @@ class SignIn extends Component {
             <div className="input-field col s3">
               {
                 this.renderInput(
+                  'Email',
                   "email",
                   "email",
                   this.state.email,
@@ -218,6 +228,7 @@ class SignIn extends Component {
             <div className="input-field col s6">
               {
                 this.renderInput(
+                  'Address 1',
                   "text",
                   "address1",
                   this.state.address1,
@@ -232,6 +243,7 @@ class SignIn extends Component {
             <div className="input-field col s6">
               {
                 this.renderInput(
+                  'Address 2',
                   "text",
                   "address2",
                   this.state.address2,
@@ -248,6 +260,7 @@ class SignIn extends Component {
             <div className="input-field col s4">
               {
                 this.renderInput(
+                  'City',
                   "text",
                   "city",
                   this.state.city,
@@ -262,6 +275,7 @@ class SignIn extends Component {
             <div className="input-field col s4">
               {
                 this.renderInput(
+                  'Zip',
                   "number",
                   "zip",
                   this.state.zip,
@@ -276,6 +290,7 @@ class SignIn extends Component {
             <div className="input-field col s4">
               {
                 this.renderInput(
+                  'Country',
                   "text",
                   "country",
                   this.state.country,
@@ -292,6 +307,7 @@ class SignIn extends Component {
             <div className="input-field col s6">
               {
                 this.renderInput(
+                  'Password',
                   "password",
                   "password",
                   this.state.password,
@@ -306,6 +322,7 @@ class SignIn extends Component {
             <div className="input-field col s6">
               {
                 this.renderInput(
+                  'Confirm Password',
                   "password",
                   "confirm-password",
                   this.state.confirmPassword,
