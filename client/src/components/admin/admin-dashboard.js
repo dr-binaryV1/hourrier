@@ -16,22 +16,15 @@ class Dashboard extends Component {
     return (
       <Container>
         <Row>
-          <Tabs className="z-depth-1">
-            <Tab title="Open Orders" active>
-              <h5>Open Orders: </h5>
-              {
-                orders ?
-                orders.map(order => {
-                  return <OrderItem key={order._id} order={order} />
-                })
-                :
-                ''
-              }
-            </Tab>
-            <Tab title="Closed Orders"></Tab>
-            <Tab title="Open Itinerary requests"></Tab>
-            <Tab title="Closed Itinerary request"></Tab>
-          </Tabs>
+          <h5>Open Orders: </h5>
+          {
+            orders ?
+            orders.map(order => {
+              return <OrderItem key={order._id} order={order} />
+            })
+            :
+            ''
+          }
         </Row>
       </Container>
     )
