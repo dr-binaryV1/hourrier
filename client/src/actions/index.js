@@ -29,7 +29,8 @@ import {
   getItinerary,
   getOrders,
   deleteOneNotification,
-  deleteAllNotifications
+  deleteAllNotifications,
+  deleteOrder
 } from '../helpers/api';
 
 export const receive_user = user => {
@@ -224,6 +225,15 @@ export const get_orders = () => dispatch => {
 
 export const update_order_item = newItem => dispatch => {
   updateProduct(newItem)
+  .then(res => res.json())
+  .then(res => {
+    dispatch(receive_orders(res.orders));
+  })
+  .catch(err => console.log(`Error reported: ${err}`))
+}
+
+export const delete_order = orderId => dispatch => {
+  deleteOrder(orderId)
   .then(res => res.json())
   .then(res => {
     dispatch(receive_orders(res.orders));
