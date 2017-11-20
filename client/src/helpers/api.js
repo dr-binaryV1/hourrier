@@ -257,6 +257,17 @@ export function getSingleOrder(orderId) {
   });
 }
 
+export function deleteOrder(orderId) {
+  return fetch(`${url}/orders/delete/one`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+    },
+    method: 'DELETE',
+    body: JSON.stringify({orderId})
+  });
+}
+
 export function findTraveler(orderId, items) {
   return fetch(`${url}/orders/find/traveler`, {
     headers: {
