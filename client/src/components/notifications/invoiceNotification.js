@@ -1,6 +1,8 @@
 import React from 'react';
 import { Card, Row, Col, Button } from 'react-materialize';
+import AccessTime from 'react-icons/lib/md/access-time';
 import { withRouter, Link } from 'react-router-dom';
+import Moment from 'moment';
 
 const InvoiceNotification = (props) => {
   const { notification } = props;
@@ -24,6 +26,8 @@ const InvoiceNotification = (props) => {
             waves="light">
             View
           </Button>
+          <br />
+          <p className="right-align small-top-margin"><AccessTime /> {Moment(notification.createdAt).fromNow()}</p>
         </Col>
       </Row>
     </Card>

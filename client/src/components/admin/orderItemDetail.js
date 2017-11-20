@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Card, Container, Row, Col, Button, ProgressBar } from 'react-materialize';
+import Moment from 'moment';
 
 import { getSingleOrder, findTraveler, sendInvoice } from '../../helpers/api';
 import Item from './item';
@@ -165,7 +166,7 @@ class OrderDetail extends Component {
                 </Row>
             </Card>
 
-            <h5 className="left-align">Requested Items --- Total Cost: ${this.state.totalCost}</h5>
+            <h5 className="left-align">Requested Items --- Total Cost: ${this.state.totalCost.toFixed(2)}</h5>
             {
               items.map(item => {
                 return (

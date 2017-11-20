@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Card, Row, Col, Button } from 'react-materialize';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import AccessTime from 'react-icons/lib/md/access-time';
+import Moment from 'moment';
 
 import { delete_one_notif, accept_package } from '../../actions';
 
@@ -43,6 +45,8 @@ class PackageNotification extends Component {
               waves="light">
               Dismiss
             </Button>
+            {console.log(new Date(notification.createdAt).toLocaleString())}
+            <p className="right-align small-top-margin"><AccessTime /> {Moment(notification.createdAt).fromNow()}</p>
           </Col>
         </Row>
 
