@@ -38,6 +38,10 @@ body {
   color: green
 }
 
+.small-top-margin {
+  margin-top: 5px;
+}
+
 .home-container {
   background-image: url("./utils/images/home_background.png");
   opacity: .4;
