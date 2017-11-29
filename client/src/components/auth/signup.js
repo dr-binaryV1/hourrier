@@ -71,8 +71,8 @@ class SignIn extends Component {
       confirmPasswordError
     } = this.state;
 
-    return usernameError === '' || firstnameError === '' || lastnameError === '' || emailError === '' || address1Error === '' ||
-    address2Error === '' || cityError === '' || zipError === '' || countryError === '' || passwordError === '' || confirmPasswordError === '' ?
+    return usernameError !== '' && firstnameError !== '' && lastnameError !== '' && emailError !== '' && address1Error !== '' &&
+    address2Error !== '' && cityError !== '' && zipError !== '' && countryError !== '' && passwordError !== '' && confirmPasswordError !== '' ?
     false : true;
   }
 
