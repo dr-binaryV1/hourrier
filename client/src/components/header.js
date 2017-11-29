@@ -6,6 +6,7 @@ import ShoppingCart from 'react-icons/lib/md/shopping-cart';
 import Profile from 'react-icons/lib/md/account-circle';
 import SignOut from 'react-icons/lib/md/exit-to-app';
 import Notifications from 'react-icons/lib/md/notifications';
+import Shipping from 'react-icons/lib/md/local-shipping';
 import ActiveNotifications from 'react-icons/lib/md/notifications-active';
 
 class Header extends Component {
@@ -39,6 +40,22 @@ class Header extends Component {
                     ({ user ? user.notificationIds.length : 0 })
                 </Link></li>
               <li><Link title="Profile" to="/profile"><Profile size={30} /></Link></li>
+              {
+                this.props.user ?
+                this.props.user.traveler ?
+                <li>
+                  <Link
+                    title="Shipping"
+                    to="/packages">
+                      <Shipping size={30} />
+                    ({ 0 })
+                  </Link>
+                </li>
+                :
+                ''
+                :
+                ''
+              }
               <li>
                 <Link
                   title="Shopping Cart"
