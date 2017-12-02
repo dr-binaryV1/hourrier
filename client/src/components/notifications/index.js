@@ -6,6 +6,7 @@ import { get_user, delete_all_notif } from '../../actions';
 import { getNotifications } from '../../helpers/api';
 import PackageNotification from './packageNotification';
 import InvoiceNotification from './invoiceNotification';
+import InfoIcon from 'react-icons/lib/md/info-outline';
 
 class Notification extends Component {
   state = {
@@ -63,7 +64,10 @@ class Notification extends Component {
         {
           user ?
           user.notificationIds.length < 1 ?
-          <h5>No Notifications at this time</h5>
+          <div>
+            <InfoIcon size={100} />
+            <h5>No Notifications at this time</h5>
+          </div>
           :
           notifications ?
           <div>
