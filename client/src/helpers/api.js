@@ -369,3 +369,14 @@ export function saveStripeToken(token, amount) {
     body: JSON.stringify({token, amount})
   });
 }
+
+export function getPackage(packageId) {
+  return fetch(`${url}/orders/one/package`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+    },
+    method: 'POST',
+    body: JSON.stringify({packageId})
+  });
+}
