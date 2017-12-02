@@ -24,6 +24,7 @@ class Header extends Component {
           {
             this.props.authenticated ?
             <ul className="right hide-on-med-and-down">
+              <li><Link title="Profile" to="/profile"><Profile size={30} /></Link></li>
               <li>
                 <Link
                   title="Notifications"
@@ -39,7 +40,6 @@ class Header extends Component {
                     }
                     ({ user ? user.notificationIds.length : 0 })
                 </Link></li>
-              <li><Link title="Profile" to="/profile"><Profile size={30} /></Link></li>
               {
                 this.props.user ?
                 this.props.user.traveler ?
@@ -48,7 +48,7 @@ class Header extends Component {
                     title="Shipping"
                     to="/packages">
                       <Shipping size={30} />
-                    ({ 0 })
+                    ({ user ? user.packageIds.length : 0 })
                   </Link>
                 </li>
                 :
