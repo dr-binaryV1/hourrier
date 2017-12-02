@@ -16,6 +16,7 @@ import AdminDashboard from './components/admin/admin-dashboard';
 import OrderDetail from './components/admin/orderItemDetail';
 import Notifications from './components/notifications';
 import Invoice from './components/order/invoice';
+import Package from './components/packages';
 
 class App extends Component {
   componentDidMount() {
@@ -37,6 +38,7 @@ class App extends Component {
           <Route exact path="/sign-up" component={SignUp} />
           <Route exact path="/sign-out" component={SignOut} />
           <Route exact path="/profile" component={RequireAuth(Profile)} />
+          <Route exact path="/packages" component={RequireAuth(Package)} />
           <Route exact path="/notifications" component={RequireAuth(Notifications)} />
           <Route exact path="/hourrier-admin" component={RequireAuth(AdminDashboard)} />
           <Route path="/hourrier-admin/orders/:id" component={RequireAuth(OrderDetail)} />
