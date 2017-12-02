@@ -45,7 +45,6 @@ class PackageNotification extends Component {
               waves="light">
               Dismiss
             </Button>
-            {console.log(new Date(notification.createdAt).toLocaleString())}
             <p className="right-align small-top-margin"><AccessTime /> {Moment(notification.createdAt).fromNow()}</p>
           </Col>
         </Row>
