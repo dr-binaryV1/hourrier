@@ -2,18 +2,23 @@ import React, { Component } from 'react';
 import { Container } from 'react-materialize';
 import InfoIcon from 'react-icons/lib/md/info-outline';
 import { connect } from 'react-redux';
+import sortBy from 'sort-by';
 
 import PackageItem from './packageItem';
 
 class Package extends Component {
   render() {
     const { user } = this.props;
+    let reverseIds = [];
+
+    user ? reverseIds = user.packageIds.reverse() : '';
+
     return (
       <Container>
         {
           user ?
           user.packageIds.length > 0 ?
-          user.packageIds.map(id => {
+          reverseIds.map(id => {
             return <PackageItem key={id} id={id} />
           })
           :
