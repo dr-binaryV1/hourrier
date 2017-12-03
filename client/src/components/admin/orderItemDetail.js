@@ -12,6 +12,7 @@ class OrderDetail extends Component {
     items: [],
     status: null,
     loading: false,
+    lastUpdated: Date.now(),
     totalCost: 0.00,
     hourrierFee: 50
   }
@@ -32,7 +33,7 @@ class OrderDetail extends Component {
     getSingleOrder(orderId)
     .then(res => res.json())
     .then(res => {
-      this.setState({ buyer: res.buyer, items: res.items, status: res.status });
+      this.setState({ buyer: res.buyer, items: res.items, status: res.status, lastUpdated: res.updatedAt });
     })
     .then(() => {
       this.calculateTotalPrice()
@@ -77,8 +78,8 @@ class OrderDetail extends Component {
   }
 
   render() {
-    const { buyer, items, status } = this.state;
-
+    const { buyer, items, status, lastUpdated } = this.state;
+    const ONE_DAY = 60 * 60 * 1000 * 24;
     return (
       <Container>
         {
@@ -176,19 +177,19 @@ class OrderDetail extends Component {
             }
 
             {
-              status !== 'pending' ?
+              status == 'locating travelers' && Date.now() - new Date(lastUpdated).getMilliseconds() >= ONE_DAY ?
                 <Button
                   onClick={this.findTraveler.bind(this)}
-                  disabled={true}
                   waves="light">
                   Find Travelers
                 </Button>
               :
                 <Button
                   onClick={this.findTraveler.bind(this)}
+                  disabled={true}
                   waves="light">
                   Find Travelers
-              </Button>
+                </Button>
             }
           </div>
           :
