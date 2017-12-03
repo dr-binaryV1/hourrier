@@ -31,7 +31,8 @@ import {
   deleteOneNotification,
   deleteAllNotifications,
   deleteOrder,
-  dismissInvoice
+  dismissInvoice,
+  dismissPackage
 } from '../helpers/api';
 
 export const receive_user = user => {
@@ -300,6 +301,15 @@ export const accept_package = (notificationId) => dispatch => {
 
 export const dismiss_invoice = invoiceId => dispatch => {
   dismissInvoice(invoiceId)
+  .then(res => res.json())
+  .then(res => {
+    dispatch(receive_user(res.user));
+  })
+  .catch(err => console.log(`Error reported: ${err}`))
+}
+
+export const dismiss_package = packageId => dispatch => {
+  dismissPackage(packageId)
   .then(res => res.json())
   .then(res => {
     dispatch(receive_user(res.user));
