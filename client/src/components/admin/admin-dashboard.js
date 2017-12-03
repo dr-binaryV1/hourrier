@@ -12,6 +12,9 @@ class Dashboard extends Component {
 
   render() {
     const { orders } = this.props;
+    let reverseOrders = [];
+
+    orders ? reverseOrders = orders.reverse() : '';
     
     return (
       <Container>
@@ -19,7 +22,7 @@ class Dashboard extends Component {
           <h5>Open Orders: </h5>
           {
             orders ?
-            orders.map(order => {
+            reverseOrders.map(order => {
               return <OrderItem key={order._id} order={order} />
             })
             :
