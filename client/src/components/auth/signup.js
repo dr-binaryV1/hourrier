@@ -288,11 +288,18 @@ class SignIn extends Component {
             </div>
 
             <div className="input-field col s4">
-              <Input s={12} type='select' label="Country" defaultValue='2'>
-                <option value='Jamaica'>Jamaica</option>
-                <option value='USA'>United States</option>
-                <option value='Canada'>Canada</option>
-              </Input>
+            {
+              this.renderInput(
+                'Country',
+                "text",
+                "country",
+                this.state.country,
+                (e) => this.setState({ country: e.target.value }),
+                'countryError'
+              )
+            }
+            <label htmlFor="country">Country</label>
+            <p className="important-msg left-align">{this.state.countryError}</p>
             </div>
           </div>
 
