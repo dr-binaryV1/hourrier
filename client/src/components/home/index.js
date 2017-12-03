@@ -14,6 +14,7 @@ class Home extends Component {
     loading: false,
     itemAdded: null,
     itemInCart: null,
+    urlError: ''
   }
 
   componentDidMount() {
@@ -27,6 +28,14 @@ class Home extends Component {
     this.finalize()
   }
 
+  refreshField() {
+    const searchBtn = document.getElementById('search-btn');
+    const searchInput = document.getElementById('search-input');
+    searchBtn.removeAttribute('disabled');
+    searchBtn.innerText = "Search";
+    searchInput.removeAttribute('readonly');
+  }
+
   onSearch() {
     const searchBtn = document.getElementById('search-btn');
     searchBtn.setAttribute('disabled', 'true');
@@ -35,8 +44,10 @@ class Home extends Component {
     const searchInput = document.getElementById('search-input');
     searchInput.setAttribute('readonly', 'true');
 
-    this.setState({ loading: true });
+    this.setState({ loading: true, urlError: '' });
 
+    const expr = /www.amazon.com/;
+    this.state.searchURL.match(expr) ?
     searchAmazon({ url: this.state.searchURL })
     .then(res => res.json())
     .then(res => {
@@ -56,7 +67,10 @@ class Home extends Component {
     .catch(err => {
       console.log(`Error reported: ${err}`);
       this.setState({ loading: false });
-    });
+    })
+    :
+    this.setState({urlError: 'Incorrect Url. Please enter an amazon url.', loading: false}) |
+    this.refreshField();
   }
 
   onSearchTermChanged(term) {
@@ -105,6 +119,7 @@ class Home extends Component {
               onChange={(e) => this.onSearchTermChanged(e.target.value)}
               placeholder="Enter Amazon URL"
             />
+            <p className="important-msg"><b>{this.state.urlError}</b></p>
           </div>
 
           <div className="col s3">
