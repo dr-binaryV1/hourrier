@@ -359,14 +359,14 @@ export function getInvoice(invoiceId) {
   });
 }
 
-export function saveStripeToken(token, amount) {
+export function saveStripeToken(token, amount, invoiceId) {
   return fetch(`${url}/save-stripe-token`,{
     headers: {
       'Content-Type': 'application/json',
       'auth': localStorage.getItem('token'),
     },
     method: 'POST',
-    body: JSON.stringify({token, amount})
+    body: JSON.stringify({token, amount, invoiceId})
   });
 }
 
@@ -378,5 +378,17 @@ export function getPackage(packageId) {
     },
     method: 'POST',
     body: JSON.stringify({packageId})
+  });
+}
+
+export function dismissInvoice(invoiceId) {
+  return fetch(`${url}/notifications/one/invoice`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+      'userId': localStorage.getItem('user')
+    },
+    method: 'DELETE',
+    body: JSON.stringify({invoiceId})
   });
 }

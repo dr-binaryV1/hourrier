@@ -13,12 +13,14 @@ import TravelItinerary from './travelItinerary';
 import { Button } from 'react-materialize';
 import EditIcon from 'react-icons/lib/md/create';
 import AddIcon from 'react-icons/lib/md/add';
+import InfoIcon from 'react-icons/lib/md/info-outline';
 
 class ProfileDetails extends Component {
   state = {
     loading: false,
     addingShipping: false,
     addingItinerary: false,
+    orderExpanded: false
   }
 
   componentDidMount() {
@@ -113,6 +115,20 @@ class ProfileDetails extends Component {
           </div>
         </div>
       </div>
+
+      <Row>
+        <h5>Orders</h5>
+        <Collapsible>
+          <CollapsibleItem
+            onClick={() => this.setState({orderExpanded: !this.state.orderExpanded})}
+            header={this.state.orderExpanded ? 'Click to close orders' : 'Click to expand orders'}>
+            <Row>
+              <InfoIcon size={50} />
+              <h6>No Orders yet</h6>
+            </Row>
+          </CollapsibleItem>
+        </Collapsible>
+      </Row>
 
       { 
         user ?
