@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { submitSignUp } from '../../helpers/api';
-import { Button } from 'react-materialize';
+import { Button, Input } from 'react-materialize';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { get_authenticated_state } from '../../actions';
@@ -288,18 +288,11 @@ class SignIn extends Component {
             </div>
 
             <div className="input-field col s4">
-              {
-                this.renderInput(
-                  'Country',
-                  "text",
-                  "country",
-                  this.state.country,
-                  (e) => this.setState({ country: e.target.value }),
-                  'countryError'
-                )
-              }
-              <label htmlFor="country">Country</label>
-              <p className="important-msg left-align">{this.state.countryError}</p>
+              <Input s={12} type='select' label="Country" defaultValue='2'>
+                <option value='Jamaica'>Jamaica</option>
+                <option value='USA'>United States</option>
+                <option value='Canada'>Canada</option>
+              </Input>
             </div>
           </div>
 
