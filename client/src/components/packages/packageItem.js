@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { Card, Row, Col, Button } from 'react-materialize';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import AccessTime from 'react-icons/lib/md/access-time';
 import Moment from 'moment';
 
+import { dismiss_package } from '../../actions';
 import { getPackage, packageDelivered, deliveredToKnutsford } from '../../helpers/api';
+
 
 class PackageItem extends Component {
   state = {
@@ -42,6 +45,11 @@ class PackageItem extends Component {
     .catch(err => console.log(`Error reported: ${err}`))
   }
 
+  onPackageDismiss() {
+    const { item } = this.state;
+    this.props.dismiss_package(item._id);
+  }
+
   render() {
     const { item } = this.state;
 
@@ -75,7 +83,7 @@ class PackageItem extends Component {
               :
               item.status === 'Delivered to Knutsford' ?
               <Button
-                onClick={this.onReceivePackage.bind(this)}
+                onClick={this.onPackageDismiss.bind(this)}
                 className="red"
                 waves='light'>
                 Dismiss Package
@@ -130,4 +138,4 @@ class PackageItem extends Component {
   }
 };
 
-export default PackageItem;
+export default connect(null, { dismiss_package })(PackageItem);
