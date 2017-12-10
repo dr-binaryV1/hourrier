@@ -3,7 +3,12 @@ import { withRouter } from 'react-router-dom';
 import { Card, Container, Row, Col, Button, ProgressBar } from 'react-materialize';
 import Moment from 'moment';
 
-import { getSingleOrder, findTraveler, sendInvoice } from '../../helpers/api';
+import {
+  getSingleOrder,
+  orderPurchased,
+  findTraveler,
+  sendInvoice
+} from '../../helpers/api';
 import Item from './item';
 
 class OrderDetail extends Component {
@@ -19,8 +24,8 @@ class OrderDetail extends Component {
 
   componentWillReceiveProps(nextProps) {
     return nextProps === this.props ? ''
-    :
-    ''
+      :
+      ''
   }
 
   componentDidMount() {
@@ -31,22 +36,22 @@ class OrderDetail extends Component {
     const orderId = this.props.match.params.id;
 
     getSingleOrder(orderId)
-    .then(res => res.json())
-    .then(res => {
-      this.setState({ buyer: res.buyer, items: res.items, status: res.status, lastUpdated: res.updatedAt });
-    })
-    .then(() => {
-      this.calculateTotalPrice()
-    })
-    .catch(err => console.log(`Error reported: ${err}`))
+      .then(res => res.json())
+      .then(res => {
+        this.setState({ buyer: res.buyer, items: res.items, status: res.status, lastUpdated: res.updatedAt });
+      })
+      .then(() => {
+        this.calculateTotalPrice()
+      })
+      .catch(err => console.log(`Error reported: ${err}`))
   }
 
   findTraveler() {
     const orderId = this.props.match.params.id;
     findTraveler(orderId, this.state.items)
-    .then(res => res.json())
-    .then(res => this.setState({ status: res.status, items: this.state.items }))
-    .catch(err => console.log(`Error reported: ${err}`))
+      .then(res => res.json())
+      .then(res => this.setState({ status: res.status, items: this.state.items }))
+      .catch(err => console.log(`Error reported: ${err}`))
   }
 
   calculateTotalPrice() {
@@ -57,7 +62,7 @@ class OrderDetail extends Component {
       tempTotalPrice = tempTotalPrice + parseFloat(item.price.substr(1));
     });
 
-  this.setState({ totalCost: tempTotalPrice + hourrierFee });
+    this.setState({ totalCost: tempTotalPrice + hourrierFee });
   }
 
   sendInvoice() {
@@ -70,11 +75,22 @@ class OrderDetail extends Component {
     };
 
     sendInvoice(invoice)
-    .then(res => res.json())
-    .then(res => {
-      this.setState({ status: res.status })
-    })
-    .catch(err => console.log(`Error reported: ${err}`))
+      .then(res => res.json())
+      .then(res => {
+        this.setState({ status: res.status })
+      })
+      .catch(err => console.log(`Error reported: ${err}`))
+  }
+
+  orderPurchased() {
+    const orderId = this.props.match.params.id;
+
+    orderPurchased(orderId)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({ status: res.status })
+      })
+      .catch(err => console.log(`Error reported: ${err}`))
   }
 
   render() {
@@ -84,116 +100,118 @@ class OrderDetail extends Component {
       <Container>
         {
           buyer ?
-          <div>
-            <h5 className="left-align">Buyer's Information</h5>
-            <Card>
-              <Row>
-                <Col s={3} className="left-align">
-                  <p><b>First Name: </b>{buyer.firstname}</p>
-                </Col>
+            <div>
+              <h5 className="left-align">Buyer's Information</h5>
+              <Card>
+                <Row>
+                  <Col s={3} className="left-align">
+                    <p><b>First Name: </b>{buyer.firstname}</p>
+                  </Col>
 
-                <Col s={3} className="left-align">
-                  <p><b>Last Name: </b>{buyer.lastname}</p>
-                </Col>
+                  <Col s={3} className="left-align">
+                    <p><b>Last Name: </b>{buyer.lastname}</p>
+                  </Col>
 
-                <Col s={6} className="left-align">
-                  <p><b>Email: </b>{buyer.email}</p>
-                </Col>
-              </Row>
+                  <Col s={6} className="left-align">
+                    <p><b>Email: </b>{buyer.email}</p>
+                  </Col>
+                </Row>
 
-              <Row>
-                <Col s={6} className="left-align">
-                  <p><b>Mailing Address 1: </b>{buyer.mailingAddress1}</p>
-                </Col>
+                <Row>
+                  <Col s={6} className="left-align">
+                    <p><b>Mailing Address 1: </b>{buyer.mailingAddress1}</p>
+                  </Col>
 
-                <Col s={6} className="left-align">
-                  <p><b>Mailing Address 2: </b>{buyer.mailingAddress2}</p>
-                </Col>
-              </Row>
+                  <Col s={6} className="left-align">
+                    <p><b>Mailing Address 2: </b>{buyer.mailingAddress2}</p>
+                  </Col>
+                </Row>
 
-              <Row>
-                <Col s={3} className="left-align">
-                  <p><b>Mailing City: </b>{buyer.mailingCity}</p>
-                </Col>
+                <Row>
+                  <Col s={3} className="left-align">
+                    <p><b>Mailing City: </b>{buyer.mailingCity}</p>
+                  </Col>
 
-                <Col s={3} className="left-align">
-                  <p><b>Mailing Country: </b>{buyer.mailingCountry}</p>
-                </Col>
+                  <Col s={3} className="left-align">
+                    <p><b>Mailing Country: </b>{buyer.mailingCountry}</p>
+                  </Col>
 
-                <Col s={3} className="left-align">
-                  <p><b>Mailing Zip: </b>{buyer.mailingZip}</p>
-                </Col>
-              </Row>
+                  <Col s={3} className="left-align">
+                    <p><b>Mailing Zip: </b>{buyer.mailingZip}</p>
+                  </Col>
+                </Row>
 
-              <Row>
-                <Col className="left-align">
-                  <p><b>Status: </b>{this.state.status}</p>
-                </Col>
-              </Row>
+                <Row>
+                  <Col className="left-align">
+                    <p><b>Status: </b>{this.state.status}</p>
+                  </Col>
+                </Row>
 
                 <Row>
                   <Col className="left-align">
                     {
                       this.state.status === 'traveler found' ?
-                      <Button
-                        onClick={this.sendInvoice.bind(this)}
-                        className="btn-spacing"
-                        waves='light'>
-                        Send Invoice
+                        <Button
+                          onClick={this.sendInvoice.bind(this)}
+                          className="btn-spacing"
+                          waves='light'>
+                          Send Invoice
                       </Button>
-                       :
-                       this.state.status !== 'traveler found' ?
-                       <Button
-                        onClick={this.sendInvoice.bind(this)}
-                        className="btn-spacing"
-                        disabled={true}
-                        waves='light'>
-                        Send Invoice
-                      </Button>
-                       :
-                       ''
+                        :
+                        this.state.status === 'invoice paid' ?
+                          <Button
+                            onClick={this.orderPurchased.bind(this)}
+                            className="btn-spacing"
+                            waves='light'>
+                            Item Purchased
+                        </Button>
+                          :
+                          this.state.status === 'invoice sent' ?
+                            <Button
+                              className="btn-spacing"
+                              disabled={true}
+                              waves='light'>
+                              Send Invoice
+                        </Button>
+                            :
+                            ''
                     }
 
                     {
                       this.state.status !== 'pending' && this.state.status !== 'locating travelers' ?
-                      <Button
-                        waves='light'>
-                        View Traveler
+                        <Button
+                          waves='light'>
+                          View Traveler
                       </Button>
-                      :
-                      ''
+                        :
+                        ''
                     }
                   </Col>
                 </Row>
-            </Card>
+              </Card>
 
-            <h5 className="left-align">Requested Items --- Total Cost: ${this.state.totalCost.toFixed(2)}</h5>
-            {
-              items.map(item => {
-                return (
-                  <Item item={item} key={item._id} getItems={this.getItems.bind(this)} />
-                )
-              })
-            }
+              <h5 className="left-align">Requested Items --- Total Cost: ${this.state.totalCost.toFixed(2)}</h5>
+              {
+                items.map(item => {
+                  return (
+                    <Item item={item} key={item._id} getItems={this.getItems.bind(this)} />
+                  )
+                })
+              }
 
-            {
-              status == 'locating travelers' && Date.now() - new Date(lastUpdated).getMilliseconds() >= ONE_DAY ?
-                <Button
-                  onClick={this.findTraveler.bind(this)}
-                  waves="light">
-                  Find Travelers
+              {
+                status == 'locating travelers' && Date.now() - new Date(lastUpdated).getMilliseconds() >= ONE_DAY ?
+                  <Button
+                    onClick={this.findTraveler.bind(this)}
+                    waves="light">
+                    Find Travelers
                 </Button>
-              :
-                <Button
-                  onClick={this.findTraveler.bind(this)}
-                  disabled={true}
-                  waves="light">
-                  Find Travelers
-                </Button>
-            }
-          </div>
-          :
-          ''
+                  :
+                  ''
+              }
+            </div>
+            :
+            ''
         }
       </Container>
     )
