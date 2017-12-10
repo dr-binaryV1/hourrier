@@ -90,7 +90,7 @@ class PackageItem extends Component {
               </Button>
               :
               <Button
-                // onClick={this.onReceivePackage.bind(this)}
+                onClick={this.onReceivePackage.bind(this)}
                 className="green"
                 waves='light'>
                 Package Received
