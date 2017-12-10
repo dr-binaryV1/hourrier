@@ -439,3 +439,26 @@ export function deliveredToKnutsford(packageId) {
     body: JSON.stringify({packageId})
   });
 }
+
+export function orderPurchased(orderId) {
+  return fetch(`${url}/orders/purchased`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+      'userId': localStorage.getItem('user')
+    },
+    method: 'PUT',
+    body: JSON.stringify({orderId})
+  });
+}
+
+export function getKnutsfordItems() {
+  return fetch(`${url}/orders/knutsford`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+      'userId': localStorage.getItem('user'),
+    },
+    method: 'GET'
+  });
+}
