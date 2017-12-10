@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container } from 'react-materialize';
+import Item from './item';
 
 import { getKnutsfordItems } from '../../helpers/api';
 
@@ -22,6 +23,14 @@ class KnutsfordDashboard extends Component {
     return (
       <Container>
         <h5>Knutsford Panel</h5>
+        {
+          this.state.orders.length > 0 ?
+          this.state.orders.map(order => {
+            return <Item key={order._id} order={order} />
+          })
+          :
+          ''
+        }
       </Container>
     )
   }
