@@ -13,6 +13,7 @@ import Profile from './components/user/profile';
 import Home from './components/home';
 import RequireAuth from './hoc/requireAuth';
 import AdminDashboard from './components/admin/admin-dashboard';
+import KnutsfordDashboard from './components/knutsford-admin';
 import OrderDetail from './components/admin/orderItemDetail';
 import Notifications from './components/notifications';
 import Invoice from './components/order/invoice';
@@ -41,6 +42,7 @@ class App extends Component {
           <Route exact path="/packages" component={RequireAuth(Package)} />
           <Route exact path="/notifications" component={RequireAuth(Notifications)} />
           <Route exact path="/hourrier-admin" component={RequireAuth(AdminDashboard)} />
+          <Route exact path="/knutsford" component={RequireAuth(KnutsfordDashboard)} />
           <Route path="/hourrier-admin/orders/:id" component={RequireAuth(OrderDetail)} />
           <Route path="/orders/invoice/:id" component={RequireAuth(Invoice)} />
         </div>
