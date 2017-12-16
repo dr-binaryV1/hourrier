@@ -28,7 +28,7 @@ class Header extends Component {
                 <Link
                   title="Notifications"
                   to="/notifications">
-                    { 
+                    {
                       user ?
                       user.notificationIds.length > 0 ?
                       <ActiveNotifications size={30} color="#F00" />
@@ -67,10 +67,7 @@ class Header extends Component {
               <li><Link title="Sign Out" to="/sign-out"><SignOut size={30} /></Link></li>
             </ul>
             :
-            <ul className="right hide-on-med-and-down">
-              <li><Link to="/sign-in">Sign In</Link></li>
-              <li><Link to="/sign-up">Sign Up</Link></li>
-            </ul>
+            ""
           }
         </div>
       </nav>

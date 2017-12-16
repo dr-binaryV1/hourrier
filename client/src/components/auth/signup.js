@@ -145,8 +145,8 @@ class SignIn extends Component {
 
   render() {
     return (
-      <div className="container">
-
+      <div className="app__signup-container">
+        <h4 className="app__signup-form-title">Sign Up</h4>
         {
           this.state.loading ?
           (
@@ -159,9 +159,6 @@ class SignIn extends Component {
         }
 
         <div id="signup-form">
-          <div className="row">
-            <img src="images/hourrier_logo.jpg" width="100" height="100" alt="logo" />
-          </div>
           <div className="row">
             <div className="input-field col s3">
               {
@@ -336,7 +333,7 @@ class SignIn extends Component {
           </div>
 
           <Button
-            waves='light'
+            className="app__submit-signup"
             onClick={this.onSubmitForm.bind(this)}
             id="submit">
               Sign Up
