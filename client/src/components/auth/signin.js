@@ -14,7 +14,7 @@ class SignIn extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    return nextProps === this.props ? '' 
+    return nextProps === this.props ? ''
     :
     this.setState({ loading: false })
   }
@@ -33,7 +33,7 @@ class SignIn extends Component {
       />
     )
   }
-  
+
   onSubmitForm() {
     this.setState({ loading: true });
     const data = {
@@ -58,7 +58,7 @@ class SignIn extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="app__signin-container">
         {
           this.state.loading ?
           (
@@ -69,25 +69,16 @@ class SignIn extends Component {
           :
           <div></div>
         }
-
-        <div id="signup-form">
-          <div className="row">
-            <div className="col s12">
-              <img
-                width="200"
-                height="200" 
-                src="images/hourrier_logo.jpg"
-                alt="hourrier trademark"/>
-            </div>
-          </div>
-          <div className="row">
-            {
-              this.state.signinErr ?
-              <p className="error"><Error color='#F00' /> {this.state.signinErr}</p>
-              :
-              ''
-            }
-            <div className="input-field col s6 offset-s3">
+        {
+          this.state.signinErr ?
+          <p className="error"><Error color='#F00' /> {this.state.signinErr}</p>
+          :
+          ''
+        }
+        <h4 className="app__signin-form-title">Sign In</h4>
+        <div className="app__signin-form col-s11" id="signup-form">
+          <div className="app__signin-row">
+            <div className="input-field col-s12">
               {
                 this.renderInput(
                   "email",
@@ -100,8 +91,8 @@ class SignIn extends Component {
             </div>
           </div>
 
-          <div className="row">
-            <div className="input-field col s6 offset-s3">
+          <div className="app__signin-row">
+            <div className="input-field col-s12">
               {
                 this.renderInput(
                   "password",
@@ -116,17 +107,16 @@ class SignIn extends Component {
           </div>
 
           <div className="row">
-            <div className="col s6 offset-s3">              
-              <Button
-                waves='light'
+            <div className="app__signin-button">
+              <div
                 onClick={this.onSubmitForm.bind(this)}
                 id="submit">
                   Sign In
-              </Button>
+              </div>
             </div>
           </div>
-        </div> 
-      </div>   
+        </div>
+      </div>
     )
   }
 }
