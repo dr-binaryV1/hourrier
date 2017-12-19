@@ -78,6 +78,17 @@ export function getOrders() {
   });
 }
 
+export function getOrdersByBuyerId() {
+  return fetch(`${url}/orders/buyer/id`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+      'user': localStorage.getItem('user')
+    },
+    method: 'GET'
+  });
+}
+
 export function searchAmazon(amazonURL) {
   return fetch(`${url}/search`,{
     headers: {
@@ -359,13 +370,95 @@ export function getInvoice(invoiceId) {
   });
 }
 
-export function saveStripeToken(token, amount) {
+export function saveStripeToken(token, amount, invoiceId) {
   return fetch(`${url}/save-stripe-token`,{
     headers: {
       'Content-Type': 'application/json',
       'auth': localStorage.getItem('token'),
     },
     method: 'POST',
-    body: JSON.stringify({token, amount})
+    body: JSON.stringify({token, amount, invoiceId})
+  });
+}
+
+export function getPackage(packageId) {
+  return fetch(`${url}/orders/one/package`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+    },
+    method: 'POST',
+    body: JSON.stringify({packageId})
+  });
+}
+
+export function dismissInvoice(invoiceId) {
+  return fetch(`${url}/notifications/one/invoice`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+      'userId': localStorage.getItem('user')
+    },
+    method: 'DELETE',
+    body: JSON.stringify({invoiceId})
+  });
+}
+
+export function dismissPackage(packageId) {
+  return fetch(`${url}/orders/package`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+      'userId': localStorage.getItem('user')
+    },
+    method: 'DELETE',
+    body: JSON.stringify({packageId})
+  });
+}
+
+export function packageDelivered(packageId) {
+  return fetch(`${url}/orders/package/delivered`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+      'userId': localStorage.getItem('user')
+    },
+    method: 'PUT',
+    body: JSON.stringify({packageId})
+  });
+}
+
+export function deliveredToKnutsford(packageId) {
+  return fetch(`${url}/orders/package/delivered/knutsford`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+      'userId': localStorage.getItem('user')
+    },
+    method: 'PUT',
+    body: JSON.stringify({packageId})
+  });
+}
+
+export function orderPurchased(orderId) {
+  return fetch(`${url}/orders/purchased`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+      'userId': localStorage.getItem('user')
+    },
+    method: 'PUT',
+    body: JSON.stringify({orderId})
+  });
+}
+
+export function getKnutsfordItems() {
+  return fetch(`${url}/orders/knutsford`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+      'userId': localStorage.getItem('user'),
+    },
+    method: 'GET'
   });
 }

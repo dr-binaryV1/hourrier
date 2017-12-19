@@ -15,9 +15,11 @@ import Profile from './components/user/profile';
 import Home from './components/home';
 import RequireAuth from './hoc/requireAuth';
 import AdminDashboard from './components/admin/admin-dashboard';
+import KnutsfordDashboard from './components/knutsford-admin';
 import OrderDetail from './components/admin/orderItemDetail';
 import Notifications from './components/notifications';
 import Invoice from './components/order/invoice';
+import Package from './components/packages';
 
 class App extends Component {
   state = {
@@ -35,24 +37,22 @@ class App extends Component {
       <div className="App">
         {
           authenticated === true ?
-
-          <div>
-            <Header />
-            <Route exact path="/" component={RequireAuth(Home)} />
-            <Route exact path="/shopping-cart" component={RequireAuth(Cart)} />
-            <Route exact path="/sign-in" component={SignIn} />
-          <Route exact path="/sign-up" component={SignUp} />
-          <Route exact path="/sign-out" component={SignOut} />
-            <Route exact path="/profile" component={RequireAuth(Profile)} />
-            <Route exact path="/notifications" component={RequireAuth(Notifications)} />
-            <Route exact path="/hourrier-admin" component={RequireAuth(AdminDashboard)} />
-            <Route path="/hourrier-admin/orders/:id" component={RequireAuth(OrderDetail)} />
-            <Route path="/orders/invoice/:id" component={RequireAuth(Invoice)} />
-          </div>
-        :
-          <div>
-            <div className="app__background col-s12"></div>
-            <div className="app__background-overlay col-s12"></div>
+            <div>
+              <Header />
+              <Route exact path="/" component={RequireAuth(Home)} />
+              <Route exact path="/shopping-cart" component={RequireAuth(Cart)} />
+              <Route exact path="/sign-in" component={SignIn} />
+              <Route exact path="/sign-up" component={SignUp} />
+              <Route exact path="/sign-out" component={SignOut} />
+              <Route exact path="/profile" component={RequireAuth(Profile)} />
+              <Route exact path="/packages" component={RequireAuth(Package)} />
+              <Route exact path="/notifications" component={RequireAuth(Notifications)} />
+              <Route exact path="/hourrier-admin" component={RequireAuth(AdminDashboard)} />
+              <Route exact path="/knutsford" component={RequireAuth(KnutsfordDashboard)} />
+              <Route path="/hourrier-admin/orders/:id" component={RequireAuth(OrderDetail)} />
+              <Route path="/orders/invoice/:id" component={RequireAuth(Invoice)} />
+            </div>
+            :
             <div className="app__forms">
               <div className="app__signup col-s4" id="app__signup">
                 <div className="row">
@@ -61,7 +61,7 @@ class App extends Component {
                       width="200"
                       height="200"
                       src="images/hourrier_logo.jpg"
-                      alt="hourrier trademark"/>
+                      alt="hourrier trademark" />
                   </div>
                 </div>
                 <p className="justify-text">Need a package from Amazon sent to Jamaica? Look no further. We are Hourrier, your all-in-one shopping platform. You shop, we deliver!</p>
@@ -74,23 +74,24 @@ class App extends Component {
                     document.getElementById('app__signin').classList.add('animate-left');
                     document.getElementById('app__signup-button').style.display = 'none';
                     document.getElementById('app__signup-change').style.display = 'block';
-                    setTimeout(function() {
+                    setTimeout(function () {
                       document.getElementById('app__signup').classList.add('switch');
                       document.getElementById('app__signin').classList.add('switch');
                       document.getElementById('app__signup').classList.remove('animate-right');
                       document.getElementById('app__signin').classList.remove('animate-left');
                     }, 500);
 
-                    this.setState({ currenlyViewing: 'signup' })}
+                    this.setState({ currenlyViewing: 'signup' })
+                  }
                   }
                 >
                   Sign Up
-                </div>
+              </div>
                 <div className="app__signup-change" id="app__signup-change"
                   onClick={() => {
                     document.getElementById('app__signup').classList.add('return-left')
                     document.getElementById('app__signin').classList.add('return-right');
-                    setTimeout(function() {
+                    setTimeout(function () {
                       document.getElementById('app__signup').classList.remove('switch');
                       document.getElementById('app__signin').classList.remove('switch');
                       document.getElementById('app__signup').classList.remove('return-left');
@@ -100,7 +101,8 @@ class App extends Component {
                     document.getElementById('app__signup-button').style.display = 'block';
                     document.getElementById('app__signup-change').style.display = 'none';
                     document.getElementById('app__signup-button').innerHTML = 'Sign In';
-                    this.setState({ currenlyViewing: 'signin' })}
+                    this.setState({ currenlyViewing: 'signin' })
+                  }
                   }
                 >
                   Sign In
@@ -109,10 +111,9 @@ class App extends Component {
 
               <div className="app__signin col-s4" id="app__signin">
                 <div className="background col-s12"></div>
-                {this.state.currenlyViewing === 'signin' ? <SignIn />  :  <SignUp /> }
+                {this.state.currenlyViewing === 'signin' ? <SignIn /> : <SignUp />}
               </div>
             </div>
-          </div>
         }
       </div>
     );

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row, Tabs, Tab } from 'react-materialize';
+import { Container, Row, Col, Input } from 'react-materialize';
 import { get_orders } from '../../actions';
 import { connect } from 'react-redux';
 
@@ -12,14 +12,21 @@ class Dashboard extends Component {
 
   render() {
     const { orders } = this.props;
+    let reverseOrders = [];
+
+    orders ? reverseOrders = orders.reverse() : '';
     
     return (
       <Container>
+        <Row className="left-align">
+          <Col s={4} className="left-align">
+            <h5>Open Orders: </h5>
+          </Col>
+        </Row>
         <Row>
-          <h5>Open Orders: </h5>
           {
             orders ?
-            orders.map(order => {
+            reverseOrders.map(order => {
               return <OrderItem key={order._id} order={order} />
             })
             :

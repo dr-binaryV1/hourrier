@@ -6,6 +6,8 @@ import { get_user, delete_all_notif } from '../../actions';
 import { getNotifications } from '../../helpers/api';
 import PackageNotification from './packageNotification';
 import InvoiceNotification from './invoiceNotification';
+import InfoIcon from 'react-icons/lib/md/info-outline';
+import sortBy from 'sort-by';
 
 class Notification extends Component {
   state = {
@@ -29,7 +31,8 @@ class Notification extends Component {
     getNotifications(notificationIds)
     .then(res => res.json())
     .then(res => {
-      this.setState({ notifications: res.notifications });
+      const notifications = res.notifications.sort(sortBy('-createdAt'));
+      this.setState({ notifications });
     })
     .catch(err => `Error reported: ${err}`)
   }
@@ -63,7 +66,10 @@ class Notification extends Component {
         {
           user ?
           user.notificationIds.length < 1 ?
-          <h5>No Notifications at this time</h5>
+          <div>
+            <InfoIcon size={100} />
+            <h5>No Notifications at this time</h5>
+          </div>
           :
           notifications ?
           <div>

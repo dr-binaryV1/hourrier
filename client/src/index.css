@@ -21,6 +21,11 @@ p {
   font-size: 1.1em;
 }
 
+.container {
+  position: relative;
+  z-index: 2;
+}
+
 h1,
 h2,
 h3,
@@ -393,6 +398,15 @@ h6 {
 .small-top-margin {
   margin-top: 5px;
 }
+
+/* .home-container {
+  background-image: url("./utils/images/home_background.png");
+  opacity: .4;
+  margin-top: 50px;
+  height: 60vh;
+  width: 60vw;
+  background-repeat: no-repeat;
+} */
 
 .signout-container {
   background-image: url("./utils/images/leaving_us.jpg");

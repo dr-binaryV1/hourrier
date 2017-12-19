@@ -7,28 +7,41 @@ import {
 import { connect } from 'react-redux';
 import AddShipping from './addShipping';
 import AddItinerary from './addTravelItinerary';
-import { Collapsible, CollapsibleItem, Row } from 'react-materialize';
+import { Collapsible, CollapsibleItem, Row, Pagination, PaginationButton } from 'react-materialize';
 import ShippingAddress from './shippingAddress';
 import TravelItinerary from './travelItinerary';
 import { Button } from 'react-materialize';
 import EditIcon from 'react-icons/lib/md/create';
 import AddIcon from 'react-icons/lib/md/add';
+import InfoIcon from 'react-icons/lib/md/info-outline';
+import { getOrdersByBuyerId } from '../../helpers/api';
+import Order from './order';
 
 class ProfileDetails extends Component {
   state = {
     loading: false,
     addingShipping: false,
     addingItinerary: false,
+    orders: []
   }
 
   componentDidMount() {
     this.getShippingDetails();
     this.getItineraryDetails();
+    this.getOrders();
   }
 
   getShippingDetails() {
     const { user } = this.props;
     this.props.get_shipping_details({shippingIds: user.shippingAddressIds});
+  }
+
+  getOrders() {
+    const { user } = this.props;
+    getOrdersByBuyerId(user._id)
+    .then(res => res.json())
+    .then(res => this.setState({ orders: res.reverse() }))
+    .catch(err => console.log(`Error reported: ${err}`))
   }
 
   completeAddingShipping() {
@@ -113,6 +126,26 @@ class ProfileDetails extends Component {
           </div>
         </div>
       </div>
+
+      <Row>
+        <h5>Orders</h5>
+        <Collapsible>
+          <CollapsibleItem
+            header='Click to expand / collapse orders'>
+            {
+              this.state.orders.length > 0 ?
+              this.state.orders.map(order => {
+                return <Order key={order._id} order={order} />
+              })
+              :
+              <Row>
+                <InfoIcon size={50} />
+                <h6>No Orders yet</h6>
+              </Row>
+            }
+          </CollapsibleItem>
+        </Collapsible>
+      </Row>
 
       { 
         user ?

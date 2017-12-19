@@ -34,7 +34,7 @@ const OrderItem = (props) => {
             waves="light">
             Delete
           </Button>
-          <p className="right-align small-top-margin"><AccessTime /> {Moment(order.createdAt).fromNow()}</p>
+          <p className="right-align small-top-margin"><b>Last Updated: </b><AccessTime /> {Moment(order.updatedAt).fromNow()}</p>
         </Col>
       </Row>
     </Card>

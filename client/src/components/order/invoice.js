@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Container, Card, Row, Col, Button } from 'react-materialize';
 import StripeCheckout from 'react-stripe-checkout';
+import { dismiss_invoice } from '../../actions';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import { getInvoice, saveStripeToken } from '../../helpers/api';
 
@@ -23,14 +26,21 @@ class Invoice extends Component {
   }
 
   onToken = (token) => {
+    const invoiceId = this.props.match.params.id;
     const { invoice } = this.state;
     const amount = invoice.total * 100;
-    saveStripeToken(token, amount)
+    saveStripeToken(token, amount, invoiceId)
     .then(res => res.json())
     .then(res => {
         this.setState({ paymentStatus: res.status });
     })
     .catch(err => console.log(`Error reported: ${err}`))
+  }
+
+  onDismiss() {
+    const invoiceId = this.props.match.params.id;
+    this.props.dismiss_invoice(invoiceId);
+    this.props.history.push('/notifications');
   }
 
   render() {
@@ -45,9 +55,13 @@ class Invoice extends Component {
           this.state.invoice ?
           <div>
             <Card>
-              <Row>
-                <Col>
+              <Row className="left-align">
+                <Col s={4}>
                   <p><b>Invoice ID:</b> {invoice._id}</p>
+                </Col>
+
+                <Col s={4}>
+                  <p><b>Status:</b> {invoice.status}</p>
                 </Col>
               </Row>
 
@@ -105,6 +119,7 @@ class Invoice extends Component {
             <Row>
               <Col s={12}>
                 {
+                  invoice.status !== 'paid' ?
                   this.state.paymentStatus === null || this.state.paymentStatus !== 'succeeded' ?
                   <StripeCheckout
                     token={this.onToken}
@@ -116,6 +131,16 @@ class Invoice extends Component {
                   <p className="success-msg"><b>Thank you for using Hourrier Services. Payment was successful</b></p>
                   :
                   <p className="important-msg"><b>Unfortunately, there was an issue processing the card you provided.</b></p>
+                  :
+                  <div>
+                    <p className="success-msg"><b>Invoice Paid. Package will be shipped in 1 - 3 Business Days.</b></p>
+                    <Button
+                      onClick={this.onDismiss.bind(this)}
+                      className="red"
+                      waves='light'>
+                      Dismiss from Notifications  
+                    </Button>
+                  </div>
                 }
               </Col>
             </Row>
@@ -129,4 +154,4 @@ class Invoice extends Component {
   }
 }
 
-export default Invoice;
+export default withRouter(connect(null, { dismiss_invoice })(Invoice));
