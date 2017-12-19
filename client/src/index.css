@@ -34,6 +34,7 @@ h6 {
   text-align: justify;
 }
 
+/* ========== HOME PAGE ========== */
 .App {
   height: 100vh;
   background-size: cover;
@@ -41,7 +42,7 @@ h6 {
 
 .app__background {
   position: absolute;
-  height: inherit;
+  height: 100vh;
   background: url(/images/bk2.jpg);
   background-color: black;
   background-size: cover;
@@ -253,9 +254,119 @@ h6 {
   font-size: 12px;
 }
 
+/* ========== SEARCH PAGE ========== */
+.search-container {
+  height: 50vh;
+  margin: 3% auto;
+  width: 60%;
+}
+
+.search-bar-heading {
+  display: none;
+}
+
+.search-bar-heading.animate-width {
+  display: inline-block;
+  height: 60px;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0 auto;
+  animation: animate-width 2s forwards steps(60, end);
+}
+
+@keyframes animate-width {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 78%;
+  }
+}
+
+.search-bar-heading h3 {
+  font-weight: bold;
+}
+
+.animated-cursor {
+  font-weight: bold;
+  font-size: 60px;
+  animation: blink .5s steps(5, start) infinite;
+}
+
+@keyframes blink {
+  100% {
+    visibility: hidden;
+  }
+}
+
+.search-bar .input-field {
+  padding: 0;
+  height: 60px;
+  margin-top: 3%;
+  border: 1px solid #ccc;
+}
+
+.box-shadow {
+  box-shadow: 0px 5px 30px rgba(0,0,0,0.25);
+}
+
+.search-bar #search-input {
+  height: inherit;
+  margin: 0;
+  border: 0;
+  text-indent: 15px;
+}
+
+.search-bar #search-input:focus {
+  box-shadow: none;
+}
+
+.search-bar .search-btn {
+  height: inherit;
+  margin: 0;
+  padding: 0;
+  background-color: #009bff !important;
+  color: white !important;
+  cursor: pointer;
+}
+
 .search-btn{
   margin-top: 15px;
 }
+
+.home-container {
+  background: url("./utils/images/home_background.png") no-repeat;
+  background-size: contain;
+  opacity: .6;
+  height: 40vh;
+  width: 40vw;
+  margin: 5% auto;
+}
+
+/* ========== AMAZON DATA ========== */
+.amazon-data {
+  width: 90vw;
+  margin-left: -15%;
+}
+
+.amazon-data__card {
+  max-height: 61vh;
+  overflow: hidden;
+}
+
+.amazon-data__title {
+  margin-bottom: 3%;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 58vh;
+}
+/* ===================== */
 
 .edit-profile-btn{
   margin-bottom: 10px;
@@ -270,11 +381,6 @@ h6 {
   padding-right: 5px !important;
 }
 
-.image-container {
-  width: 180;
-  height: 220;
-}
-
 .center-container {
   margin: 0 auto !important;
 }
@@ -286,15 +392,6 @@ h6 {
 
 .small-top-margin {
   margin-top: 5px;
-}
-
-.home-container {
-  background-image: url("./utils/images/home_background.png");
-  opacity: .4;
-  margin-top: 50px;
-  height: 60vh;
-  width: 60vw;
-  background-repeat: no-repeat;
 }
 
 .signout-container {
@@ -317,4 +414,9 @@ h6 {
 .error {
   color: #F00;
   font-weight: bold;
+}
+
+.container {
+  position: relative;
+  z-index: 2;
 }

@@ -18,11 +18,13 @@ class Home extends Component {
 
   componentDidMount() {
     document.getElementById('search-btn').setAttribute('disabled', 'true');
+    document.getElementById('search-bar-heading').classList.add('animate-width');
+    document.getElementById('search-input').focus();
     this.props.get_user();
   }
 
   componentWillReceiveProps(nextProps) {
-    return nextProps === this.props ? '' 
+    return nextProps === this.props ? ''
     :
     this.finalize()
   }
@@ -83,7 +85,7 @@ class Home extends Component {
     const { product } = this.state;
 
     return (
-      <div className="container">
+      <div className="search-container">
 
         {
           this.state.loading ?
@@ -96,20 +98,37 @@ class Home extends Component {
           <div></div>
         }
 
-        <div className="row">
-          <div className="input-field col s9">
+        <div className="row search-bar">
+          <div
+          className="search-bar-heading"
+          id="search-bar-heading"
+          >
+            <h3>ENTER THE AMAZON URL ........ WE WILL DO THE REST</h3>
+          </div>
+          <span className="animated-cursor">|</span>
+          <div className="input-field col s12 box-shadow" id="search-input-field">
             <input
               type="text"
+              className="col s9"
               id="search-input"
               value={this.state.searchURL}
-              onChange={(e) => this.onSearchTermChanged(e.target.value)}
+              onChange={(e) => {
+                this.onSearchTermChanged(e.target.value);
+              }}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  console.log('yes');
+                  document.getElementById('search-btn').click();
+                }
+              }}
+              onClick={() => {
+                document.getElementById('search-input-field').classList.add('box-shadow');
+                document.getElementById('amazon-data__card').classList.remove('box-shadow');
+              }}
               placeholder="Enter Amazon URL"
             />
-          </div>
-
-          <div className="col s3">
             <Button
-              className="search-btn"
+              className="search-btn col s3"
               waves='light'
               onClick={this.onSearch.bind(this)}
               id="search-btn">
@@ -120,54 +139,59 @@ class Home extends Component {
 
         {product ?
         (
-          <div>
-            <h5>{product.title}</h5>
+          <div className="amazon-data"
+          onLoad={() => {
+            document.getElementById('search-input-field').classList.remove('box-shadow');
+            document.getElementById('amazon-data__card').classList.add('box-shadow');
+          }}>
             <div className="row">
-              <div className="col s4">
-                <div className="image-container card">
-                  <img alt={`${product.title}`} src={product.image} width="180" />
-                  <br />
+              <div className="col s10 amazon-data__card card" id="amazon-data__card">
+                <h5 className="col s12 amaxon-data__title">{product.title}</h5>
+                <div className="col s6">
+                  <div className="image-container">
+                    <img alt={`${product.title}`} src={product.image} width="360" />
+                    <br />
 
-                  {
-                    this.state.itemAdded ?
-                    <p><b>Item added to Cart</b></p>
-                    :
-                    this.state.itemInCart ?
-                    <p><b>Item in Cart</b></p>
-                    :
-                    (
-                      <Button
-                        waves='light'
-                        onClick={this.addItemsToCart.bind(this)}
-                        className="search-btn">
-                          Add to Cart
-                      </Button>
-                    )
-                  }
+                    {
+                      this.state.itemAdded ?
+                      <p><b>Item added to Cart</b></p>
+                      :
+                      this.state.itemInCart ?
+                      <p><b>Item in Cart</b></p>
+                      :
+                      (
+                        <Button
+                          waves='light'
+                          onClick={this.addItemsToCart.bind(this)}
+                          className="search-btn">
+                            Add to Cart
+                        </Button>
+                      )
+                    }
+                  </div>
                 </div>
-              </div>
-
-              <div className="col s8 card">
-                <h5><b>Price: {product.price}</b></h5>
-                {
-                  product.description ?
-                  <p><b>Description: </b>{product.description.trim()}</p>
-                  :
-                  ''
-                }
-                <p><b>Details: </b></p>
-                {
-                  product.details.map((detail, index) => {
-                    return <p key={index}>{detail}</p>
-                  })
-                }
+                <div className="amazon-data-description col s6">
+                  <h5><b>Price: {product.price}</b></h5>
+                  {
+                    product.description ?
+                    <p><b>Description: </b>{product.description.trim()}</p>
+                    :
+                    ''
+                  }
+                  <p><b>Details: </b></p>
+                  {
+                    product.details.map((detail, index) => {
+                      return <p key={index}>{detail}</p>
+                    })
+                  }
+                  </div>
               </div>
             </div>
           </div>
         )
         :
         <div className="home-container">
-          
+
         </div>
         }
       </div>

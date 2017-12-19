@@ -33,10 +33,9 @@ class App extends Component {
     const { authenticated } = this.props;
     return (
       <div className="App">
-        <div className="app__background col-s12"></div>
-        <div className="app__background-overlay col-s12"></div>
         {
           authenticated === true ?
+
           <div>
             <Header />
             <Route exact path="/" component={RequireAuth(Home)} />
@@ -51,66 +50,69 @@ class App extends Component {
             <Route path="/orders/invoice/:id" component={RequireAuth(Invoice)} />
           </div>
         :
-          <div className="app__forms">
-            <div className="app__signup col-s4" id="app__signup">
-              <div className="row">
-                <div className="col s12">
-                  <img
-                    width="200"
-                    height="200"
-                    src="images/hourrier_logo.jpg"
-                    alt="hourrier trademark"/>
+          <div>
+            <div className="app__background col-s12"></div>
+            <div className="app__background-overlay col-s12"></div>
+            <div className="app__forms">
+              <div className="app__signup col-s4" id="app__signup">
+                <div className="row">
+                  <div className="col s12">
+                    <img
+                      width="200"
+                      height="200"
+                      src="images/hourrier_logo.jpg"
+                      alt="hourrier trademark"/>
+                  </div>
+                </div>
+                <p className="justify-text">Need a package from Amazon sent to Jamaica? Look no further. We are Hourrier, your all-in-one shopping platform. You shop, we deliver!</p>
+                <hr className="app__signup-border" />
+                <h4 className="app__signup-title" id="app__signup-title">Dont Have An Account?</h4>
+                <div className="app__signup-button" id="app__signup-button"
+                  onClick={() => {
+                    document.getElementById('app__signup').classList.add('animate-right');
+                    document.getElementById('app__signup-title').innerHTML = 'Have An Account?';
+                    document.getElementById('app__signin').classList.add('animate-left');
+                    document.getElementById('app__signup-button').style.display = 'none';
+                    document.getElementById('app__signup-change').style.display = 'block';
+                    setTimeout(function() {
+                      document.getElementById('app__signup').classList.add('switch');
+                      document.getElementById('app__signin').classList.add('switch');
+                      document.getElementById('app__signup').classList.remove('animate-right');
+                      document.getElementById('app__signin').classList.remove('animate-left');
+                    }, 500);
+
+                    this.setState({ currenlyViewing: 'signup' })}
+                  }
+                >
+                  Sign Up
+                </div>
+                <div className="app__signup-change" id="app__signup-change"
+                  onClick={() => {
+                    document.getElementById('app__signup').classList.add('return-left')
+                    document.getElementById('app__signin').classList.add('return-right');
+                    setTimeout(function() {
+                      document.getElementById('app__signup').classList.remove('switch');
+                      document.getElementById('app__signin').classList.remove('switch');
+                      document.getElementById('app__signup').classList.remove('return-left');
+                      document.getElementById('app__signin').classList.remove('return-right');
+                    }, 500);
+                    document.getElementById('app__signup-title').innerHTML = 'Dont Have An Account?';
+                    document.getElementById('app__signup-button').style.display = 'block';
+                    document.getElementById('app__signup-change').style.display = 'none';
+                    document.getElementById('app__signup-button').innerHTML = 'Sign In';
+                    this.setState({ currenlyViewing: 'signin' })}
+                  }
+                >
+                  Sign In
                 </div>
               </div>
-              <p className="justify-text">Need a package from Amazon sent to Jamaica? Look no further. We are Hourrier, your all-in-one shopping platform. You shop, we deliver!</p>
-              <hr className="app__signup-border" />
-              <h4 className="app__signup-title" id="app__signup-title">Dont Have An Account?</h4>
-              <div className="app__signup-button" id="app__signup-button"
-                onClick={() => {
-                  document.getElementById('app__signup').classList.add('animate-right');
-                  document.getElementById('app__signup-title').innerHTML = 'Have An Account?';
-                  document.getElementById('app__signin').classList.add('animate-left');
-                  document.getElementById('app__signup-button').style.display = 'none';
-                  document.getElementById('app__signup-change').style.display = 'block';
-                  setTimeout(function() {
-                    document.getElementById('app__signup').classList.add('switch');
-                    document.getElementById('app__signin').classList.add('switch');
-                    document.getElementById('app__signup').classList.remove('animate-right');
-                    document.getElementById('app__signin').classList.remove('animate-left');
-                  }, 500);
 
-                  this.setState({ currenlyViewing: 'signup' })}
-                }
-              >
-                Sign Up
+              <div className="app__signin col-s4" id="app__signin">
+                <div className="background col-s12"></div>
+                {this.state.currenlyViewing === 'signin' ? <SignIn />  :  <SignUp /> }
               </div>
-              <div className="app__signup-change" id="app__signup-change"
-                onClick={() => {
-                  document.getElementById('app__signup').classList.add('return-left')
-                  document.getElementById('app__signin').classList.add('return-right');
-                  setTimeout(function() {
-                    document.getElementById('app__signup').classList.remove('switch');
-                    document.getElementById('app__signin').classList.remove('switch');
-                    document.getElementById('app__signup').classList.remove('return-left');
-                    document.getElementById('app__signin').classList.remove('return-right');
-                  }, 500);
-                  document.getElementById('app__signup-title').innerHTML = 'Dont Have An Account?';
-                  document.getElementById('app__signup-button').style.display = 'block';
-                  document.getElementById('app__signup-change').style.display = 'none';
-                  document.getElementById('app__signup-button').innerHTML = 'Sign In';
-                  this.setState({ currenlyViewing: 'signin' })}
-                }
-              >
-                Sign In
-              </div>
-            </div>
-
-            <div className="app__signin col-s4" id="app__signin">
-              <div className="background col-s12"></div>
-              {this.state.currenlyViewing === 'signin' ? <SignIn />  :  <SignUp /> }
             </div>
           </div>
-
         }
       </div>
     );
