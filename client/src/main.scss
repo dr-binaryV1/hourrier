@@ -1,0 +1,174 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.col-s1 {width: 8.33%;}
+.col-s2 {width: 16.66%;}
+.col-s3 {width: 25%;}
+.col-s4 {width: 33.33%;}
+.col-s5 {width: 41.66%;}
+.col-s6 {width: 50%;}
+.col-s7 {width: 58.33%;}
+.col-s8 {width: 66.66%;}
+.col-s9 {width: 75%;}
+.col-s10 {width: 83.33%;}
+.col-s11 {width: 91.66%;}
+.col-s12 {width: 100%;}
+
+p {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.1em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+}
+
+.justify-text {
+  text-align: justify;
+}
+
+.App {
+  height: 100vh;
+  background-size: cover;
+}
+
+.app__background {
+  position: absolute;
+  height: inherit;
+  background: url(/images/bk2.jpg);
+  background-color: black;
+  background-size: cover;
+  filter: blur(5px);
+  z-index: 1;
+}
+
+.app__background-overlay {
+  background: #1b1488;
+  height: 100vh;
+  position: absolute;
+  opacity: 0.3;
+}
+
+.app__forms {
+  position: relative;
+  height: 100vh;
+  z-index: 2;
+}
+
+.app__signup {
+  position: absolute;
+  height: 66vh;
+  background: white;
+  left: 15%;
+  top: 13%;
+  padding: 2%;
+  z-index: 3;
+  box-shadow: 0 3px 15px 4px rgba(0,0,0,0.4);
+}
+
+.app__signup-border {
+  margin: 10% 0;
+  color: #1b1488;
+}
+
+.app__signup-button {
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  list-style-type: none;
+  border: 1px solid #009bff;
+  background-color: #009bff;
+  padding-top: 2%;
+  border-radius: 30px;
+  width: 30%;
+  height: 40px;
+  margin: 0 auto;
+}
+
+.app__signup-button a {
+  color: white;
+}
+
+.app__signin {
+  position: absolute;
+  background-color: #1B1488;
+  height: 55vh;
+  right: 20%;
+  top: 23%;
+  z-index: 2;
+  padding: 2%;
+}
+
+.search-btn{
+  margin-top: 15px;
+}
+
+.edit-profile-btn{
+  margin-bottom: 10px;
+}
+
+.btn-spacing{
+  margin-right: 5px !important;
+}
+
+.container-padding {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
+
+.image-container {
+  width: 180;
+  height: 220;
+}
+
+.center-container {
+  margin: 0 auto !important;
+}
+
+.important-msg {
+  color: red
+}
+
+.success-msg {
+  color: green
+}
+
+.small-top-margin {
+  margin-top: 5px;
+}
+
+.home-container {
+  background-image: url("./utils/images/home_background.png");
+  opacity: .4;
+  margin-top: 50px;
+  height: 60vh;
+  width: 60vw;
+  background-repeat: no-repeat;
+}
+
+.signout-container {
+  background-image: url("./utils/images/leaving_us.jpg");
+  margin: 0 auto;
+  height: 65vh;
+  width: 50vw;
+  opacity: .4;
+  background-repeat: no-repeat;
+}
+
+.empty-cart-container {
+  background-image: url("./utils/images/empty-cart.jpg");
+  margin: 0 auto;
+  height: 50vh;
+  width: 50vw;
+  background-repeat: no-repeat;
+}
+
+.error {
+  color: #F00;
+  font-weight: bold;
+}
