@@ -4,6 +4,8 @@ import { Button, Input } from 'react-materialize';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { get_authenticated_state } from '../../actions';
+import Select2 from 'react-select2-wrapper';
+import 'react-select2-wrapper/css/select2.css';
 
 class SignIn extends Component {
   state = {
@@ -285,17 +287,19 @@ class SignIn extends Component {
             </div>
 
             <div className="input-field col s4">
-            {
-              this.renderInput(
-                'Country',
-                "text",
-                "country",
-                this.state.country,
-                (e) => this.setState({ country: e.target.value }),
-                'countryError'
-              )
-            }
-            <label htmlFor="country">Country</label>
+              <Select2
+                className="Country"
+                required={true}
+                id="country"
+                value={this.state.country}
+                data={['America', 'Jamaica', 'Barbados', 'Canada']}
+                options={
+                  {
+                    placeholder: 'Please select one',
+                  }
+                }
+              />
+            <label htmlFor="country" className="active">Country</label>
             <p className="important-msg left-align">{this.state.countryError}</p>
             </div>
           </div>

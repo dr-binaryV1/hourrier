@@ -259,6 +259,21 @@ h6 {
   font-size: 12px;
 }
 
+.select2 {
+  margin-top: 7% !important;
+  width: 100% !important;
+  border: 0;
+  background-color: inherit;
+  border-bottom: 2px solid #969ea0;
+  text-align: left;
+}
+
+.select2-selection,
+.select2-selection--default,
+.select2-selection--single {
+  background: inherit !important;
+  border: inherit !important;
+}
 /* ========== SEARCH PAGE ========== */
 .search-container {
   height: 50vh;
