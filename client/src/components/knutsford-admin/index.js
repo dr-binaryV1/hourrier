@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container } from 'react-materialize';
 import Item from './item';
+import sortBy from 'sort-by';
 
 import { getKnutsfordItems } from '../../helpers/api';
 
