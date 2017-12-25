@@ -12,10 +12,6 @@ export default function requireAuth(Component) {
 
     checkAuth() {
       if ( ! this.props.isLoggedIn) {
-        // const location = this.props.location;
-        // const redirect = location.pathname + location.search;
-
-        // this.props.router.push(`/login?redirect=${redirect}`);
         this.props.history.push('/sign-in');
       }
     }
