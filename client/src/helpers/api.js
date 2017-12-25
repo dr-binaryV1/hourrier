@@ -462,3 +462,14 @@ export function getKnutsfordItems() {
     method: 'GET'
   });
 }
+
+export function getKnutsordData(packageId) {
+  return fetch(`${url}/knutsford/packages`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+    },
+    method: 'POST',
+    body: JSON.stringify({packageId})
+  });
+}

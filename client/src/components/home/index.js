@@ -97,6 +97,7 @@ class Home extends Component {
 
   render() {
     const { product } = this.state;
+    const dataCard = document.getElementById('amazon-data__card');
 
     return (
       <div className="search-container">
@@ -137,9 +138,7 @@ class Home extends Component {
               }}
               onClick={() => {
                 document.getElementById('search-input-field').classList.add('box-shadow');
-                if (document.getElementById('amazon-data__card').classList.contains('box-shadow')){
-                  document.getElementById('amazon-data__card').classList.remove('box-shadow');  
-                }
+                dataCard ? document.getElementById('amazon-data__card').classList.remove('box-shadow') : '';
               }}
               placeholder="Enter Amazon URL"
             />
