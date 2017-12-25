@@ -28,12 +28,12 @@ const OrderItem = (props) => {
             View
           </Button>
 
-          <Button
+          {/* <Button
             onClick={() => props.delete_order(order._id)}
             className="red"
             waves="light">
             Delete
-          </Button>
+          </Button> */}
           <p className="right-align small-top-margin"><b>Last Updated: </b><AccessTime /> {Moment(order.updatedAt).fromNow()}</p>
         </Col>
       </Row>
