@@ -21,12 +21,14 @@ class KnutsfordDashboard extends Component {
   }
 
   render() {
+    const { orders } = this.state;
+
     return (
       <Container>
         <h5>Knutsford Panel</h5>
         {
-          this.state.orders.length > 0 ?
-          this.state.orders.map(order => {
+          orders.length > 0 ?
+          orders.map(order => {
             return <Item key={order._id} order={order} />
           })
           :
