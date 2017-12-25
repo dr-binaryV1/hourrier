@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, withRouter } from 'react-router-dom';
-import { get_authenticated_state } from './actions';
+import { get_authenticated_state, get_user } from './actions';
 
 import { Link } from 'react-router-dom';
 import './App.css';
@@ -14,6 +14,7 @@ import Header from './components/header';
 import Profile from './components/user/profile';
 import Home from './components/home';
 import RequireAuth from './hoc/requireAuth';
+import RequireAdmin from './hoc/requireAdmin';
 import AdminDashboard from './components/admin/admin-dashboard';
 import KnutsfordDashboard from './components/knutsford-admin';
 import OrderDetail from './components/admin/orderItemDetail';
@@ -28,7 +29,7 @@ class App extends Component {
 
   componentDidMount() {
     const token = localStorage.getItem('token');
-    token ? this.props.get_authenticated_state(true) : this.props.get_authenticated_state(false);
+    token ? this.props.get_authenticated_state(true) && this.props.get_user() : this.props.get_authenticated_state(false);
   }
 
   render() {
@@ -47,7 +48,7 @@ class App extends Component {
               <Route exact path="/profile" component={RequireAuth(Profile)} />
               <Route exact path="/packages" component={RequireAuth(Package)} />
               <Route exact path="/notifications" component={RequireAuth(Notifications)} />
-              <Route exact path="/hourrier-admin" component={RequireAuth(AdminDashboard)} />
+              <Route exact path="/hourrier-admin" component={RequireAdmin(AdminDashboard)} />
               <Route exact path="/knutsford" component={RequireAuth(KnutsfordDashboard)} />
               <Route path="/hourrier-admin/orders/:id" component={RequireAuth(OrderDetail)} />
               <Route path="/orders/invoice/:id" component={RequireAuth(Invoice)} />
@@ -126,4 +127,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default withRouter(connect(mapStateToProps, { get_authenticated_state })(App));
+export default withRouter(connect(mapStateToProps, { get_authenticated_state, get_user })(App));
