@@ -473,3 +473,14 @@ export function getKnutsordData(packageId) {
     body: JSON.stringify({packageId})
   });
 }
+
+export function filterOrders(filterBy, keyword) {
+  return fetch(`${url}/orders/filter`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'auth': localStorage.getItem('token'),
+    },
+    method: 'POST',
+    body: JSON.stringify({filterBy, keyword})
+  });
+}
