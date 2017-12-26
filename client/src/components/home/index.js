@@ -162,7 +162,6 @@ class Home extends Component {
           }}>
             <div className="row">
               <div className="col s10 amazon-data__card card" id="amazon-data__card">
-                <h5 className="col s12 amaxon-data__title">{product.title}</h5>
                 <div className="col s6">
                   <div className="image-container">
                     <img alt={`${product.title}`} src={product.image} width="360" />
@@ -177,9 +176,8 @@ class Home extends Component {
                       :
                       (
                         <Button
-                          waves='light'
                           onClick={this.addItemsToCart.bind(this)}
-                          className="search-btn">
+                          className="add-to-cart-btn">
                             Add to Cart
                         </Button>
                       )
@@ -187,20 +185,25 @@ class Home extends Component {
                   </div>
                 </div>
                 <div className="amazon-data-description col s6">
-                  <h5><b>Price: {product.price}</b></h5>
-                  {
-                    product.description ?
-                    <p><b>Description: </b>{product.description.trim()}</p>
-                    :
-                    ''
-                  }
-                  <p><b>Details: </b></p>
-                  {
-                    product.details.map((detail, index) => {
-                      return <p key={index}>{detail}</p>
-                    })
-                  }
+                  <div className="amazon-data-title">
+                    <h5 className="col s12 amaxon-data__title">{product.title}</h5>
+                    <h5><b>Price: {product.price}</b></h5>
+                    {
+                      product.description ?
+                      <p><b>Description: </b>{product.description.trim()}</p>
+                      :
+                      ''
+                    }
+                    <p><b>Details: </b></p>
                   </div>
+                  <div className="col s12 amazon-data-text">
+                    {
+                      product.details.map((detail, index) => {
+                        return <p key={index}>{detail}</p>
+                      })
+                    }
+                  </div>
+                </div>
               </div>
             </div>
           </div>

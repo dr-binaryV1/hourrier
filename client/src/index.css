@@ -45,6 +45,10 @@ h6 {
   background-size: cover;
 }
 
+.nav-container {
+  background: #009bff;
+}
+
 .app__background {
   position: absolute;
   height: 100vh;
@@ -369,11 +373,6 @@ h6 {
   margin-left: -15%;
 }
 
-.amazon-data__card {
-  max-height: 61vh;
-  overflow: hidden;
-}
-
 .amazon-data__title {
   margin-bottom: 3%;
 }
@@ -384,13 +383,88 @@ h6 {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  height: 58vh;
+  height: 65vh;
 }
-/* ===================== */
+
+.amazon-data-description {
+  overflow: hidden;
+  max-height: 65vh;
+}
+
+.amazon-data-text {
+  text-align: justify;
+  max-height: 47vh;
+  overflow: scroll;
+  text-overflow: clip;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+}
+
+.add-to-cart-btn {
+  border-radius: 30px;
+  height: 40px;
+  background: #009bff;
+  margin-top: 4%;
+}
+
+.add-to-cart-btn:hover {
+  background: white;
+  color: #009bff;
+}
+
+/* ========== PROFILE ========== */
+.profile-header {
+    background:  #1b1488;
+    color: white;
+    height: 10vh;
+    margin-top: -1%;
+    padding: 2%;
+}
 
 .edit-profile-btn{
   margin-bottom: 10px;
 }
+
+.edit-profile-btn button {
+  margin-top: 8%;
+  width: 35px !important;
+  height: 35px !important;
+  color: #009bff;
+  background-color: white;
+}
+
+.profile-data {
+  margin-top: 2%;
+}
+
+.profile-card-header {
+  background-color: #009bff;
+  color: white;
+  height: 5vh;
+  margin-bottom: 1%;
+}
+
+.account-card {
+  margin: 5% auto;
+  padding-bottom: 1%;
+}
+
+.account-card h5 {
+  padding-top: 1%;
+}
+
+.account-card p {
+  margin: 0;
+}
+
+.account-card svg {
+  color: #1b1488;
+}
+
+/* ===================== */
+
 
 .btn-spacing{
   margin-right: 5px !important;

@@ -16,6 +16,9 @@ import AddIcon from 'react-icons/lib/md/add';
 import InfoIcon from 'react-icons/lib/md/info-outline';
 import { getOrdersByBuyerId } from '../../helpers/api';
 import Order from './order';
+import Profile from 'react-icons/lib/md/account-circle';
+import Home from 'react-icons/lib/md/home';
+import Email from 'react-icons/lib/md/email';
 
 class ProfileDetails extends Component {
   state = {
@@ -62,7 +65,7 @@ class ProfileDetails extends Component {
     this.getItineraryDetails()
     this.setState({ addingItinerary: false });
   }
-  
+
   stopAddingItinerary() {
     this.setState({ addingItinerary: false });
   }
@@ -71,65 +74,54 @@ class ProfileDetails extends Component {
     const { user } = this.props;
 
     return (
-    <div className="container container-padding">
-      <div className="row">
-        <div className="col s6 left-align">
-          <h5>Welcome back, <b>{user.username}</b></h5>
+    <div className="col s12 profile">
+      <div className="col s12 profile-header">
+        <div className="row left-align">
+          <h5 className="col s11">Welcome back, <b>{user.username}</b></h5>
         </div>
       </div>
-      <br />
-      <div className="card container-padding">
-        <div className="row left-align">
-          <div className="col s4">
-            <h6>First Name: {user.firstname}</h6>
-          </div>
 
-          <div className="col s4">
-            <h6>Last Name: {user.lastname}</h6>
-          </div>
-
-          <div className="col s4">
-            <h6>Email: {user.email}</h6>
-          </div>
-        </div>
-        <div className="row left-align">
-          <div className="col s6">
-            <h6>Mailing Address 1: {user.mailingAddress1}</h6>
-          </div>
-        </div>
-        <div className="row left-align">
-          <div className="col s6">
-            <h6>Mailing Address 2: {user.mailingAddress2}</h6>
-          </div>
-        </div>
-        <div className="row left-align">
-          <div className="col s4">
-            <h6>Mailing City: {user.mailingCity}</h6>
-          </div>
-
-          <div className="col s4">
-            <h6>Mailing Country: {user.mailingCountry}</h6>
-          </div>
-
-          <div className="col s3">
-            <h6>Mailing Zip: {user.mailingZip}</h6>
-          </div>
-
+      <Row className="container container-padding profile-card card account-card">
+        <div className="col s12 profile-card-header">
+          <h5 className="col s11">Account</h5>
           <div className="col s1 edit-profile-btn">
             <Button
               title="Edit Profile"
               floating
-              className="blue"
               id="edit-profile"
               onClick={() => this.props.edit()}
-              waves='light'><EditIcon size={25} /></Button>
+              waves='light'><EditIcon size={20} /></Button>
           </div>
         </div>
-      </div>
-
-      <Row>
-        <h5>Orders</h5>
+        <div className="profile-data-text">
+          <div className="col s4">
+            <Profile size={50} />
+          </div>
+          <div className="col s4">
+            <Email size={50} />
+          </div>
+          <div className="col s4">
+            <Home size={50} />
+          </div>
+          <div className="col s4">
+            <p>{user.firstname} {user.lastname}</p>
+          </div>
+          <div className="col s4">
+            <p>{user.email}</p>
+          </div>
+          <div className="col s4">
+            <p>{user.mailingAddress1}, {user.mailingAddress2}</p>
+            <p>{user.mailingCity}, {user.mailingZip}</p>
+            <p>{user.mailingCountry}</p>
+          </div>
+        </div>
+      </Row>
+      <br />
+      <Row className="container container-padding profile-card">
         <Collapsible>
+          <div className="col s12 profile-card-header">
+            <h5>Orders</h5>
+          </div>
           <CollapsibleItem
             header='Click to expand / collapse orders'>
             {
@@ -147,13 +139,13 @@ class ProfileDetails extends Component {
         </Collapsible>
       </Row>
 
-      { 
+      {
         user ?
       <Row>
         <h5>Are you traveling soon?</h5>
         <div className="switch" title="Traveler Mode">
           <label>No
-            <input 
+            <input
               type="checkbox"
               checked={user.traveler}
               onChange={(e) => this.props.update_traveler_status({ status: e.target.checked})}
@@ -161,7 +153,7 @@ class ProfileDetails extends Component {
             <span className="lever">
             </span>Yes
           </label>
-        </div> 
+        </div>
       </Row>
       :
       ''
@@ -202,7 +194,7 @@ class ProfileDetails extends Component {
             </div>
             :
             <div>
-              { 
+              {
                 this.props.shippingAddresses ?
                 this.props.shippingAddresses.map(address => {
                   return <ShippingAddress key={address._id} address={address} />
@@ -210,7 +202,7 @@ class ProfileDetails extends Component {
                 :
                 ''
               }
-            </div> 
+            </div>
           }
           </div>
       </div>
@@ -254,7 +246,7 @@ class ProfileDetails extends Component {
             </div>
             :
             <div>
-              { 
+              {
                 this.props.travelItinerary ?
                 this.props.travelItinerary.map(itinerary => {
                   return <TravelItinerary key={itinerary._id} itinerary={itinerary} />
@@ -262,7 +254,7 @@ class ProfileDetails extends Component {
                 :
                 ''
               }
-            </div> 
+            </div>
           }
           </div>
       </div>

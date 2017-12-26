@@ -18,7 +18,7 @@ class Header extends Component {
     const { user } = this.props;
     return (
       <div className="navbar-fixed">
-      <nav className="blue">
+      <nav className="nav-container">
         <div className="nav-wrapper">
           <Link to="/" className="brand-logo">Hourrier</Link>
           {
