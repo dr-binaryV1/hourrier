@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { add_travel_itinerary } from '../../actions';
 import { Button, ProgressBar, Input } from 'react-materialize';
+import Select2 from 'react-select2-wrapper';
 
 class AddItinerary extends Component {
   state = {
@@ -16,9 +17,9 @@ class AddItinerary extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    return nextProps === this.props ? '' 
-    :
-    this.finalize()
+    return nextProps === this.props ? ''
+      :
+      this.finalize()
   }
 
   onSubmitItinerary() {
@@ -54,45 +55,49 @@ class AddItinerary extends Component {
         </div>
 
         <div className="row container-padding">
-        <div className="row">
+          <div className="row">
             <div className="col s4">
               <Input
                 label="Flight Number"
+                s={12}
                 id="flightNumber"
                 value={this.state.flightNo}
                 onChange={(e) => this.setState({ flightNo: e.target.value })}
-                validate={true} /> 
+                validate={true} />
             </div>
           </div>
-          
+
           <div className="row">
             <div className="col s4">
               <Input
                 label="Departure City"
+                s={12}
                 id="departureCity"
                 value={this.state.departureCity}
                 onChange={(e) => this.setState({ departureCity: e.target.value })}
-                validate={true} /> 
+                validate={true} />
             </div>
 
             <div className="col s4">
               <Input
                 type="date"
                 label="Departure Date"
+                s={12}
                 id="departureDate"
                 value={this.state.departureDate}
                 onChange={(e) => this.setState({ departureDate: e.target.value })}
-                /> 
+              />
             </div>
 
             <div className="col s4">
               <Input
                 type="time"
                 label="Departure Time"
+                s={12}
                 id="departureTime"
                 value={this.state.departureTime}
                 onChange={(e) => this.setState({ departureTime: e.target.value })}
-                validate={true} /> 
+                validate={true} />
             </div>
           </div>
 
@@ -100,30 +105,65 @@ class AddItinerary extends Component {
             <div className="col s4">
               <Input
                 label="Arrival City"
+                s={12}
                 id="arrivalCity"
                 value={this.state.arrivalCity}
                 onChange={(e) => this.setState({ arrivalCity: e.target.value })}
-                validate={true} /> 
+                validate={true} />
             </div>
 
             <div className="col s4">
               <Input
                 type="date"
                 label="Arrival Date"
+                s={12}
                 id="arrivalDate"
                 value={this.state.arrivalDate}
                 onChange={(e) => this.setState({ arrivalDate: e.target.value })}
-                /> 
+              />
             </div>
 
             <div className="col s4">
               <Input
                 type="time"
                 label="Arrival Time"
+                s={12}
                 id="arrivalTime"
                 value={this.state.arrivalTime}
                 onChange={(e) => this.setState({ arrivalTime: e.target.value })}
-                validate={true} /> 
+                validate={true} />
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col s4">
+              <Select2
+                required={true}
+                id="country"
+                //value={this.state.country}
+                data={['Austria', 'Canada', 'France', 'Germany', 'Italy', 'Japan', 'Spain', 'United Kingdom', 'United States of America']}
+                options={
+                  {
+                    placeholder: 'Please select a country',
+                  }
+                }
+              />
+              <label htmlFor="country" className="active">Country</label>
+            </div>
+
+            <div className="col s4">
+              <Select2
+                required={true}
+                id="state"
+                //value={this.state.country}
+                data={[]}
+                options={
+                  {
+                    placeholder: 'Please select a state',
+                  }
+                }
+              />
+              <label htmlFor="state" className="active">State</label>
             </div>
           </div>
 
