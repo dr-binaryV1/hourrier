@@ -32,7 +32,8 @@ import {
   deleteAllNotifications,
   deleteOrder,
   dismissInvoice,
-  dismissPackage
+  dismissPackage,
+  filterOrders
 } from '../helpers/api';
 
 export const receive_user = user => {
@@ -329,6 +330,15 @@ export const sign_in = (data) => dispatch => {
     console.log(`Error reported: ${err}`);
     dispatch(get_authenticated_state(false));
   });
+}
+
+export const filter_orders = (filterBy, keyword) => dispatch => {
+  filterOrders(filterBy, keyword)
+  .then(res => res.json())
+  .then(res => {
+    dispatch(receive_orders(res.orders));
+  })
+  .catch(err => console.log(`Error reported: ${err}`));
 }
 
 export const sign_out = () => dispatch => {
