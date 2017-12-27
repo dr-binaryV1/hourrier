@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { get_authenticated_state } from '../../actions';
+import { get_authenticated_state, get_user } from '../../actions';
 import { submitSignIn } from '../../helpers/api';
 import { Button } from 'react-materialize';
 import Error from 'react-icons/lib/md/error';
@@ -15,16 +15,12 @@ class SignIn extends Component {
 
   componentWillReceiveProps(nextProps) {
     return nextProps === this.props ? ''
-    :
-    this.setState({ loading: false })
-  }
-
-  componentDidUpdate() {
-    return this.props.authenticated ? this.props.history.push('/') : '';
+      :
+      this.setState({ loading: false })
   }
 
   renderInput(type, id, val, onchange) {
-    return(
+    return (
       <input
         type={type}
         id={id}
@@ -43,17 +39,18 @@ class SignIn extends Component {
 
     //this.props.sign_in(data);
     submitSignIn(data)
-    .then(res => res.json())
-    .then(res => {
-      localStorage.setItem('token', res.token);
-      localStorage.setItem('user', res.user._id);
-      this.props.get_authenticated_state(true);
-    })
-    .catch(err => {
-      console.log(`Error reported: ${err}`);
-      this.setState({ loading: false, signinErr: 'Failed sign in attempt!' });
-      this.props.get_authenticated_state(false);
-    });
+      .then(res => res.json())
+      .then(res => {
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('user', res.user._id);
+        this.props.get_authenticated_state(true);
+        this.props.get_user();
+      })
+      .catch(err => {
+        console.log(`Error reported: ${err}`);
+        this.setState({ loading: false, signinErr: 'Failed sign in attempt!' });
+        this.props.get_authenticated_state(false);
+      });
   }
 
   render() {
@@ -61,19 +58,19 @@ class SignIn extends Component {
       <div className="app__signin-container">
         {
           this.state.loading ?
-          (
-            <div className="progress">
-              <div className="indeterminate"></div>
-            </div>
-          )
-          :
-          <div></div>
+            (
+              <div className="progress">
+                <div className="indeterminate"></div>
+              </div>
+            )
+            :
+            <div></div>
         }
         {
           this.state.signinErr ?
-          <p className="error"><Error color='#F00' /> {this.state.signinErr}</p>
-          :
-          ''
+            <p className="error"><Error color='#F00' /> {this.state.signinErr}</p>
+            :
+            ''
         }
         <h4 className="app__signin-form-title">Sign In</h4>
         <div className="app__signin-form col-s11" id="signup-form">
@@ -111,7 +108,7 @@ class SignIn extends Component {
               <div
                 onClick={this.onSubmitForm.bind(this)}
                 id="submit">
-                  Sign In
+                Sign In
               </div>
             </div>
           </div>
@@ -123,8 +120,9 @@ class SignIn extends Component {
 
 function mapStateToProps(state) {
   return {
-    authenticated: state.authenticated
+    authenticated: state.authenticated,
+    user: state.user
   }
 }
 
-export default withRouter(connect(mapStateToProps, { get_authenticated_state })(SignIn));
+export default withRouter(connect(mapStateToProps, { get_authenticated_state, get_user })(SignIn));
