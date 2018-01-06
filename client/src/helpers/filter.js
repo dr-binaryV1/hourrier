@@ -3,10 +3,12 @@ import { Input, Button, Row, Col } from 'react-materialize';
 import Select2 from 'react-select2-wrapper';
 import { filter_orders } from '../actions';
 import { connect } from 'react-redux';
+import { filterBy, arrivalCity, arrivalDate } from '../utils/filterInfo';
 
 class Filter extends Component {
   state = {
-    searchName: ''
+    searchName: '',
+    filterOption: 'Name'
   }
 
   render() {
@@ -16,7 +18,10 @@ class Filter extends Component {
           <Select2
             required={true}
             id="filter"
-            data={['Location', 'Arrival']}
+            defaultValue="Name"
+            value={this.state.filterOption}
+            onSelect={(e) => this.setState({ filterOption: e.target.value })}
+            data={filterBy}
             options={
               {
                 placeholder: 'Please select method',
@@ -30,7 +35,23 @@ class Filter extends Component {
           <Select2
             required={true}
             id="filterOption"
-            data={[]}
+            onSelect={(e) => {
+              this.state.filterOption === "Traveler Arrival Destination" ?
+                this.props.filter_orders("location", e.target.value)
+                :
+                this.state.filterOption === "Traveler Arrival Date" ?
+                  this.props.filter_orders("time", e.target.value)
+                  : ''
+              }
+            }
+            data={
+              this.state.filterOption === "Traveler Arrival Destination" ?
+                arrivalCity
+                :
+                this.state.filterOption === "Traveler Arrival Date" ?
+                  arrivalDate
+                  : []
+            }
             options={
               {
                 placeholder: 'Please select option',
@@ -42,7 +63,7 @@ class Filter extends Component {
 
         <Col s={4}>
           <Input
-            label="Search by Name"
+            label="Search by Name or click SEARCH to find all"
             s={12}
             value={this.state.searchName}
             onChange={(e) => this.setState({ searchName: e.target.value })}
@@ -53,7 +74,7 @@ class Filter extends Component {
         <Col s={2} className="left-align">
           <Button
             onClick={() => this.props.filter_orders("name", this.state.searchName)}
-            className="search-btn"
+            className="search-btn blue"
             waves="light">
             Search
           </Button>
