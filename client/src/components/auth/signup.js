@@ -291,7 +291,8 @@ class SignIn extends Component {
                 className="Country"
                 required={true}
                 id="country"
-                value={this.state.country}
+                defaultValue={this.state.country}
+                onSelect={(e) => this.setState({ country: e.target.value})}
                 data={['America', 'Jamaica', 'Barbados', 'Canada']}
                 options={
                   {
