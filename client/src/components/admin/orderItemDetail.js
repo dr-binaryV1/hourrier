@@ -14,6 +14,9 @@ import Item from './item';
 class OrderDetail extends Component {
   state = {
     buyer: null,
+    traveler: null,
+    travelItinerary: null,
+    shippingAddress: null,
     items: [],
     status: null,
     loading: false,
@@ -38,7 +41,15 @@ class OrderDetail extends Component {
     getSingleOrder(orderId)
       .then(res => res.json())
       .then(res => {
-        this.setState({ buyer: res.buyer, items: res.items, status: res.status, lastUpdated: res.updatedAt });
+        this.setState({
+          buyer: res.buyer,
+          traveler: res.traveler,
+          shippingAddress: res.shipping,
+          travelItinerary: res.itinerary,
+          items: res.items,
+          status: res.status,
+          lastUpdated: res.updatedAt
+        });
       })
       .then(() => {
         this.calculateTotalPrice()
@@ -94,7 +105,7 @@ class OrderDetail extends Component {
   }
 
   render() {
-    const { buyer, items, status, lastUpdated } = this.state;
+    const { buyer, traveler, travelItinerary, shippingAddress, items, status, lastUpdated } = this.state;
     const ONE_DAY = 60 * 60 * 1000 * 24;
     return (
       <Container>
@@ -176,19 +187,77 @@ class OrderDetail extends Component {
                             :
                             ''
                     }
-
-                    {
-                      this.state.status !== 'pending' && this.state.status !== 'locating travelers' ?
-                        <Button
-                          waves='light'>
-                          View Traveler
-                      </Button>
-                        :
-                        ''
-                    }
                   </Col>
                 </Row>
               </Card>
+
+              {
+                this.state.status !== 'pending' && this.state.status !== 'locating travelers' ?
+                  <div>
+                    <h5 className="left-align">Traveler's Information</h5>
+                    <Card>
+                      <Row>
+                        <Col s={3} className="left-align">
+                          <p><b>First Name: </b>{traveler.firstname}</p>
+                        </Col>
+
+                        <Col s={3} className="left-align">
+                          <p><b>Last Name: </b>{traveler.lastname}</p>
+                        </Col>
+
+                        <Col s={6} className="left-align">
+                          <p><b>Email: </b>{traveler.email}</p>
+                        </Col>
+                      </Row>
+
+                      <Row>
+                        <Col s={6} className="left-align">
+                          <p><b>Shipping Address 1: </b>{shippingAddress.shippingAddress1}</p>
+                        </Col>
+
+                        <Col s={6} className="left-align">
+                          <p><b>Shipping Address 2: </b>{shippingAddress.shippingAddress2}</p>
+                        </Col>
+                      </Row>
+
+                      <Row>
+                        <Col s={3} className="left-align">
+                          <p><b>Shipping City: </b>{shippingAddress.shippingCity}</p>
+                        </Col>
+
+                        <Col s={3} className="left-align">
+                          <p><b>Shipping Country: </b>{shippingAddress.shippingCountry}</p>
+                        </Col>
+
+                        <Col s={3} className="left-align">
+                          <p><b>Shipping Zip: </b>{shippingAddress.shippingZip}</p>
+                        </Col>
+                      </Row>
+
+                      <hr />
+
+                      {
+                        travelItinerary.map(itinerary => {
+                          return <Row>
+                            <Col s={3} className="left-align">
+                              <p><b>Arrival City: </b>{itinerary.arrivalCity}</p>
+                            </Col>
+
+                            <Col s={3} className="left-align">
+                              <p><b>Arrival Date: </b>{new Date(itinerary.arrivalDate).toLocaleDateString()}</p>
+                            </Col>
+
+                            <Col s={6} className="left-align">
+                              <p><b>Arrival Time: </b>{itinerary.arrivalTime}</p>
+                            </Col>
+                          </Row>
+                        })
+                      }
+                    </Card>
+                  </div>
+                  :
+                  ''
+              }
 
               <h5 className="left-align">Requested Items --- Total Cost: ${this.state.totalCost.toFixed(2)}</h5>
               {
