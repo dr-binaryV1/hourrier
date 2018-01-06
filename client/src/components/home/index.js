@@ -18,9 +18,9 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    // document.getElementById('search-btn').setAttribute('disabled', 'true');
-    // document.getElementById('search-bar-heading').classList.add('animate-width');
-    // document.getElementById('search-input').focus();
+    //document.getElementById('search-btn').setAttribute('disabled', 'true');
+    document.getElementById('search-bar-heading').classList.add('animate-width');
+    document.getElementById('search-input').focus();
     this.props.get_user();
   }
 
