@@ -149,7 +149,7 @@ export function checkItem(itemName) {
   });
 }
 
-export function checkout(itemIds) {
+export function checkout(order) {
   return fetch(`${url}/checkout`,{
     headers: {
       'Content-Type': 'application/json',
@@ -157,7 +157,7 @@ export function checkout(itemIds) {
       'user': localStorage.getItem('user')
     },
     method: 'POST',
-    body: JSON.stringify(itemIds)
+    body: JSON.stringify({order})
   });
 }
 
