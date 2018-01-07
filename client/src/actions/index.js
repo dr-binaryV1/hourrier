@@ -205,8 +205,8 @@ export const delete_shoppingcart_item = id => dispatch => {
   });
 }
 
-export const checkout_cart = (itemIds) => dispatch => {
-  checkout({ itemIds })
+export const checkout_cart = (itemIds, location) => dispatch => {
+  checkout({ itemIds, location})
   .then(res => res.json())
   .then(res => {
     dispatch(receive_cart_ids(res.itemIds));
