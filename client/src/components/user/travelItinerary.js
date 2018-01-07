@@ -18,7 +18,6 @@ class TravelItinerary extends Component {
   
       // bind to the form's submit event
       $('#frmUploader').submit(function (e) {
-          alert(options);
           e.preventDefault();
           $(this).ajaxSubmit(options);
           // always return false to prevent standard browser submit and page navigation
