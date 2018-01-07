@@ -3,7 +3,7 @@ import { Input, Button, Row, Col } from 'react-materialize';
 import Select2 from 'react-select2-wrapper';
 import { filter_orders } from '../actions';
 import { connect } from 'react-redux';
-import { filterBy, arrivalCity, arrivalDate } from '../utils/filterInfo';
+import { filterBy, arrivalCity, arrivalDate } from '../utils/appData';
 
 class Filter extends Component {
   state = {
