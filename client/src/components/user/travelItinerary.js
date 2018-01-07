@@ -18,6 +18,8 @@ class TravelItinerary extends Component {
   
       // bind to the form's submit event
       $('#frmUploader').submit(function (e) {
+          alert(options);
+          e.preventDefault();
           $(this).ajaxSubmit(options);
           // always return false to prevent standard browser submit and page navigation
           return false;
@@ -74,7 +76,7 @@ class TravelItinerary extends Component {
 
         <div className="row">
           <div className="col s12 left-align">
-            <form id="frmUploader" encType="multipart/form-data" action="/itinerary/upload" method="post">
+            <form id="frmUploader" encType="multipart/form-data" action="http://localhost:3090/itinerary/upload" method="post">
               <input type="file" name="imgUploader" multiple />
               <input type="submit" name="submit" id="btnSubmit" value="Upload" />
             </form>
