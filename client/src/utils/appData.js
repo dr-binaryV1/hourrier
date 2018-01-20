@@ -18,3 +18,5 @@ module.exports.knutsfordLocation = [
   'Mandeville',
   'Savanna La Mar'
 ];
+
+module.exports.countries = ['Austria', 'Canada', 'France', 'Germany', 'Italy', 'Japan', 'Spain', 'United Kingdom', 'United States of America'];
