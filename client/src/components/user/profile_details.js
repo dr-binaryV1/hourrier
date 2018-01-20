@@ -111,7 +111,7 @@ class ProfileDetails extends Component {
           </div>
           <div className="col s4">
             <p>{user.mailingAddress1}, {user.mailingAddress2}</p>
-            <p>{user.mailingCity}, {user.mailingZip}</p>
+            <p>{user.mailingCity}</p>
             <p>{user.mailingCountry}</p>
           </div>
         </div>
