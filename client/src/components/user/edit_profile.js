@@ -13,7 +13,6 @@ class EditProfile extends Component {
     mailingAddress2: '',
     mailingCity: '',
     mailingCountry: '',
-    mailingZip: '',
     loading: false,
   }
 
@@ -32,8 +31,7 @@ class EditProfile extends Component {
       mailingAddress1,
       mailingAddress2,
       mailingCity,
-      mailingCountry,
-      mailingZip
+      mailingCountry
     } = this.props.user;
 
     this.setState({
@@ -44,8 +42,7 @@ class EditProfile extends Component {
       mailingAddress1,
       mailingAddress2,
       mailingCity,
-      mailingCountry,
-      mailingZip
+      mailingCountry
     });
   }
 
@@ -75,8 +72,7 @@ class EditProfile extends Component {
       mailingAddress1: this.state.mailingAddress1,
       mailingAddress2: this.state.mailingAddress2,
       mailingCity: this.state.mailingCity,
-      mailingCountry: this.state.mailingCountry,
-      mailingZip: this.state.mailingZip
+      mailingCountry: this.state.mailingCountry
     };
 
     this.props.update_user(newUser);
@@ -201,18 +197,6 @@ class EditProfile extends Component {
                   )
                 }
                 <label className="active" htmlFor="mailingCountry">Mailing Country</label>
-              </div>
-
-              <div className="input-field col s4">
-                {
-                  this.renderInput(
-                    "text",
-                    "mailingZip",
-                    this.state.mailingZip,
-                    (e) => this.setState({ mailingZip: e.target.value })
-                  )
-                }
-                <label className="active" htmlFor="mailingZip">Mailing Zip</label>
               </div>
             </div>
           </div>
