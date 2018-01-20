@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { add_travel_itinerary } from '../../actions';
 import { Button, ProgressBar, Input } from 'react-materialize';
 import Select2 from 'react-select2-wrapper';
+import { countries } from '../../utils/appData';
 
 class AddItinerary extends Component {
   state = {
@@ -141,7 +142,7 @@ class AddItinerary extends Component {
                 required={true}
                 id="country"
                 //value={this.state.country}
-                data={['Austria', 'Canada', 'France', 'Germany', 'Italy', 'Japan', 'Spain', 'United Kingdom', 'United States of America']}
+                data={countries}
                 options={
                   {
                     placeholder: 'Please select a country',
