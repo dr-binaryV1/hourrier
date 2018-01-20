@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { get_authenticated_state } from '../../actions';
 import Select2 from 'react-select2-wrapper';
 import 'react-select2-wrapper/css/select2.css';
+import { countries } from '../../utils/appData';
 
 class SignIn extends Component {
   state = {
@@ -17,7 +18,6 @@ class SignIn extends Component {
     address1: '',
     address2: '',
     city: '',
-    zip: '',
     country: '',
     password: '',
     confirmPassword: '',
@@ -28,7 +28,6 @@ class SignIn extends Component {
     address1Error: '',
     address2Error: '',
     cityError: '',
-    zipError: '',
     countryError: '',
     passwordError: '',
     confirmPasswordError: ''
@@ -67,14 +66,13 @@ class SignIn extends Component {
       address1Error,
       address2Error,
       cityError,
-      zipError,
       countryError,
       passwordError,
       confirmPasswordError
     } = this.state;
 
     return usernameError !== '' && firstnameError !== '' && lastnameError !== '' && emailError !== '' && address1Error !== '' &&
-    address2Error !== '' && cityError !== '' && zipError !== '' && countryError !== '' && passwordError !== '' && confirmPasswordError !== '' ?
+    address2Error !== '' && cityError !== '' && countryError !== '' && passwordError !== '' && confirmPasswordError !== '' ?
     false : true;
   }
 
@@ -93,7 +91,6 @@ class SignIn extends Component {
     this.state.address1 ? this.setState({ address1Error: '' }) : this.setState({ address1Error: 'Address 1 is required' });
     this.state.address2 ? this.setState({ address2Error: '' }) : this.setState({ address2Error: 'Address 2 is required' });
     this.state.city ? this.setState({ cityError: '' }) : this.setState({ cityError: 'City is required' });
-    this.state.zip ? this.setState({ zipError: '' }) : this.setState({ zipError: 'Zip is required' });
     this.state.country ? this.setState({ countryError: '' }) : this.setState({ countryError: 'Country is required' });
     this.state.password ? this.setState({ passwordError: '' }) : this.setState({ passwordError: 'Password is required' });
     this.state.confirmPassword ? this.setState({ confirmPasswordError: '' }) : this.setState({ confirmPasswordError: 'Confirm Password is required' });
@@ -109,7 +106,6 @@ class SignIn extends Component {
       address1,
       address2,
       city,
-      zip,
       country,
       password
     } = this.state;
@@ -122,19 +118,20 @@ class SignIn extends Component {
       address1,
       address2,
       city,
-      zip,
       country,
       password
     }
 
     console.log(this.isDataValid());
+    this.checkAllFields();
     this.isDataValid() === true ?
     submitSignUp(data)
     .then(res => res.json())
     .then(res => {
+      console.log(res);
+      res.user._id ? this.props.get_authenticated_state(true) : this.props.get_authenticated_state(false);
       localStorage.setItem('token', res.token);
       localStorage.setItem('user', res.user._id);
-      this.props.get_authenticated_state(true);
     })
     .catch(err => {
       console.log(`Error reported: ${err}`);
@@ -257,6 +254,24 @@ class SignIn extends Component {
 
           <div className="row">
             <div className="input-field col s4">
+              <Select2
+                className="Country"
+                required={true}
+                id="country"
+                defaultValue={this.state.country}
+                onSelect={(e) => this.setState({ country: e.target.value})}
+                data={countries}
+                options={
+                  {
+                    placeholder: 'Please select one',
+                  }
+                }
+              />
+            <label htmlFor="country" className="active">Country</label>
+            <p className="important-msg left-align">{this.state.countryError}</p>
+            </div>
+
+            <div className="input-field col s4">
               {
                 this.renderInput(
                   'City',
@@ -269,39 +284,6 @@ class SignIn extends Component {
               }
               <label htmlFor="city">City</label>
               <p className="important-msg left-align">{this.state.cityError}</p>
-            </div>
-
-            <div className="input-field col s4">
-              {
-                this.renderInput(
-                  'Zip',
-                  "number",
-                  "zip",
-                  this.state.zip,
-                  (e) => this.setState({ zip: e.target.value }),
-                  'zipError'
-                )
-              }
-              <label htmlFor="zip">Zip</label>
-              <p className="important-msg left-align">{this.state.zipError}</p>
-            </div>
-
-            <div className="input-field col s4">
-              <Select2
-                className="Country"
-                required={true}
-                id="country"
-                defaultValue={this.state.country}
-                onSelect={(e) => this.setState({ country: e.target.value})}
-                data={['America', 'Jamaica', 'Barbados', 'Canada']}
-                options={
-                  {
-                    placeholder: 'Please select one',
-                  }
-                }
-              />
-            <label htmlFor="country" className="active">Country</label>
-            <p className="important-msg left-align">{this.state.countryError}</p>
             </div>
           </div>
 
