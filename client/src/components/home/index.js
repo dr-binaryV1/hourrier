@@ -163,11 +163,11 @@ class Home extends Component {
             <div className="row">
               <div className="col s10 amazon-data__card card" id="amazon-data__card">
                 <div className="col s6">
-                  <div className="image-container">
+                  <div className="image-holder">
                     <img alt={`${product.title}`} src={product.image} width="360" />
                     <br />
-
-                    {
+                  </div>
+                  {
                       this.state.itemAdded ?
                       <p><b>Item added to Cart</b></p>
                       :
@@ -182,7 +182,6 @@ class Home extends Component {
                         </Button>
                       )
                     }
-                  </div>
                 </div>
                 <div className="amazon-data-description col s6">
                   <div className="amazon-data-title">

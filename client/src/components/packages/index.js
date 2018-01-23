@@ -22,7 +22,7 @@ class Package extends Component {
             return <PackageItem key={id} id={id} />
           })
           :
-          <div>
+          <div className="page-margin">
             <InfoIcon size={100} />
             <h5>No Package Accepted.</h5>
           </div>

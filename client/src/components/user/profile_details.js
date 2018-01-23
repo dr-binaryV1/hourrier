@@ -81,16 +81,16 @@ class ProfileDetails extends Component {
         </div>
       </div>
 
-      <Row className="container container-padding profile-card card account-card">
+      <Row className="container profile-card card account-card">
         <div className="col s12 profile-card-header">
-          <h5 className="col s11">Account</h5>
+          <h5 className="col s12">Account</h5>
           <div className="col s1 edit-profile-btn">
             <Button
               title="Edit Profile"
               floating
               id="edit-profile"
               onClick={() => this.props.edit()}
-              waves='light'><EditIcon size={20} /></Button>
+              waves='light'><EditIcon size={20} className="editIcon" /></Button>
           </div>
         </div>
         <div className="profile-data-text">
@@ -148,7 +148,9 @@ class ProfileDetails extends Component {
             <input
               type="checkbox"
               checked={user.traveler}
-              onChange={(e) => this.props.update_traveler_status({ status: e.target.checked})}
+              onChange={(e) => {
+                this.props.update_traveler_status({ status: e.target.checked});
+              }}
             />
             <span className="lever">
             </span>Yes

@@ -39,6 +39,135 @@ h6 {
   text-align: justify;
 }
 
+.hide {
+  display: hidden;
+}
+
+.margin-tb-zero{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* ========== HEADER ========== */
+.navbar-fixed {
+  margin-top: -10.5%;
+  height: 150px;
+}
+
+.nav-container {
+  height: inherit !important;
+  box-shadow: none !important;
+}
+
+.menu-controller {
+  position: relative;
+}
+
+.circle-background {
+  width: 100px;
+  height: 60px;
+  background: #009bff;
+  border-radius: 50%;
+  padding: 3% 2%;
+  position: absolute;
+  margin: -3% 47%;
+  color: white;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+.brand-logo {
+  margin: 2% -3%;
+}
+
+.down-arrow, .up-arrow {
+  margin-top: -40%;
+  animation: pulse .8s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    margin-top: -18%;
+  }
+  50% {
+    margin-top: -39%;
+  }
+  100% {
+    margin-top: -40%;
+  }
+}
+
+.pull-down {
+  animation: pull-down .5s forwards;
+}
+
+@keyframes pull-down {
+  0% {
+    margin-top: -14%;
+  }
+  100% {
+    margin-top: 0%;
+  }
+}
+
+.pull-up {
+  animation: pull-up .5s forwards;
+  margin-top: -14%;
+}
+
+@keyframes pull-up {
+  0% {
+    margin-top: 0%;
+    height: 150px;
+  }
+  100% {
+    margin-top: -10.5%;
+  }
+}
+
+.menu-icons {
+  margin: 2% 20%;
+  width: 800px;
+}
+
+.nav-wrapper li {
+  width: 110px;
+  height: 100px;
+  margin: 0 3%;
+}
+
+.nav-wrapper li a {
+  width: inherit;
+  height: inherit;
+}
+
+.nav-wrapper li p {
+  margin-top: -30%;
+}
+
+.nav-wrapper li a:hover, .nav-wrapper li a.active {
+  background: white;
+  color: #009bff;
+  border-radius: 15%;
+  box-shadow: 0 3px 19px rgba(0,0,0,0.4);
+}
+
+.notification {
+  width: 23px;
+  height: 23px;
+  font-size: 10px;
+  background: red;
+  padding: 0;
+  top: 14%;
+  margin-left: 5%;
+  position: absolute;
+  border-radius: 50%;
+}
+
+.nav-wrapper .notification p {
+  margin-top: -90%;
+}
+
 /* ========== HOME PAGE ========== */
 .App {
   height: 100vh;
@@ -281,7 +410,7 @@ h6 {
 /* ========== SEARCH PAGE ========== */
 .search-container {
   height: 50vh;
-  margin: 3% auto;
+  margin: 5% auto;
   width: 60%;
 }
 
@@ -291,7 +420,7 @@ h6 {
 
 .search-bar-heading.animate-width {
   display: inline-block;
-  height: 60px;
+  height: 65px;
   white-space: nowrap;
   overflow: hidden;
   margin: 0 auto;
@@ -303,7 +432,7 @@ h6 {
     width: 0;
   }
   100% {
-    width: 78%;
+    width: 675px;
   }
 }
 
@@ -377,13 +506,10 @@ h6 {
   margin-bottom: 3%;
 }
 
-.image-container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  height: 65vh;
+.image-holder {
+  max-height: 450px;
+  position: relative;
+  overflow: scroll;
 }
 
 .amazon-data-description {
@@ -398,15 +524,11 @@ h6 {
   text-overflow: clip;
 }
 
-::-webkit-scrollbar {
-    width: 0;
-}
-
 .add-to-cart-btn {
   border-radius: 30px;
   height: 40px;
   background: #009bff;
-  margin-top: 4%;
+  margin: 3%;
 }
 
 .add-to-cart-btn:hover {
@@ -425,10 +547,11 @@ h6 {
 
 .edit-profile-btn{
   margin-bottom: 10px;
+  position: absolute;
+  right: 0 !important;
 }
 
 .edit-profile-btn button {
-  margin-top: 8%;
   width: 35px !important;
   height: 35px !important;
   color: #009bff;
@@ -444,6 +567,10 @@ h6 {
   color: white;
   height: 5vh;
   margin-bottom: 1%;
+}
+
+.profile-card-header h5 {
+  margin-top: 0.5%;
 }
 
 .account-card {
@@ -463,6 +590,77 @@ h6 {
   color: #1b1488;
 }
 
+.editIcon {
+  vertical-align: sub !important;
+}
+
+.page-margin {
+  margin-top: 7%;
+}
+
+.edit-profile-card {
+  margin-top: 5%;
+  height: 450px;
+}
+
+.edit-profile-card .left-side, .edit-profile-card .right-side {
+  height: inherit;
+}
+
+.edit-profile-card .right-side { 
+  padding: 3% 2%;
+}
+
+.edit-profile-card svg {
+  height: 450px;
+  color: #009bff;
+}
+
+.profile-section svg {
+  color: #009bff;
+}
+
+.profile-section .select2-selection.select2-selection--single {
+  height: 41px;
+}
+
+/* ========== CART ========== */
+.cart-header {
+  background: #009bff;
+  color: white;
+  height: 50px;
+}
+
+.cart-page .row.card {
+  padding: 3% 0;
+}
+
+.cart-page .row.card svg {
+  color: #f00;
+  cursor: pointer;
+}
+
+#checkout-btn {
+  margin-top: 4%;
+}
+
+.cart-searchbar {
+  background: darkblue;
+  color: white;
+  height: 75px;
+}
+
+.cart-searchbar .label {
+  padding: 0.6%;
+}
+
+.cart-searchbar div {
+  height: inherit;
+}
+
+.cart-searchbar .select2-container--default .select2-selection--single .select2-selection__rendered {
+  color: #fff;
+}
 /* ===================== */
 
 

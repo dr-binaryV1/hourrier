@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import Select2 from 'react-select2-wrapper';
 import { Button, Row, Col } from 'react-materialize';
 import { knutsfordLocation } from '../../utils/appData';
+import Delete from 'react-icons/lib/md/delete'
 
 class Cart extends Component {
   state = {
@@ -52,7 +53,23 @@ class Cart extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div>
+        <div className="row">
+          <div className="col s12 cart-searchbar">
+            <div className="col s2 label"><p>Select Delivery Location:</p></div>
+            <div className="col s3">
+              <Select2
+                required={true}
+                id="deliveryLocation"
+                defaultValue="Kingston"
+                value={this.state.location}
+                onSelect={(e) => this.setState({ location: e.target.value })}
+                data={knutsfordLocation.sort()}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="page-margin container">
         {
           this.state.loading ?
             (
@@ -77,44 +94,39 @@ class Cart extends Component {
             </Button>
               </div>
               :
-              <div>
-                <div className="row">
-                  <div className="col s3">
-                    <Select2
-                      required={true}
-                      id="deliveryLocation"
-                      defaultValue="Kingston"
-                      value={this.state.location}
-                      onSelect={(e) => this.setState({ location: e.target.value })}
-                      data={knutsfordLocation.sort()}
-                    />
-                    <label htmlFor="deliveryLocation" className="active">Select Delivery Location</label>
-                  </div>
+              <div className="cart-page">
+                <div className="cart-header row margin-tb-zero">
+                  <div className="col s2"><p>Item</p></div>
+                  <div className="col s6"><p>Name</p></div>
+                  <div className="col s2"><p>Price</p></div>
+                  <div className="col s1"><p>Quantity</p></div>
+                  <div className="col s1"><p>Remove</p></div>                  
                 </div>
-                <ul>
+                <ul className="margin-tb-zero">
                   {
                     this.props.cartItems ?
                       this.props.cartItems.map(item => {
                         return <li key={item._id}>
-                          <div className="row card">
+                          <div className="row card margin-tb-zero">
                             <div className="col s2">
                               <img src={item.image} width="60" alt={item.name} />
                             </div>
-                            <div className="col s8">
+                            <div className="col s6">
                               {item.name}
                               <div className="row">
-                                <div className=""><h6>Price: <b>{item.price}</b></h6></div>
                                 <Link to={item.url} target="_blank">View Product</Link>
                               </div>
                             </div>
                             <div className="col s2">
-                              <Button
+                              <div className=""><h6><b>{item.price}</b></h6></div>
+                            </div>                            
+                            <div className="col s1">
+                              <div className="col s12"><input id="qty" type="number" defaultValue={1} onChange={(e) => this.onQuantityChange(e.target.value)} /></div>
+                            </div>
+                            <div className="col s1">
+                              <Delete
                                 onClick={() => this.onDeleteItem(item._id)}
-                                waves='light'>Remove</Button>
-                              <div className="row">
-                                <div className="col s6"><p>Qty: </p></div>
-                                <div className="col s6"><input id="qty" type="number" defaultValue={1} onChange={(e) => this.onQuantityChange(e.target.value)} /></div>
-                              </div>
+                                size={30} />
                             </div>
                           </div>
                         </li>
@@ -134,6 +146,7 @@ class Cart extends Component {
             :
             ''
         }
+      </div>
       </div>
     )
   }

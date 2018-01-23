@@ -48,7 +48,7 @@ class App extends Component {
               <Route exact path="/profile" component={RequireAuth(Profile)} />
               <Route exact path="/packages" component={RequireAuth(Package)} />
               <Route exact path="/notifications" component={RequireAuth(Notifications)} />
-              <Route exact path="/hourrier-admin" component={RequireAdmin(AdminDashboard)} />
+              <Route exact path="/hourrier-admin" component={RequireAuth(AdminDashboard)} />
               <Route exact path="/knutsford" component={RequireAuth(KnutsfordDashboard)} />
               <Route path="/hourrier-admin/orders/:id" component={RequireAuth(OrderDetail)} />
               <Route path="/orders/invoice/:id" component={RequireAuth(Invoice)} />

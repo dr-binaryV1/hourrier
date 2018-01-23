@@ -66,7 +66,7 @@ class Notification extends Component {
         {
           user ?
           user.notificationIds.length < 1 ?
-          <div>
+          <div className="page-margin">
             <InfoIcon size={100} />
             <h5>No Notifications at this time</h5>
           </div>

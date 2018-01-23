@@ -4,6 +4,7 @@ import { add_travel_itinerary } from '../../actions';
 import { Button, ProgressBar, Input } from 'react-materialize';
 import Select2 from 'react-select2-wrapper';
 import { countries } from '../../utils/appData';
+import FlightTakeoff from 'react-icons/lib/md/flight-takeoff';
 
 class AddItinerary extends Component {
   state = {
@@ -49,126 +50,125 @@ class AddItinerary extends Component {
           this.state.loading ? <ProgressBar /> : ''
         }
 
-        <div className="row left-align container-padding">
+        <div className="row center-align container-padding">
           <div className="col s12">
             <h5>Add Travel Itinerary</h5>
           </div>
         </div>
 
-        <div className="row container-padding">
-          <div className="row">
-            <div className="col s4">
-              <Input
-                label="Flight Number"
-                s={12}
-                id="flightNumber"
-                value={this.state.flightNo}
-                onChange={(e) => this.setState({ flightNo: e.target.value })}
-                validate={true} />
-            </div>
+        <div className="row profile-section container-padding">
+          <div className="col s4 left-side left">
+            <FlightTakeoff size={300} />
           </div>
-
-          <div className="row">
-            <div className="col s4">
-              <Input
-                label="Departure City"
-                s={12}
-                id="departureCity"
-                value={this.state.departureCity}
-                onChange={(e) => this.setState({ departureCity: e.target.value })}
-                validate={true} />
-            </div>
-
-            <div className="col s4">
-              <Input
-                type="date"
-                label="Departure Date"
-                s={12}
-                id="departureDate"
-                value={this.state.departureDate}
-                onChange={(e) => this.setState({ departureDate: e.target.value })}
-              />
-            </div>
-
-            <div className="col s4">
-              <Input
-                type="time"
-                label="Departure Time"
-                s={12}
-                id="departureTime"
-                value={this.state.departureTime}
-                onChange={(e) => this.setState({ departureTime: e.target.value })}
-                validate={true} />
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col s4">
-              <Input
-                label="Arrival City"
-                s={12}
-                id="arrivalCity"
-                value={this.state.arrivalCity}
-                onChange={(e) => this.setState({ arrivalCity: e.target.value })}
-                validate={true} />
-            </div>
-
-            <div className="col s4">
-              <Input
-                type="date"
-                label="Arrival Date"
-                s={12}
-                id="arrivalDate"
-                value={this.state.arrivalDate}
-                onChange={(e) => this.setState({ arrivalDate: e.target.value })}
-              />
-            </div>
-
-            <div className="col s4">
-              <Input
-                type="time"
-                label="Arrival Time"
-                s={12}
-                id="arrivalTime"
-                value={this.state.arrivalTime}
-                onChange={(e) => this.setState({ arrivalTime: e.target.value })}
-                validate={true} />
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col s4">
-              <Select2
-                required={true}
-                id="country"
-                //value={this.state.country}
-                data={countries}
-                options={
-                  {
-                    placeholder: 'Please select a country',
+          <div className="col s8 right-side right">
+            <div className="row">
+              <div className="col s4">
+                <Input
+                  label="Flight Number"
+                  s={12}
+                  id="flightNumber"
+                  value={this.state.flightNo}
+                  onChange={(e) => this.setState({ flightNo: e.target.value })}
+                  validate={true} />
+              </div>
+              <div className="col s4">
+                <Select2
+                  required={true}
+                  id="country"
+                  //value={this.state.country}
+                  data={countries}
+                  options={
+                    {
+                      placeholder: 'Please select a country',
+                    }
                   }
-                }
-              />
-              <label htmlFor="country" className="active">Country</label>
+                />
+              </div>
+
+              <div className="col s4">
+                <Select2
+                  required={true}
+                  id="state"
+                  //value={this.state.country}
+                  data={[]}
+                  options={
+                    {
+                      placeholder: 'Please select a state',
+                    }
+                  }
+                />
+              </div>
             </div>
 
-            <div className="col s4">
-              <Select2
-                required={true}
-                id="state"
-                //value={this.state.country}
-                data={[]}
-                options={
-                  {
-                    placeholder: 'Please select a state',
-                  }
-                }
-              />
-              <label htmlFor="state" className="active">State</label>
+            <div className="row">
+              <div className="col s4">
+                <Input
+                  label="Departure City"
+                  s={12}
+                  id="departureCity"
+                  value={this.state.departureCity}
+                  onChange={(e) => this.setState({ departureCity: e.target.value })}
+                  validate={true} />
+              </div>
+
+              <div className="col s4">
+                <Input
+                  type="date"
+                  label="Departure Date"
+                  s={12}
+                  id="departureDate"
+                  value={this.state.departureDate}
+                  onChange={(e) => this.setState({ departureDate: e.target.value })}
+                />
+              </div>
+
+              <div className="col s4">
+                <Input
+                  type="time"
+                  label="Departure Time"
+                  s={12}
+                  id="departureTime"
+                  value={this.state.departureTime}
+                  onChange={(e) => this.setState({ departureTime: e.target.value })}
+                  validate={true} />
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col s4">
+                <Input
+                  label="Arrival City"
+                  s={12}
+                  id="arrivalCity"
+                  value={this.state.arrivalCity}
+                  onChange={(e) => this.setState({ arrivalCity: e.target.value })}
+                  validate={true} />
+              </div>
+
+              <div className="col s4">
+                <Input
+                  type="date"
+                  label="Arrival Date"
+                  s={12}
+                  id="arrivalDate"
+                  value={this.state.arrivalDate}
+                  onChange={(e) => this.setState({ arrivalDate: e.target.value })}
+                />
+              </div>
+
+              <div className="col s4">
+                <Input
+                  type="time"
+                  label="Arrival Time"
+                  s={12}
+                  id="arrivalTime"
+                  value={this.state.arrivalTime}
+                  onChange={(e) => this.setState({ arrivalTime: e.target.value })}
+                  validate={true} />
+              </div>
             </div>
           </div>
-
-          <div className="row">
+          <div className="col s12">
             <Button
               onClick={this.onSubmitItinerary.bind(this)}
               className="btn-spacing"

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { update_user } from '../../actions';
 import { connect } from 'react-redux';
 import { Button } from 'react-materialize';
+import Profile from 'react-icons/lib/md/account-circle';
 
 class EditProfile extends Component {
   state = {
@@ -90,113 +91,118 @@ class EditProfile extends Component {
             </div>
           )
           :
-          <div></div>
+          ""
         }
 
-        <div>
-          <div className="row">
+        <div className="row page-margin">
+          <div className="col s12">
             <h5>Edit Profile</h5>
           </div>
           <br />
-          <div className="card container-padding">
-            <div className="row">
-              <div className="input-field col s4">
-                {
-                  this.renderInput(
-                    "text",
-                    "Username",
-                    this.state.username,
-                    (e) => this.setState({ username: e.target.value })
-                  )
-                }
-                <label className="active" htmlFor="username">Username</label>
-              </div>
+          <div className="card edit-profile-card container-padding">
+            <div className="left-side left col s4">
+              <Profile size={300} />
             </div>
-            <div className="row left-align">
-              <div className="input-field col s4">
-                {
-                  this.renderInput(
-                    "text",
-                    "firstname",
-                    this.state.firstname,
-                    (e) => this.setState({ firstname: e.target.value })
-                  )
-                }
-                <label className="active" htmlFor="firstname">First Name</label>
-              </div>
+            <div className="right-side right col s8">
+              <div className="row">
+                <div className="input-field col s4">
+                  {
+                    this.renderInput(
+                      "text",
+                      "Username",
+                      this.state.username,
+                      (e) => this.setState({ username: e.target.value })
+                    )
+                  }
+                  <label className="active" htmlFor="username">Username</label>
+                </div>
+                <div className="input-field col s4">
+                  {
+                    this.renderInput(
+                      "text",
+                      "firstname",
+                      this.state.firstname,
+                      (e) => this.setState({ firstname: e.target.value })
+                    )
+                  }
+                  <label className="active" htmlFor="firstname">First Name</label>
+                </div>
 
-              <div className="input-field col s4">
-                {
-                  this.renderInput(
-                    "text",
-                    "lastname",
-                    this.state.lastname,
-                    (e) => this.setState({ lastname: e.target.value })
-                  )
-                }
-                <label className="active" htmlFor="lastname">Last Name</label>
+                <div className="input-field col s4">
+                  {
+                    this.renderInput(
+                      "text",
+                      "lastname",
+                      this.state.lastname,
+                      (e) => this.setState({ lastname: e.target.value })
+                    )
+                  }
+                  <label className="active" htmlFor="lastname">Last Name</label>
+                </div>
               </div>
+              <div className="row left-align">
+                
+                <div className="input-field col s12">
+                  {
+                    this.renderInput(
+                      "email",
+                      "email",
+                      this.state.email,
+                      (e) => this.setState({ email: e.target.value })
+                    )
+                  }
+                  <label className="active" htmlFor="email">Email</label>
+                </div>
+              </div>
+              <div className="row left-align">
+                <div className="input-field col s6">
+                  {
+                    this.renderInput(
+                      "text",
+                      "mailingAddress1",
+                      this.state.mailingAddress1,
+                      (e) => this.setState({ mailingAddress1: e.target.value })
+                    )
+                  }
+                  <label className="active" htmlFor="mailingAddress1">Mailing Address 1</label>
+                </div>
 
-              <div className="input-field col s4">
-                {
-                  this.renderInput(
-                    "email",
-                    "email",
-                    this.state.email,
-                    (e) => this.setState({ email: e.target.value })
-                  )
-                }
-                <label className="active" htmlFor="email">Email</label>
+                <div className="input-field col s6">
+                  {
+                    this.renderInput(
+                      "text",
+                      "mailingAddress2",
+                      this.state.mailingAddress2,
+                      (e) => this.setState({ mailingAddress2: e.target.value })
+                    )
+                  }
+                  <label className="active" htmlFor="mailingAddress2">Mailing Address 2</label>
+                </div>
               </div>
-            </div>
-            <div className="row left-align">
-              <div className="input-field col s4">
-                {
-                  this.renderInput(
-                    "text",
-                    "mailingAddress1",
-                    this.state.mailingAddress1,
-                    (e) => this.setState({ mailingAddress1: e.target.value })
-                  )
-                }
-                <label className="active" htmlFor="mailingAddress1">Mailing Address 1</label>
-              </div>
+              <div className="row left-align">
+                <div className="input-field col s6">
+                  {
+                    this.renderInput(
+                      "text",
+                      "mailingCity",
+                      this.state.mailingCity,
+                      (e) => this.setState({ mailingCity: e.target.value })
+                    )
+                  }
+                  <label className="active" htmlFor="mailingCity">Mailing City</label>
+                </div>
 
-              <div className="input-field col s4">
-                {
-                  this.renderInput(
-                    "text",
-                    "mailingAddress2",
-                    this.state.mailingAddress2,
-                    (e) => this.setState({ mailingAddress2: e.target.value })
-                  )
-                }
-                <label className="active" htmlFor="mailingAddress2">Mailing Address 2</label>
-              </div>
-            </div>
-            <div className="row left-align">
-              <div className="input-field col s4">
-                {
-                  this.renderInput(
-                    "text",
-                    "mailingCity",
-                    this.state.mailingCity,
-                    (e) => this.setState({ mailingCity: e.target.value })
-                  )
-                }
-                <label className="active" htmlFor="mailingCity">Mailing City</label>
-              </div>
-
-              <div className="input-field col s4">
-                {
-                  this.renderInput(
-                    "text",
-                    "mailingCountry",
-                    this.state.mailingCountry,
-                    (e) => this.setState({ mailingCountry: e.target.value })
-                  )
-                }
-                <label className="active" htmlFor="mailingCountry">Mailing Country</label>
+                <div className="input-field col s6">
+                  {
+                    this.renderInput(
+                      "text",
+                      "mailingCountry",
+                      this.state.mailingCountry,
+                      (e) => this.setState({ mailingCountry: e.target.value })
+                    )
+                  }
+                  <label className="active" htmlFor="mailingCountry">Mailing Country</label>
+                </div>
               </div>
             </div>
           </div>
