@@ -26,8 +26,8 @@ class Home extends Component {
 
   componentWillReceiveProps(nextProps) {
     return nextProps === this.props ? ''
-    :
-    this.finalize()
+      :
+      this.finalize()
   }
 
   refreshField() {
@@ -50,29 +50,29 @@ class Home extends Component {
 
     const expr = /www.amazon.com/;
     this.state.searchURL.match(expr) ?
-    searchAmazon({ url: this.state.searchURL })
-    .then(res => res.json())
-    .then(res => {
-      searchBtn.removeAttribute('disabled');
-      searchBtn.innerText = "Search";
-
-      searchInput.removeAttribute('readonly');
-      res.price ? '' : res.price = 'N/A';
-      res.image ? '' : res.image = 'images/No_image_available.svg';
-      this.setState({ loading: false, product: res, itemAdded: false });
-
-      checkItem({ itemName: res.title })
+      searchAmazon({ url: this.state.searchURL })
         .then(res => res.json())
-        .then(res => this.setState({ itemInCart: res.itemFound }))
-        .catch(err => console.log(`Error reported: ${err}`));
-    })
-    .catch(err => {
-      console.log(`Error reported: ${err}`);
-      this.setState({ loading: false });
-    })
-    :
-    this.setState({urlError: 'Incorrect Url. Please enter an amazon url.', loading: false}) |
-    this.refreshField();
+        .then(res => {
+          searchBtn.removeAttribute('disabled');
+          searchBtn.innerText = "Search";
+
+          searchInput.removeAttribute('readonly');
+          res.price ? '' : res.price = 'N/A';
+          res.image ? '' : res.image = 'images/No_image_available.svg';
+          this.setState({ loading: false, product: res, itemAdded: false });
+
+          checkItem({ itemName: res.title })
+            .then(res => res.json())
+            .then(res => this.setState({ itemInCart: res.itemFound }))
+            .catch(err => console.log(`Error reported: ${err}`));
+        })
+        .catch(err => {
+          console.log(`Error reported: ${err}`);
+          this.setState({ loading: false });
+        })
+      :
+      this.setState({ urlError: 'Incorrect Url. Please enter an amazon url.', loading: false }) |
+      this.refreshField();
   }
 
   onSearchTermChanged(term) {
@@ -80,15 +80,15 @@ class Home extends Component {
     const searchBtn = document.getElementById('search-btn');
     term !== '' ?
       searchBtn.removeAttribute('disabled')
-    : searchBtn.setAttribute('disabled', 'true');
+      : searchBtn.setAttribute('disabled', 'true');
   }
 
   addItemsToCart() {
     this.setState({ loading: true });
     this.state.product ?
-    this.props.add_to_cart(this.state.product)
-    :
-    this.setState({ loading: false });
+      this.props.add_to_cart(this.state.product)
+      :
+      this.setState({ loading: false });
   }
 
   finalize() {
@@ -104,20 +104,19 @@ class Home extends Component {
 
         {
           this.state.loading ?
-          (
-            <div className="progress">
-              <div className="indeterminate"></div>
-            </div>
-          )
-          :
-          <div></div>
+            (
+              <div className="progress">
+                <div className="indeterminate"></div>
+              </div>
+            )
+            :
+            <div></div>
         }
 
         <div className="row search-bar">
           <div
-          className="search-bar-heading"
-          id="search-bar-heading"
-          >
+            className="search-bar-heading"
+            id="search-bar-heading">
             <h3>ENTER THE AMAZON URL ........ WE WILL DO THE REST</h3>
           </div>
           <span className="animated-cursor">|</span>
@@ -132,7 +131,6 @@ class Home extends Component {
               }}
               onKeyPress={(e) => {
                 if (e.key === "Enter") {
-                  console.log('yes');
                   document.getElementById('search-btn').click();
                 }
               }}
@@ -148,69 +146,79 @@ class Home extends Component {
               waves='light'
               onClick={this.onSearch.bind(this)}
               id="search-btn">
-                Search
+              Search
             </Button>
           </div>
         </div>
 
         {product ?
-        (
-          <div className="amazon-data"
-          onLoad={() => {
-            document.getElementById('search-input-field').classList.remove('box-shadow');
-            document.getElementById('amazon-data__card').classList.add('box-shadow');
-          }}>
-            <div className="row">
-              <div className="col s10 amazon-data__card card" id="amazon-data__card">
-                <div className="col s6">
-                  <div className="image-holder">
-                    <img alt={`${product.title}`} src={product.image} width="360" />
-                    <br />
-                  </div>
-                  {
+          (
+            <div className="amazon-data"
+              onLoad={() => {
+                document.getElementById('search-input-field').classList.remove('box-shadow');
+                document.getElementById('amazon-data__card').classList.add('box-shadow');
+              }}>
+              <div className="row">
+                <div className="col s10 amazon-data__card card" id="amazon-data__card">
+                  <div className="col s6">
+                    <div className="image-holder">
+                      <img alt={`${product.title}`} src={product.image} width="360" />
+                      <br />
+                    </div>
+                    {
                       this.state.itemAdded ?
-                      <p><b>Item added to Cart</b></p>
-                      :
-                      this.state.itemInCart ?
-                      <p><b>Item in Cart</b></p>
-                      :
-                      (
-                        <Button
-                          onClick={this.addItemsToCart.bind(this)}
-                          className="add-to-cart-btn">
-                            Add to Cart
+                        <p><b>Item added to Cart</b></p>
+                        :
+                        this.state.itemInCart ?
+                          <p><b>Item in Cart</b></p>
+                          :
+                          (
+                            <Button
+                              onClick={this.addItemsToCart.bind(this)}
+                              className="add-to-cart-btn">
+                              Add to Cart
                         </Button>
-                      )
+                          )
                     }
-                </div>
-                <div className="amazon-data-description col s6">
-                  <div className="amazon-data-title">
-                    <h5 className="col s12 amaxon-data__title">{product.title}</h5>
-                    <h5><b>Price: {product.price}</b></h5>
-                    {
-                      product.description ?
-                      <p><b>Description: </b>{product.description.trim()}</p>
-                      :
-                      ''
-                    }
-                    <p><b>Details: </b></p>
                   </div>
-                  <div className="col s12 amazon-data-text">
-                    {
-                      product.details.map((detail, index) => {
-                        return <p key={index}>{detail}</p>
-                      })
-                    }
+                  <div className="amazon-data-description col s6">
+                    <div className="amazon-data-title">
+                      <h5 className="col s12 amaxon-data__title">{product.title}</h5>
+                      {
+                        product.price !== 'N/A' ?
+                          <h5><b>Price: {product.price}</b></h5>
+                          : ''
+                      }
+                      {
+                        product.description ?
+                          <p><b>Description: </b>{product.description.trim()}</p>
+                          :
+                          ''
+                      }
+                      {
+                        product.details.length > 0 ?
+                          <p><b>Details: </b></p>
+                          : ''
+                      }
+                    </div>
+                    <div className="col s12 amazon-data-text">
+                      {
+                        product.details.length > 0 ?
+                          product.details.map((detail, index) => {
+                            return <p key={index}>{detail}</p>
+                          })
+                          : ''
+                      }
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        )
-        :
-        <div className="home-container">
+          )
+          :
+          <div className="home-container">
 
-        </div>
+          </div>
         }
       </div>
     )
