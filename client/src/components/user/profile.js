@@ -13,6 +13,8 @@ class Profile extends Component {
   }
 
   componentDidMount() {
+    document.querySelector('.nav-wrapper .active').classList.remove('active');;
+    document.getElementById('profile').classList.add('active');
     this.props.get_user();
   }
 

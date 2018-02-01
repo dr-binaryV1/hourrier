@@ -180,7 +180,6 @@ class ProfileDetails extends Component {
               <Button
                 title="Add Shipping Address"
                 floating
-                className="green"
                 onClick={() => this.setState({ addingShipping: true })}
                 waves='light'
                 id="add-itinerary">
@@ -229,7 +228,6 @@ class ProfileDetails extends Component {
                 <Button
                   title="Add Travel Itinerary"
                   floating
-                  className="green"
                   onClick={() => this.setState({ addingItinerary: true })}
                   waves='light'
                   id="add-itinerary">

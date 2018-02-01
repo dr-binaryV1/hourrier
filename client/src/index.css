@@ -66,7 +66,7 @@ h6 {
 .circle-background {
   width: 100px;
   height: 60px;
-  background: #009bff;
+  background-color: #009bff;
   border-radius: 50%;
   padding: 3% 2%;
   position: absolute;
@@ -127,7 +127,7 @@ h6 {
 
 .menu-icons {
   margin: 2% 20%;
-  width: 800px;
+  width: 790px;
 }
 
 .nav-wrapper li {
@@ -474,17 +474,21 @@ h6 {
   box-shadow: none;
 }
 
-.search-bar .search-btn {
+.search-bar #search-input-field .search-btn {
   height: inherit;
   margin: 0;
   padding: 0;
-  background-color: #009bff !important;
-  color: white !important;
+  background-color: #009bff;
+  color: white;
   cursor: pointer;
 }
 
 .search-btn{
   margin-top: 15px;
+}
+
+.search-bar #search-input-field .search-btn:hover {
+  background-color: #1b1488;
 }
 
 .home-container {
@@ -558,6 +562,11 @@ h6 {
   background-color: white;
 }
 
+.edit-profile-btn button:hover {
+  background-color: #1B1488;
+  color: white;
+}
+
 .profile-data {
   margin-top: 2%;
 }
@@ -588,6 +597,10 @@ h6 {
 
 .account-card svg {
   color: #1b1488;
+}
+
+.account-card .profile-card-header svg:hover {
+  color: white;
 }
 
 .editIcon {
@@ -624,6 +637,22 @@ h6 {
   height: 41px;
 }
 
+.switch label input[type=checkbox]:checked+.lever, .switch label input[type=checkbox]:checked+.lever:after {
+  background-color: #009bff;
+}
+
+.switch label input[type=checkbox]:checked+.lever:hover, .switch label input[type=checkbox]:checked+.lever:hover:after, .switch label .lever:hover:after {
+  background-color: #1B1488;
+}
+
+#add-itinerary {
+  background-color: #009bff;
+}
+
+#add-itinerary:hover {
+  background-color: #1b1488;
+}
+
 /* ========== CART ========== */
 .cart-header {
   background: #009bff;
@@ -642,6 +671,12 @@ h6 {
 
 #checkout-btn {
   margin-top: 4%;
+  background-color: #009bff;
+  border-radius: 30px;
+}
+
+#checkout-btn:hover {
+  background-color: #1B1488;
 }
 
 .cart-searchbar {
@@ -661,6 +696,85 @@ h6 {
 .cart-searchbar .select2-container--default .select2-selection--single .select2-selection__rendered {
   color: #fff;
 }
+
+/* ========== ADMIN ========== */
+
+.admin-page .left-menu {
+  background: #1b1488;
+  height: 100vh;
+}
+
+.admin-page .tabs {
+  background: inherit;
+  color: white;
+  box-shadow: none;
+  overflow: initial;
+}
+
+.admin-page .tabs .tab a, .admin-page .tabs .tab a:hover, .admin-page .tabs .tab a.active {
+  color: white;
+}
+
+.admin-page .left-menu .indicator {
+  display: none;
+}
+
+.admin-page .right-menu {
+  padding: 0;
+}
+
+.admin-page .right-menu .select2-selection.select2-selection--single {
+  height: 43px;
+  color: white;
+}
+
+.admin-filter {
+  background: #009bff;
+}
+
+.admin-filter .select2-container--default .select2-selection--single .select2-selection__rendered, 
+.admin-filter .select2-container--default .select2-selection--single .select2-selection__placeholder,
+.admin-filter label {
+  color: white;
+}
+
+.admin-filter .select2-container--default .select2-selection--single .select2-selection__arrow b {
+  border-color: white transparent transparent transparent
+}
+
+.admin-filter .select2, .admin-filter #searchName {
+  border-bottom-color: white;
+}
+
+.admin-page .order-card.card {
+  text-align: justify;
+  margin-left: 5%;
+  border-top: 2px solid #009bff;
+}
+
+.admin-page .order-btn {
+  margin: 1% 37%;
+  border-radius: 20px;
+  background: #009bff;
+  color: white;
+}
+
+/* ========== Order Details ========== */
+
+.order-details svg {
+  color: #009bff;
+}
+
+/* ========== SHIPPING ========== */
+
+.shipping-card {
+  border-top: 2px solid #009bff;
+}
+
+.package-image {
+  margin: 0 auto;
+}
+
 /* ===================== */
 
 

@@ -14,16 +14,22 @@ import Home from 'react-icons/lib/md/home';
 
 class Header extends Component {
   componentDidMount() {
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar-header').classList.add('pull-up');
+      document.getElementById('navbar-header').classList.remove('pull-down');
+      document.getElementById('down-arrow').classList.remove('hide');
+      document.getElementById('up-arrow').classList.add('hide')
+    });
     return this.props.authenticated ? this.props.get_shopping_cart() | this.props.get_user() : ''
   }
 
   componentDidUpdate() {
-    if (this.props.user) {
+    if (this.props.user){
       if (this.props.user.traveler) {
-        document.getElementById('menu-icons').style.width = "80%";
+        document.getElementById('menu-icons').style.width = "1090px";
         document.getElementById('menu-icons').style.margin = "2% 8%";
       } else {
-        document.getElementById('menu-icons').style.width = "58%";
+        document.getElementById('menu-icons').style.width = "790px";
         document.getElementById('menu-icons').style.margin = "2% 20%";
       }
     }
@@ -42,10 +48,11 @@ class Header extends Component {
                 {
                   this.props.authenticated ?
                     <ul className="menu-icons right hide-on-med-and-down" id="menu-icons">
-                      <li><Link className="active" title="Home" to="/"><Home size={60} /><p>Home</p></Link></li>
-                      <li><Link title="Profile" to="/profile"><Profile size={60} /><p>Account</p></Link></li>
+                      <li><Link className="active" id="home" title="Home" to="/"><Home size={60} /><p>Home</p></Link></li>
+                      <li><Link title="Profile" id="profile" to="/profile"><Profile size={60} /><p>Account</p></Link></li>
                       <li>
                         <Link
+                          id="notifications"
                           title="Notifications"
                           to="/notifications">
                           {
@@ -66,6 +73,7 @@ class Header extends Component {
                           this.props.user.traveler ?
                             <li>
                               <Link
+                                id="shipping"
                                 title="Shipping"
                                 to="/packages">
                                 <Shipping size={60} />
@@ -80,6 +88,7 @@ class Header extends Component {
                       }
                       <li>
                         <Link
+                          id="shopping"
                           title="Shopping Cart"
                           to="/shopping-cart">
                           <ShoppingCart size={60} />

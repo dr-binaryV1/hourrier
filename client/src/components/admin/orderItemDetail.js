@@ -10,6 +10,9 @@ import {
   sendInvoice
 } from '../../helpers/api';
 import Item from './item';
+import Profile from 'react-icons/lib/md/account-circle';
+import Home from 'react-icons/lib/md/home';
+import Email from 'react-icons/lib/md/email';
 
 class OrderDetail extends Component {
   state = {
@@ -114,47 +117,37 @@ class OrderDetail extends Component {
             <div>
               <h5 className="left-align">Buyer's Information</h5>
               <Card>
-                <Row>
-                  <Col s={3} className="left-align">
-                    <p><b>First Name: </b>{buyer.firstname}</p>
-                  </Col>
-
-                  <Col s={3} className="left-align">
-                    <p><b>Last Name: </b>{buyer.lastname}</p>
-                  </Col>
-
-                  <Col s={6} className="left-align">
-                    <p><b>Email: </b>{buyer.email}</p>
-                  </Col>
-                </Row>
-
-                <Row>
-                  <Col s={6} className="left-align">
-                    <p><b>Mailing Address 1: </b>{buyer.mailingAddress1}</p>
-                  </Col>
-
-                  <Col s={6} className="left-align">
-                    <p><b>Mailing Address 2: </b>{buyer.mailingAddress2}</p>
-                  </Col>
-                </Row>
-
-                <Row>
-                  <Col s={3} className="left-align">
-                    <p><b>Mailing City: </b>{buyer.mailingCity}</p>
-                  </Col>
-
-                  <Col s={3} className="left-align">
-                    <p><b>Mailing Country: </b>{buyer.mailingCountry}</p>
-                  </Col>
-
-                  <Col s={3} className="left-align">
-                    <p><b>Mailing Zip: </b>{buyer.mailingZip}</p>
-                  </Col>
-                </Row>
+                <Row className="order-details">
+                  <div className="profile-data-text">
+                    <div className="col s4">
+                      <Profile size={50} />
+                    </div>
+                    <div className="col s4">
+                      <Email size={50} />
+                    </div>
+                    <div className="col s4">
+                      <Home size={50} />
+                    </div>
+                    <div className="col s4">
+                      <p><b>First Name: </b>{buyer.firstname}</p>
+                      <p><b>Last Name: </b>{buyer.lastname}</p>
+                      <p><b>Status: </b>{this.state.status}</p>
+                    </div>
+                    <div className="col s4">
+                      <p><b>Email: </b>{buyer.email}</p>
+                    </div>
+                    <div className="col s4">
+                      <p><b>Mailing Address 1: </b>{buyer.mailingAddress1}</p>
+                      <p><b>Mailing Address 2: </b>{buyer.mailingAddress2}</p>
+                      <p><b>Mailing City: </b>{buyer.mailingCity}</p>
+                      <p><b>Mailing Zip: </b>{buyer.mailingZip}</p>
+                      <p><b>Mailing Country: </b>{buyer.mailingCountry}</p>
+                    </div>
+                  </div>
+                 </Row>
 
                 <Row>
                   <Col className="left-align">
-                    <p><b>Status: </b>{this.state.status}</p>
                   </Col>
                 </Row>
 

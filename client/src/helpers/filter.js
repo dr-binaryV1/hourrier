@@ -28,7 +28,6 @@ class Filter extends Component {
               }
             }
           />
-          <label htmlFor="filter" className="active">Filter</label>
         </Col>
 
         <Col s={3} className="right-align">
@@ -58,7 +57,6 @@ class Filter extends Component {
               }
             }
           />
-          <label htmlFor="filter" className="active">Filter Option</label>
         </Col>
 
         <Col s={4}>

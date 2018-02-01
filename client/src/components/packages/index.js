@@ -7,6 +7,7 @@ import sortBy from 'sort-by';
 import PackageItem from './packageItem';
 
 class Package extends Component {
+
   render() {
     const { user } = this.props;
     let reverseIds = [];
@@ -14,7 +15,7 @@ class Package extends Component {
     user ? reverseIds = user.packageIds.reverse() : '';
 
     return (
-      <Container>
+      <div className="container page-margin">
         {
           user ?
           user.packageIds.length > 0 ?
@@ -29,7 +30,7 @@ class Package extends Component {
           :
           ''
         }
-      </Container>
+      </div>
     )
   }
 }
