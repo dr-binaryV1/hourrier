@@ -18,12 +18,14 @@ class Header extends Component {
   }
 
   componentDidUpdate() {
-    if (this.props.user.traveler) {
-      document.getElementById('menu-icons').style.width = "80%";
-      document.getElementById('menu-icons').style.margin = "2% 8%";
-    } else {
-      document.getElementById('menu-icons').style.width = "58%";
-      document.getElementById('menu-icons').style.margin = "2% 20%";
+    if (this.props.user) {
+      if (this.props.user.traveler) {
+        document.getElementById('menu-icons').style.width = "80%";
+        document.getElementById('menu-icons').style.margin = "2% 8%";
+      } else {
+        document.getElementById('menu-icons').style.width = "58%";
+        document.getElementById('menu-icons').style.margin = "2% 20%";
+      }
     }
   }
 
@@ -50,9 +52,9 @@ class Header extends Component {
                             user ?
                               user.notificationIds.length > 0 ?
                                 <ActiveNotifications size={60} color="#F00" />
-                              :
+                                :
                                 <Notifications size={60} />
-                            :
+                              :
                               ''
                           }
                           <p>Notifications</p>
@@ -87,14 +89,14 @@ class Header extends Component {
                       </li>
                       <li><Link title="Sign Out" to="/sign-out"><SignOut size={60} /><p>Sign Out</p></Link></li>
                     </ul>
-                  :
+                    :
                     ""
                 }
               </div>
             </nav>
           </div>
           <div className="menu-controller">
-            <div className="circle-background" onClick={() => { 
+            <div className="circle-background" onClick={() => {
               if (document.getElementById('navbar-header').classList.contains('pull-down')) {
                 document.getElementById('down-arrow').classList.remove('hide');
                 document.getElementById('up-arrow').classList.add('hide')
@@ -104,7 +106,7 @@ class Header extends Component {
                 document.getElementById('down-arrow').classList.add('hide');
                 document.getElementById('up-arrow').classList.remove('hide')
                 document.getElementById('navbar-header').classList.add('pull-down');
-                document.getElementById('navbar-header').classList.remove('pull-up');             
+                document.getElementById('navbar-header').classList.remove('pull-up');
               }
             }
             }>
