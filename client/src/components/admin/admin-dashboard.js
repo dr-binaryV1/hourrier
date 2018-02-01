@@ -19,29 +19,32 @@ class Dashboard extends Component {
     orders ? reverseOrders = orders.reverse() : '';
 
     return (
-      <Container>
-        <Row className="left-align">
-          <Col s={4} className="left-align">
-          </Col>
-        </Row>
-        <Row>
-          <Tabs className='z-depth-1'>
-            <Tab title="All Orders" active>
-              <Filter />
-              {
-                orders ?
-                  reverseOrders.map(order => {
-                    return <OrderItem key={order._id} order={order} />
-                  })
-                  :
-                  ''
-              }
-            </Tab>
-            <Tab title="Pending Purchases"></Tab>
-            <Tab title="Completed Orders"></Tab>
-          </Tabs>
-        </Row>
-      </Container>
+      <div className="admin-page row">
+        <div className="left-menu col s2">
+        <Tabs className='z-depth-1'>
+              <Tab title="All Orders" active></Tab>
+              <Tab title="Pending Purchases"></Tab>
+              <Tab title="Completed Orders"></Tab>
+            </Tabs>
+        </div>
+        <div className="right-menu col s10">
+          {/* <Row className="left-align">
+            <Col s={4} className="left-align">
+            </Col>
+          </Row> */}
+          <Row>
+                <div className="admin-filter"><Filter /></div>
+                {
+                  orders ?
+                    reverseOrders.map(order => {
+                      return <OrderItem key={order._id} order={order} />
+                    })
+                    :
+                    ''
+                }
+          </Row>
+        </div>
+      </div>
     )
   }
 }

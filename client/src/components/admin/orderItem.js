@@ -10,23 +10,18 @@ const OrderItem = (props) => {
   const { order } = props;
 
   return (
-    <Card>
+    <Card className="col s5 order-card">
       <Row>
-        <Col s={4} className="left-align">
+        <Col s={4} className="col s12">
           <p><b>Order Id:</b> {order._id}</p>
         </Col>
 
-        <Col s={3} className="left-align">
+        <Col s={3} className="col s12">
           <p><b>Status:</b> {order.status}</p>
         </Col>
 
-        <Col s={5} className="right-align">
-          <Button
-            onClick={() => props.history.push(`/hourrier-admin/orders/${order._id}`)}
-            className="btn-spacing"
-            waves="light">
-            View
-          </Button>
+        <Col s={5} className="col s12">
+          
 
           {/* <Button
             onClick={() => props.delete_order(order._id)}
@@ -34,8 +29,16 @@ const OrderItem = (props) => {
             waves="light">
             Delete
           </Button> */}
-          <p className="right-align small-top-margin"><b>Last Updated: </b><AccessTime /> {Moment(order.updatedAt).fromNow()}</p>
+          <p className="small-top-margin"><b>Last Updated: </b><AccessTime /> {Moment(order.updatedAt).fromNow()}</p>
         </Col>
+      </Row>
+      <Row>
+        <Button
+          onClick={() => props.history.push(`/hourrier-admin/orders/${order._id}`)}
+          className="btn-spacing order-btn"
+          waves="light">
+          View
+        </Button>
       </Row>
     </Card>
   )

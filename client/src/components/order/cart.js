@@ -20,6 +20,8 @@ class Cart extends Component {
   }
 
   componentDidMount() {
+    document.querySelector('.nav-wrapper .active').classList.remove('active');;
+    document.getElementById('shopping').classList.add('active');
     this.props.get_shopping_cart();
     this.props.get_user();
   }

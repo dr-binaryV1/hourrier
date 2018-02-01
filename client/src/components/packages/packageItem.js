@@ -17,6 +17,9 @@ class PackageItem extends Component {
   }
 
   componentDidMount() {
+    document.querySelector('.nav-wrapper .active').classList.remove('active');
+    document.getElementById('shipping').classList.add('active');
+
     getPackage(this.props.id)
     .then(res => res.json())
     .then(res => {
@@ -54,86 +57,93 @@ class PackageItem extends Component {
     const { item } = this.state;
 
     return (
-      <Card>
-        <Row className="left-align">
-          <Col s={12}>
-            <p><b>Package #:</b> {item ? item._id : ''}</p>
-          </Col>
-        </Row>
+      <Row>
+        <Card className="shipping-card col s6">
+          <Row className="left-align">
+            <Col s={12}>
+              <img src="images/package.jpg" className="package-image" alt="package" width="70" />
+            </Col>
+            <Col s={12}>
+              <p><b>Package #:</b> {item ? item._id : ''}</p>
+            </Col>
+            <Col s={12}>
+              <p className="small-top-margin"><b>Accepted: </b><AccessTime /> {Moment(item? item.createdAt: Date.now()).fromNow()}</p>
+            </Col>
+            <Col s={12}>
+              <p><b>Status: </b>{item ? item.status: ''}</p>
+              <p><b>Details: </b> This Package contains {item ? item.items.length: 0} Item(s)</p>
+            </Col>
+          </Row>
 
-        <Row>
-          <Col s={3}>
-            <img src="images/package.jpg" alt="package" width="70" />
-            <p className="right-align small-top-margin"><b>Accepted: </b><AccessTime /> {Moment(item? item.createdAt: Date.now()).fromNow()}</p>
-          </Col>
-
-          <Col s={6} className="center-align">
-            <p><b>Status: </b>{item ? item.status: ''}</p>
-            <p><b>Details: </b> This Package contains {item ? item.items.length: 0} Item(s)</p>
-
-            {
-              item ?
-              item.status === 'Package Received' ?
-              <Button
-                onClick={this.deliverToKnutsford.bind(this)}
-                className="blue"
-                waves='light'>
-                Delivered to Knutsford Express
-              </Button>
-              :
-              item.status === 'Delivered to Knutsford' ?
-              <Button
-                onClick={this.onPackageDismiss.bind(this)}
-                className="red"
-                waves='light'>
-                Dismiss Package
-              </Button>
-              :
-              <Button
-                onClick={this.onReceivePackage.bind(this)}
-                className="green"
-                waves='light'>
-                Package Received
-              </Button>
-              : ''
-            }
-          </Col>
-
-          <Col s={3} className="right-align">
-            <Button
-              onClick={() => this.setState({ viewItems: !this.state.viewItems })}
-              waves='light'>
-              {this.state.viewItems ? 'Hide Item(s)' : 'Show Item(s)'}
-            </Button>
-          </Col>
-        </Row>
-
-        {
-          this.state.viewItems ?
           <Row>
-            <div>
-              <p>Items in this Package:</p>
+          
+
+            <Col s={6} className="center-align">
+              
               {
                 item ?
-                item.items.map(item => {
-                  return <Card key={item._id}>
-                    <Row>
-                      <Col s={1} className="left-align">
-                        <img src={item.image} alt="product logo" width="50" />
-                      </Col>
-                      <Col s={8}>{item.name}</Col>
-                      <Col s={3} className="right-align"><Link to={item.url} target="_blank">View Product</Link></Col>
-                    </Row>
-                  </Card>;
-                })
+                item.status === 'Package Received' ?
+                <Button
+                  onClick={this.deliverToKnutsford.bind(this)}
+                  className="blue"
+                  waves='light'>
+                  Delivered to Knutsford Express
+                </Button>
+                :
+                item.status === 'Delivered to Knutsford' ?
+                <Button
+                  onClick={this.onPackageDismiss.bind(this)}
+                  className="red"
+                  waves='light'>
+                  Dismiss Package
+                </Button>
+                :
+                <Button
+                  onClick={this.onReceivePackage.bind(this)}
+                  className="green"
+                  waves='light'>
+                  Package Received
+                </Button>
                 : ''
               }
-            </div>
+            </Col>
+
+            <Col s={3} className="right-align">
+              <Button
+                onClick={() => this.setState({ viewItems: !this.state.viewItems })}
+                waves='light'>
+                {this.state.viewItems ? 'Hide Item(s)' : 'Show Item(s)'}
+              </Button>
+            </Col>
           </Row>
-          :
-          ''
-        }
-      </Card>
+
+          {
+            this.state.viewItems ?
+            <Row>
+              <div>
+                <p>Items in this Package:</p>
+                {
+                  item ?
+                  item.items.map(item => {
+                    return <Card key={item._id}>
+                      <Row>
+                        <Col s={1} className="left-align">
+                          <img src={item.image} alt="product logo" width="50" />
+                        </Col>
+                        <Col s={8}>{item.name}</Col>
+                        <Col s={3} className="right-align"><Link to={item.url} target="_blank">View Product</Link></Col>
+                      </Row>
+                    </Card>;
+                  })
+                  : ''
+                }
+              </div>
+            </Row>
+            :
+            ''
+          }
+        </Card>
+      </Row>
     )
   }
 };

@@ -15,7 +15,9 @@ class Notification extends Component {
   }
 
   componentDidMount() {
-     this.props.get_user();
+    document.querySelector('.nav-wrapper .active').classList.remove('active');;
+    document.getElementById('notifications').classList.add('active');
+    this.props.get_user();
   }
 
   componentWillReceiveProps(nextProps) {
